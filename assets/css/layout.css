@@ -1,0 +1,17 @@
+.container{
+  width:100%;
+  max-width:var(--container);
+  margin:0 auto;
+  padding:0 var(--space-6);
+}
+
+.container-wide{max-width:var(--container-wide)}
+
+.section{padding:var(--space-9) 0}
+.section-tight{padding:var(--space-7) 0}
+
+.grid{display:grid;gap:var(--space-6)}
+
+@media (max-width:520px){
+  .container{padding:0 var(--space-4)}
+}

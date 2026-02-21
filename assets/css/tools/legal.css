@@ -1,0 +1,38 @@
+/* legal.css */
+/* file: /css/legal.css */
+/* Adds page-specific layout for legal pages, using your existing tokens/components. */
+
+.legal-grid{
+  grid-template-columns: repeat(12, 1fr);
+  align-items:start;
+}
+
+.legal-main{
+  grid-column: span 8;
+}
+
+.legal-aside{
+  grid-column: span 4;
+}
+
+.legal-links{
+  margin:0 0 var(--space-4);
+  padding-left:22px;
+}
+
+.legal-cta-grid{
+  display:grid;
+  gap: var(--space-6);
+  grid-template-columns: repeat(12, 1fr);
+  margin-top: var(--space-4);
+}
+
+.legal-cta{
+  grid-column: span 6;
+}
+
+@media (max-width: 899px){
+  .legal-main{ grid-column: span 12; }
+  .legal-aside{ grid-column: span 12; }
+  .legal-cta{ grid-column: span 12; }
+}

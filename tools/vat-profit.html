@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>VAT/GST + Profit</title>
+<meta name="description" content="Calculate VAT/GST and profit margin from cost and selling price." />
+<link rel="canonical" href="/tools/tools/vat-profit.html" />
+<link rel="stylesheet" href="/tools/assets/css/site.css" />
+</head>
+
+<body>
+<header class="site-header">
+  <div class="nav-wrap">
+    <div class="nav-left">
+      <a class="logo" href="/tools/">
+        <span class="logo-word">Toolz</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="/tools/">Home</a>
+        <a href="/tools/tools/vat-profit.html">VAT + Profit</a>
+        <a href="/tools/tools/percentage.html">Percentage</a>
+        <a href="/tools/tools/number-sum.html">Multi Sum</a>
+        <a href="/tools/tools/salary-pay.html">Salary / Pay</a>
+        <a href="/tools/tools/mortgage-calculator.html">Mortgage Calculator</a>
+      </nav>
+    </div>
+
+    <div class="nav-right">
+      <a href="/tools/">All tools</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <h1>VAT/GST + Profit <span class="beta">BETA</span></h1>
+  <p>Profit and margin calculated on net (ex VAT) values</p>
+</section>
+
+<main class="container">
+  <div class="grid">
+    <div class="card col-6">
+      <h2>Inputs</h2>
+
+      <label for="currency">Currency</label>
+      <select id="currency">
+        <option value="GBP">GBP (£)</option>
+        <option value="EUR">EUR (€)</option>
+        <option value="USD">USD ($)</option>
+      </select>
+
+      <div class="row">
+        <div>
+          <label for="rate">VAT/GST rate (%)</label>
+          <input id="rate" inputmode="decimal" value="20" />
+        </div>
+        <div>
+          <label for="mode">Selling price entered as</label>
+          <select id="mode">
+            <option value="inc">VAT inclusive</option>
+            <option value="ex">VAT exclusive</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label for="cost">Unit cost (ex VAT)</label>
+          <input id="cost" inputmode="decimal" placeholder="e.g. 10.00" />
+        </div>
+        <div>
+          <label for="sell">Selling price</label>
+          <input id="sell" inputmode="decimal" placeholder="e.g. 19.99" />
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="primary" id="copy">Copy page link</button>
+        <button id="reset">Reset</button>
+      </div>
+
+      <div class="error" id="err"></div>
+      <div class="small">Assumes unit cost is VAT-exclusive. Margin = profit / net sale. Markup = profit / cost.</div>
+    </div>
+
+    <div class="card col-6">
+      <h2>Results</h2>
+
+      <div class="kpi">
+        <div class="box"><div class="k">Net sale (ex VAT)</div><div class="v" id="netSale">—</div></div>
+        <div class="box"><div class="k">VAT amount</div><div class="v" id="vatAmt">—</div></div>
+        <div class="box"><div class="k">Gross sale (inc VAT)</div><div class="v" id="grossSale">—</div></div>
+        <div class="box"><div class="k">Profit (ex VAT)</div><div class="v" id="profit">—</div></div>
+      </div>
+
+      <div class="kpi">
+        <div class="box"><div class="k">Margin</div><div class="v" id="margin">—</div></div>
+        <div class="box"><div class="k">Markup</div><div class="v" id="markup">—</div></div>
+        <div class="box"><div class="k">Breakeven (ex VAT)</div><div class="v" id="beEx">—</div></div>
+        <div class="box"><div class="k">Breakeven (inc VAT)</div><div class="v" id="beInc">—</div></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script type="module" src="/tools/assets/js/vat-profit.js"></script>
+<footer class="site-footer">
+  <div class="footer-inner">
+
+    <div class="footer-brand">
+      <a class="logo" href="/tools/">
+        <span class="logo-word">Toolz</span>
+      </a>
+      <p class="footer-tag">Simple web utilities.</p>
+    </div>
+
+    <nav class="footer-links">
+      <a href="/tools/">Home</a>
+      <a href="/tools/tools/number-sum.html">Number Sum</a>
+      <a href="/tools/tools/percentage.html">Percentage</a>
+      <a href="/tools/tools/vat-profit.html">VAT + Profit</a>
+      <a href="/tools/about.html">About</a>
+      <a href="/tools/contact.html">Contact</a>
+      <a href="/tools/privacy.html">Privacy</a>
+      <a href="/tools/terms.html">Terms</a>
+      <a href="/tools/changelog.html">Changelog</a>
+      <a href="/tools/sitemap.html">Sitemap</a>
+    </nav>
+
+  </div>
+</footer>
+<script src="../assets/js/site.js" defer></script>
+
+</body>
+</html>

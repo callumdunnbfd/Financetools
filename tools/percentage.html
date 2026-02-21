@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Percentage Calculator</title>
+<meta name="description" content="Percentage calculator: percent of, what percent, increase/decrease, percent change, reverse percent." />
+<link rel="canonical" href="/tools/tools/percentage.html" />
+<link rel="stylesheet" href="/tools/assets/css/site.css" />
+</head>
+
+<body>
+<header class="site-header">
+  <div class="nav-wrap">
+    <div class="nav-left">
+      <a class="logo" href="/tools/">
+        <span class="logo-word">Toolz</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="/tools/">Home</a>
+        <a href="/tools/tools/vat-profit.html">VAT + Profit</a>
+        <a href="/tools/tools/percentage.html">Percentage</a>
+        <a href="/tools/tools/number-sum.html">Multi Sum</a>
+        <a href="/tools/tools/salary-pay.html">Salary / Pay</a>
+        <a href="/tools/tools/mortgage-calculator.html">Mortgage Calculator</a>
+      </nav>
+    </div>
+
+    <div class="nav-right">
+      <a href="/tools/">All tools</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <h1>Percentage calculator <span class="beta">BETA</span></h1>
+  <p>Common percentage operations in one place</p>
+</section>
+
+<main class="container">
+  <div class="grid">
+    <div class="card col-12">
+      <h2>Quick calculations</h2>
+      <p>Fill in the blanks. Results update as you type.</p>
+    </div>
+
+    <div class="card col-6">
+      <h2>A% of B</h2>
+      <div class="row">
+        <div>
+          <label for="p1_a">A (%)</label>
+          <input id="p1_a" inputmode="decimal" placeholder="e.g. 20" />
+        </div>
+        <div>
+          <label for="p1_b">B</label>
+          <input id="p1_b" inputmode="decimal" placeholder="e.g. 150" />
+        </div>
+      </div>
+      <div class="kpi">
+        <div class="box"><div class="k">Result</div><div class="v" id="p1_out">—</div></div>
+        <div class="box"><div class="k">As fraction</div><div class="v" id="p1_frac">—</div></div>
+      </div>
+    </div>
+
+    <div class="card col-6">
+      <h2>What % of B is A?</h2>
+      <div class="row">
+        <div>
+          <label for="p2_a">A</label>
+          <input id="p2_a" inputmode="decimal" placeholder="e.g. 30" />
+        </div>
+        <div>
+          <label for="p2_b">B</label>
+          <input id="p2_b" inputmode="decimal" placeholder="e.g. 200" />
+        </div>
+      </div>
+      <div class="kpi">
+        <div class="box"><div class="k">Percent</div><div class="v" id="p2_out">—</div></div>
+        <div class="box"><div class="k">Ratio A/B</div><div class="v" id="p2_ratio">—</div></div>
+      </div>
+      <div class="error" id="p2_err"></div>
+    </div>
+
+    <div class="card col-6">
+      <h2>Increase B by A%</h2>
+      <div class="row">
+        <div>
+          <label for="p3_a">A (%)</label>
+          <input id="p3_a" inputmode="decimal" placeholder="e.g. 15" />
+        </div>
+        <div>
+          <label for="p3_b">B</label>
+          <input id="p3_b" inputmode="decimal" placeholder="e.g. 80" />
+        </div>
+      </div>
+      <div class="kpi">
+        <div class="box"><div class="k">New value</div><div class="v" id="p3_out">—</div></div>
+        <div class="box"><div class="k">Increase amount</div><div class="v" id="p3_delta">—</div></div>
+      </div>
+    </div>
+
+    <div class="card col-6">
+      <h2>Decrease B by A%</h2>
+      <div class="row">
+        <div>
+          <label for="p4_a">A (%)</label>
+          <input id="p4_a" inputmode="decimal" placeholder="e.g. 10" />
+        </div>
+        <div>
+          <label for="p4_b">B</label>
+          <input id="p4_b" inputmode="decimal" placeholder="e.g. 120" />
+        </div>
+      </div>
+      <div class="kpi">
+        <div class="box"><div class="k">New value</div><div class="v" id="p4_out">—</div></div>
+        <div class="box"><div class="k">Decrease amount</div><div class="v" id="p4_delta">—</div></div>
+      </div>
+    </div>
+
+    <div class="card col-6">
+      <h2>Percentage change (A → B)</h2>
+      <div class="row">
+        <div>
+          <label for="p5_a">A (old)</label>
+          <input id="p5_a" inputmode="decimal" placeholder="e.g. 50" />
+        </div>
+        <div>
+          <label for="p5_b">B (new)</label>
+          <input id="p5_b" inputmode="decimal" placeholder="e.g. 65" />
+        </div>
+      </div>
+      <div class="kpi">
+        <div class="box"><div class="k">Change</div><div class="v" id="p5_out">—</div></div>
+        <div class="box"><div class="k">Delta</div><div class="v" id="p5_delta">—</div></div>
+      </div>
+      <div class="error" id="p5_err"></div>
+    </div>
+
+    <div class="card col-6">
+      <h2>Reverse percentage</h2>
+      <p class="small">If B is the final value after a % increase/decrease, find the original.</p>
+
+      <div class="row">
+        <div>
+          <label for="p6_mode">Direction</label>
+          <select id="p6_mode">
+            <option value="inc">After increase</option>
+            <option value="dec">After decrease</option>
+          </select>
+        </div>
+        <div>
+          <label for="p6_a">A (%)</label>
+          <input id="p6_a" inputmode="decimal" placeholder="e.g. 20" />
+        </div>
+      </div>
+
+      <label for="p6_b">B (final value)</label>
+      <input id="p6_b" inputmode="decimal" placeholder="e.g. 120" />
+
+      <div class="kpi">
+        <div class="box"><div class="k">Original</div><div class="v" id="p6_out">—</div></div>
+        <div class="box"><div class="k">Multiplier</div><div class="v" id="p6_mult">—</div></div>
+      </div>
+
+      <div class="error" id="p6_err"></div>
+    </div>
+  </div>
+</main>
+
+<script type="module" src="/tools/assets/js/percentage.js"></script>
+<footer class="site-footer">
+  <div class="footer-inner">
+
+    <div class="footer-brand">
+      <a class="logo" href="/tools/">
+        <span class="logo-word">Toolz</span>
+      </a>
+      <p class="footer-tag">Simple web utilities.</p>
+    </div>
+
+    <nav class="footer-links">
+      <a href="/tools/">Home</a>
+      <a href="/tools/tools/number-sum.html">Number Sum</a>
+      <a href="/tools/tools/percentage.html">Percentage</a>
+      <a href="/tools/tools/vat-profit.html">VAT + Profit</a>
+      <a href="/tools/about.html">About</a>
+      <a href="/tools/contact.html">Contact</a>
+      <a href="/tools/privacy.html">Privacy</a>
+      <a href="/tools/terms.html">Terms</a>
+      <a href="/tools/changelog.html">Changelog</a>
+      <a href="/tools/sitemap.html">Sitemap</a>
+    </nav>
+
+  </div>
+</footer>
+<script src="../assets/js/site.js" defer></script>
+
+</body>
+</html>

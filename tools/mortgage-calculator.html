@@ -1,0 +1,533 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mortgage Payment Calculator (UK) — Monthly Payments &amp; Interest</title>
+  <meta name="description" content="UK mortgage payment calculator for monthly repayments and interest. Add deposit, term, fixed period, fees, overpayments and see an amortisation schedule." />
+  <link rel="canonical" href="/tools/tools/mortgage-calculator.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/tools/assets/css/site.css" />
+  <link rel="stylesheet" href="/tools/assets/css/tools/.mortgage-tool.css">
+</head>
+
+
+<body class="mortgage-tool">
+<header class="site-header">
+  <div class="nav-wrap">
+    <div class="nav-left">
+      <a class="logo" href="/tools/">
+        <span class="logo-word">Toolz</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="/tools/">Home</a>
+        <a href="/tools/tools/vat-profit.html">VAT + Profit</a>
+        <a href="/tools/tools/percentage.html">Percentage</a>
+        <a href="/tools/tools/number-sum.html">Multi Sum</a>
+        <a href="/tools/tools/salary-pay.html">Salary / Pay</a>
+        <a class="active" href="/tools/tools/mortgage-calculator.html">Mortgage Calculator</a>
+      </nav>
+    </div>
+
+    <div class="nav-right">
+      <a href="/tools/">All tools</a>
+    </div>
+  </div>
+</header>
+
+<div class="main-container">
+  <section class="hero hero-intro">
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <div class="eyebrow">UK Mortgage tools</div>
+        <h1>Mortgage Payment Calculator (UK)</h1>
+        <p>Estimate monthly repayments, interest and fees. Adjust deposit, fixed period, overpayments and view a full schedule.</p>
+      </div>
+
+      <div class="trust-info-block" aria-label="Trust information">
+        <div class="trust-row">
+          <span class="trust-pill">Updated for 2026</span>
+          <span class="trust-pill">Estimates only</span>
+          <span class="trust-pill">Check with lender</span>
+        </div>
+        <div class="trust-meta">
+          Figures are indicative. Lenders may use daily interest and different fee structures.
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+
+
+  <main class="container">
+    <div class="page-shell">
+      <div class="calculator-card" aria-label="Mortgage calculator">
+        <div class="grid mortgage-grid">
+          <div class="card col-12 supporting-content-section" id="instantExamples" aria-label="Instant examples">
+            <div class="card-header">
+              <h2>Instant examples</h2>
+              <p class="small">Pick a scenario to prefill typical UK mortgage inputs. Monthly payment is shown as a placeholder until calculated.</p>
+            </div>
+
+            <div class="kpi kpi-examples" role="list" aria-label="Example scenarios">
+              <div class="box" role="listitem">
+                <div class="k">£200,000 • 25 years • 5.0% APR</div>
+                <div class="v" data-example-payment>—</div>
+                <button type="button" class="primary" data-example
+                  data-currency="GBP"
+                  data-property-price="200000"
+                  data-term-years="25"
+                  data-deposit-mode="percent"
+                  data-deposit-value="10"
+                  data-intro-rate="5.0"
+                  data-intro-years="0"
+                  data-follow-rate="5.0">
+                  Use example
+                </button>
+              </div>
+
+              <div class="box" role="listitem">
+                <div class="k">£300,000 • 30 years • 4.5% APR</div>
+                <div class="v" data-example-payment>—</div>
+                <button type="button" class="primary" data-example
+                  data-currency="GBP"
+                  data-property-price="300000"
+                  data-term-years="30"
+                  data-deposit-mode="percent"
+                  data-deposit-value="10"
+                  data-intro-rate="4.5"
+                  data-intro-years="0"
+                  data-follow-rate="4.5">
+                  Use example
+                </button>
+              </div>
+
+
+
+              <div class="box" role="listitem">
+                <div class="k">£350,000 • 25 years • 5.2% APR</div>
+                <div class="v" data-example-payment>—</div>
+                <button type="button" class="primary" data-example
+                  data-currency="GBP"
+                  data-property-price="350000"
+                  data-term-years="25"
+                  data-deposit-mode="percent"
+                  data-deposit-value="15"
+                  data-intro-rate="5.2"
+                  data-intro-years="0"
+                  data-follow-rate="5.2">
+                  Use example
+                </button>
+              </div>
+
+
+
+              <div class="box" role="listitem">
+                <div class="k">£250,000 • 25 years • 4.4% fixed 2y → 6.0%</div>
+                <div class="v" data-example-payment>—</div>
+                <button type="button" class="primary" data-example
+                  data-currency="GBP"
+                  data-property-price="250000"
+                  data-term-years="25"
+                  data-deposit-mode="percent"
+                  data-deposit-value="10"
+                  data-intro-rate="4.4"
+                  data-intro-years="2"
+                  data-follow-rate="6.0"
+                  data-arrangement-fee="999"
+                  data-fee-mode="addToLoan">
+                  Use example
+                </button>
+              </div>
+
+
+
+              <div class="box" role="listitem">
+                <div class="k">£400,000 • 30 years • 5.1% APR + £200 overpay</div>
+                <div class="v" data-example-payment>—</div>
+                <button type="button" class="primary" data-example
+                  data-currency="GBP"
+                  data-property-price="400000"
+                  data-term-years="30"
+                  data-deposit-mode="percent"
+                  data-deposit-value="10"
+                  data-intro-rate="5.1"
+                  data-intro-years="0"
+                  data-follow-rate="5.1"
+                  data-monthly-overpay="200"
+                  data-overpay-start-month="1">
+                  Use example
+                </button>
+              </div>
+
+
+              <div class="box" role="listitem">
+                <div class="k">£180,000 • 20 years • 4.9% APR</div>
+                <div class="v" data-example-payment>—</div>
+                <button type="button" class="primary" data-example
+                  data-currency="GBP"
+                  data-property-price="180000"
+                  data-term-years="20"
+                  data-deposit-mode="percent"
+                  data-deposit-value="5"
+                  data-intro-rate="4.9"
+                  data-intro-years="0"
+                  data-follow-rate="4.9">
+                  Use example
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="card col-6" id="calculatorInputs" aria-label="Mortgage calculator inputs">
+            <div class="card-header">
+              <h2>Calculator</h2>
+              <p class="small">Enter your numbers, then press Calculate to see monthly payments and totals.</p>
+            </div>
+
+            <form id="mortgageForm" novalidate aria-describedby="mortgageStatus mortgageError">
+              <div id="mortgageStatus" class="small" role="status" aria-live="polite">
+                Enter details to estimate repayments. Results will update after you press Calculate.
+              </div>
+
+              <div id="mortgageError" class="error" role="status" aria-live="polite" aria-atomic="true"></div>
+
+              <div class="form-grid">
+                <div class="field">
+                  <label for="currency">Currency</label>
+                  <select id="currency" name="currency">
+                    <option value="GBP">GBP (£)</option>
+                    <option value="EUR">EUR (€)</option>
+                    <option value="USD">USD ($)</option>
+                    <option value="CAD">CAD ($)</option>
+                    <option value="AUD">AUD ($)</option>
+                    <option value="NZD">NZD ($)</option>
+                    <option value="JPY">JPY (¥)</option>
+                    <option value="CNY">CNY (¥)</option>
+                    <option value="HKD">HKD ($)</option>
+                    <option value="SGD">SGD ($)</option>
+                    <option value="INR">INR (₹)</option>
+                    <option value="PKR">PKR (₨)</option>
+                    <option value="BDT">BDT (৳)</option>
+                    <option value="LKR">LKR (Rs)</option>
+                    <option value="AED">AED (د.إ)</option>
+                    <option value="SAR">SAR (﷼)</option>
+                    <option value="QAR">QAR (﷼)</option>
+                    <option value="KWD">KWD (د.ك)</option>
+                    <option value="ZAR">ZAR (R)</option>
+                    <option value="NGN">NGN (₦)</option>
+                    <option value="KES">KES (KSh)</option>
+                    <option value="GHS">GHS (GH₵)</option>
+                    <option value="EGP">EGP (£)</option>
+                    <option value="TRY">TRY (₺)</option>
+                    <option value="CHF">CHF (Fr)</option>
+                    <option value="NOK">NOK (kr)</option>
+                    <option value="SEK">SEK (kr)</option>
+                    <option value="DKK">DKK (kr)</option>
+                    <option value="PLN">PLN (zł)</option>
+                    <option value="CZK">CZK (Kč)</option>
+                    <option value="HUF">HUF (Ft)</option>
+                    <option value="RON">RON (lei)</option>
+                    <option value="BGN">BGN (лв)</option>
+                    <option value="RUB">RUB (₽)</option>
+                    <option value="UAH">UAH (₴)</option>
+                    <option value="BRL">BRL (R$)</option>
+                    <option value="MXN">MXN ($)</option>
+                    <option value="ARS">ARS ($)</option>
+                    <option value="CLP">CLP ($)</option>
+                    <option value="COP">COP ($)</option>
+                    <option value="PEN">PEN (S/)</option>
+                    <option value="KRW">KRW (₩)</option>
+                    <option value="THB">THB (฿)</option>
+                    <option value="MYR">MYR (RM)</option>
+                    <option value="IDR">IDR (Rp)</option>
+                    <option value="PHP">PHP (₱)</option>
+                    <option value="VND">VND (₫)</option>
+                  </select>
+                  <div class="helper">Used for formatting results.</div>
+                </div>
+
+                <div class="row">
+                  <div class="field">
+                    <label for="propertyPrice">Property price</label>
+                    <input id="propertyPrice" name="propertyPrice" inputmode="decimal" placeholder="e.g. 300000" />
+                    <div class="helper">Total purchase price of the property.</div>
+                  </div>
+
+                  <div class="field">
+                    <label for="termYears">Term (years)</label>
+                    <input id="termYears" name="termYears" inputmode="numeric" placeholder="e.g. 25" />
+                    <div class="helper">Length of the mortgage.</div>
+                  </div>
+
+                </div>
+
+                <div class="row">
+                  <div class="field">
+                    <label for="depositMode">Deposit type</label>
+                    <select id="depositMode" name="depositMode">
+                      <option value="amount">Deposit amount</option>
+                      <option value="percent">Deposit percent</option>
+                    </select>
+                    <div class="helper">Choose amount or %.</div>
+                  </div>
+
+                  <div class="field">
+                    <label for="depositValue">Deposit</label>
+                    <input id="depositValue" name="depositValue" inputmode="decimal" placeholder="e.g. 10 or 30000" />
+                    <div class="small" id="depositHint">Choose deposit type above.</div>
+                  </div>
+                </div>
+
+
+                <div class="row">
+                  <div class="field">
+                    <label for="loanAmount">Loan amount (auto)</label>
+                    <input id="loanAmount" name="loanAmount" inputmode="decimal" placeholder="e.g. 270000" />
+                    <div class="helper">Auto-calculated from price and deposit; you can override.</div>
+                  </div>
+
+                  <div class="field">
+                    <label for="startDate">Start date (optional)</label>
+                    <input id="startDate" name="startDate" type="date" />
+                    <div class="helper">Used for schedule dates only.</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="divider"></div>
+
+              <details class="mortgage-advanced">
+                <summary class="mortgage-summary">Advanced options</summary>
+
+                <div class="form-grid">
+                  <div class="row">
+                    <div class="field">
+                      <label for="introRate">Intro / fixed rate (APR %)</label>
+                      <input id="introRate" name="introRate" inputmode="decimal" placeholder="e.g. 4.89" />
+                      <div class="helper">If you don’t have an intro rate, use your standard APR.</div>
+                    </div>
+
+                    <div class="field">
+                      <label for="introYears">Intro period (years)</label>
+                      <input id="introYears" name="introYears" inputmode="decimal" placeholder="e.g. 2" />
+                      <div class="small">Set 0 to skip.</div>
+                    </div>
+                  </div>
+
+
+
+                  <div class="row">
+                    <div class="field">
+                      <label for="followRate">Follow-on rate (APR %)</label>
+                      <input id="followRate" name="followRate" inputmode="decimal" placeholder="e.g. 6.25" />
+                      <div class="helper">Used after the intro period ends.</div>
+                    </div>
+
+                    <div class="field">
+                      <label for="arrangementFee">Arrangement fee</label>
+                      <input id="arrangementFee" name="arrangementFee" inputmode="decimal" placeholder="e.g. 999" />
+                      <div class="helper">Optional lender fee.</div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="field">
+                      <label for="feeMode">Arrangement fee handling</label>
+                      <select id="feeMode" name="feeMode">
+                        <option value="upfront">Pay upfront</option>
+                        <option value="addToLoan">Add to loan</option>
+                      </select>
+                      <div class="helper">If added to the loan, interest may apply.</div>
+                    </div>
+
+                    <div class="field">
+                      <label for="otherUpfrontFees">Other upfront fees</label>
+                      <input id="otherUpfrontFees" name="otherUpfrontFees" inputmode="decimal" placeholder="e.g. 1500" />
+                      <div class="helper">Solicitor, valuation, broker fee, etc.</div>
+                    </div>
+
+                  </div>
+
+
+
+                  <div class="row">
+                    <div class="field">
+                      <label for="monthlyOverpay">Monthly overpayment</label>
+                      <input id="monthlyOverpay" name="monthlyOverpay" inputmode="decimal" placeholder="e.g. 100" />
+                      <div class="helper">Optional extra repayment each month.</div>
+                    </div>
+
+                    <div class="field">
+                      <label for="overpayStartMonth">Overpayment start month</label>
+                      <input id="overpayStartMonth" name="overpayStartMonth" inputmode="numeric" placeholder="e.g. 1" />
+                      <div class="small">1 means first payment month.</div>
+                    </div>
+                  </div>
+
+
+                  <div class="row">
+
+                    <div class="field">
+                      <label for="overpayEndMonth">Overpayment end month (optional)</label>
+                      <input id="overpayEndMonth" name="overpayEndMonth" inputmode="numeric" placeholder="e.g. 60" />
+                      <div class="small">Leave blank to continue until payoff.</div>
+                    </div>
+
+                    <div class="field">
+                      <label for="lumpSumAmount">One-off lump sum (optional)</label>
+                      <input id="lumpSumAmount" name="lumpSumAmount" inputmode="decimal" placeholder="e.g. 5000" />
+                      <div class="helper">A single extra payment.</div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+
+                    <div class="field">
+                      <label for="lumpSumMonth">Lump sum month (optional)</label>
+                      <input id="lumpSumMonth" name="lumpSumMonth" inputmode="numeric" placeholder="e.g. 12" />
+                      <div class="helper">Month number in the schedule.</div>
+                    </div>
+                    <div></div>
+                  </div>
+                </div>
+              </details>
+
+
+
+              <div class="actions" aria-label="Calculator actions">
+                <button class="primary" type="submit" id="calculateBtn">Calculate</button>
+                <button type="button" id="resetBtn">Reset</button>
+                <button type="button" id="copyLinkBtn">Copy page link</button>
+              </div>
+
+              <div class="error" id="formError"></div>
+              <div class="small disclaimer-block">Estimates only. Lenders can use different fee structures and daily interest calculations.</div>
+            </form>
+          </div>
+
+
+
+          <div class="card col-6 results-panel" id="resultsPanel" aria-label="Mortgage calculator results">
+            <div class="card-header">
+              <h2>Results</h2>
+              <div class="small" id="trustNotes">
+                <span>Updated for 2026.</span>
+                <span>Estimates only; check with your lender.</span>
+              </div>
+            </div>
+
+
+
+            <div class="kpi kpi-results" aria-live="polite" aria-atomic="true">
+              <div class="box"><div class="k">Monthly payment (intro)</div><div class="v" id="paymentIntroValue">—</div></div>
+              <div class="box"><div class="k">Monthly payment (after intro)</div><div class="v" id="paymentFollowValue">—</div></div>
+              <div class="box"><div class="k">Total interest</div><div class="v" id="totalInterestValue">—</div></div>
+              <div class="box"><div class="k">Total paid</div><div class="v" id="totalPaidValue">—</div></div>
+            </div>
+
+            <div class="kpi kpi-results" aria-live="polite" aria-atomic="true">
+              <div class="box"><div class="k">Payoff time</div><div class="v" id="payoffTimeValue">—</div></div>
+              <div class="box"><div class="k">Savings vs no extras</div><div class="v" id="savingsValue">—</div></div>
+              <div class="box"><div class="k">Upfront fees</div><div class="v" id="upfrontFeesValue">—</div></div>
+              <div class="box"><div class="k">Loan amount used</div><div class="v" id="loanShownValue">—</div></div>
+            </div>
+
+            <div class="actions" aria-label="Results actions">
+              <button type="button" id="downloadCsvBtn" disabled>Download CSV</button>
+            </div>
+
+            <div class="divider"></div>
+            <div id="scheduleWrap" style="display:none">
+              <div class="mortgage-table-wrap">
+                <table class="mortgage-table" id="scheduleTable">
+                  <thead>
+                    <tr>
+                      <th>Month</th>
+                      <th>Date</th>
+                      <th>Rate</th>
+                      <th>Payment</th>
+                      <th>Interest</th>
+                      <th>Principal</th>
+                      <th>Overpay</th>
+                      <th>Lump sum</th>
+                      <th>Balance</th>
+                    </tr>
+                  </thead>
+                  <tbody id="scheduleBody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <section class="supporting-content-section" aria-label="Supporting information">
+
+        <div class="support-grid">
+          <div class="card trust-card">
+            <h3>How to use this calculator</h3>
+            <ul class="bullets">
+              <li>Enter property price, term and deposit.</li>
+              <li>Add optional fees, fixed period and overpayments.</li>
+              <li>Press Calculate to generate payments and schedule.</li>
+            </ul>
+          </div>
+
+          <div class="card trust-card">
+            <h3>Important</h3>
+            <p class="small">
+              This is an estimate tool. Some lenders calculate interest daily and apply fees differently.
+              Always confirm figures with your lender or adviser.
+            </p>
+            <p class="small">
+              Your property may be repossessed if you do not keep up repayments on your mortgage.
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>
+
+
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a class="logo" href="/tools/">
+        <span class="logo-word">Toolz</span>
+      </a>
+      <p class="footer-tag">Simple web utilities.</p>
+    </div>
+
+
+
+    <nav class="footer-links">
+      <a href="/tools/">Home</a>
+      <a href="/tools/tools/number-sum.html">Number Sum</a>
+      <a href="/tools/tools/percentage.html">Percentage</a>
+      <a href="/tools/tools/vat-profit.html">VAT + Profit</a>
+      <a href="/tools/about.html">About</a>
+      <a href="/tools/contact.html">Contact</a>
+      <a href="/tools/privacy.html">Privacy</a>
+      <a href="/tools/terms.html">Terms</a>
+      <a href="/tools/changelog.html">Changelog</a>
+      <a href="/tools/sitemap.html">Sitemap</a>
+    </nav>
+  </div>
+</footer>
+
+
+
+<script src="/tools/assets/js/mortgage-calculator.js" defer></script>
+<script src="../assets/js/site.js" defer></script>
+
+</body>
+</html>

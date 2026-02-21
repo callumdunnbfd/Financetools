@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Number Sum Calculator</title>
+  <meta name="description" content="Calculate the sum of a list of numbers. Paste numbers separated by new lines, commas, or spaces." />
+  <link rel="canonical" href="/tools/tools/number-sum.html" />
+  <link rel="stylesheet" href="/tools/assets/css/site.css" />
+</head>
+
+<body class="sum-tool">
+<header class="site-header">
+  <div class="nav-wrap">
+    <div class="nav-left">
+      <a class="logo" href="/tools/">
+        <span class="logo-word">Toolz</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="/tools/">Home</a>
+        <a href="/tools/tools/vat-profit.html">VAT + Profit</a>
+        <a href="/tools/tools/percentage.html">Percentage</a>
+        <a href="/tools/tools/number-sum.html">Multi Sum</a>
+        <a href="/tools/tools/salary-pay.html">Salary / Pay</a>
+        <a href="/tools/tools/mortgage-calculator.html">Mortgage Calculator</a>
+      </nav>
+    </div>
+
+    <div class="nav-right">
+      <a href="/tools/">All tools</a>
+    </div>
+  </div>
+</header>
+
+  <section class="hero">
+    <h1>Number sum calculator</h1>
+    <p>Paste a list of numbers and get the total instantly.</p>
+  </section>
+
+  <main class="sum-wrap">
+    <div class="sum-grid">
+      <section class="sum-panel">
+        <div class="sum-panel-title">List of Numbers</div>
+        <textarea id="numbersInput"></textarea>
+        <div class="sum-bar">
+          <button type="button" id="btn-example-2">See Examples</button>
+          <button type="button" id="btn-clear-2">Clear</button>
+          <button type="button" id="btn-paste-2">Paste</button>
+        </div>
+      </section>
+
+      <section class="sum-panel">
+        <div class="sum-panel-title">Sum of Numbers</div>
+        <textarea id="sumOutput" class="output" readonly></textarea>
+        <div class="sum-bar sum-bar-2">
+          <button type="button" id="btn-download">Save as...</button>
+          <button type="button" id="btn-copy">Copy to clipboard</button>
+        </div>
+        <div class="error" id="err">Can't convert. An error has occurred.</div>
+      </section>
+    </div>
+  </main>
+
+  <script src="/tools/assets/js/utils.js"></script>
+  <footer class="site-footer">
+  <div class="footer-inner">
+
+    <div class="footer-brand">
+      <a class="logo" href="/tools/">
+        <span class="logo-word">Toolz</span>
+      </a>
+      <p class="footer-tag">Simple web utilities.</p>
+    </div>
+
+    <nav class="footer-links">
+      <a href="/tools/">Home</a>
+      <a href="/tools/tools/number-sum.html">Number Sum</a>
+      <a href="/tools/tools/percentage.html">Percentage</a>
+      <a href="/tools/tools/vat-profit.html">VAT + Profit</a>
+      <a href="/tools/about.html">About</a>
+      <a href="/tools/contact.html">Contact</a>
+      <a href="/tools/privacy.html">Privacy</a>
+      <a href="/tools/terms.html">Terms</a>
+      <a href="/tools/changelog.html">Changelog</a>
+      <a href="/tools/sitemap.html">Sitemap</a>
+    </nav>
+
+  </div>
+</footer>
+
+</body>
+</html>

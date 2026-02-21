@@ -1,0 +1,113 @@
+  .mega-header{
+    position:sticky;
+    top:0;
+    z-index:9999;
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    background:rgba(255,255,255,.78);
+    border-bottom:1px solid rgba(226,232,240,.85);
+    font-family:Inter,system-ui;
+  }
+
+  .mega-nav{
+    max-width:1240px;
+    margin:0 auto;
+    padding:14px 18px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+  }
+
+  .mega-left{display:flex;align-items:center;gap:28px}
+
+  .mega-logo{
+    font-weight:800;
+    letter-spacing:-.03em;
+    font-size:18px;
+  }
+
+  .mega-links{display:flex;gap:4px}
+  .mega-links button{
+    background:none;border:none;
+    padding:10px 12px;
+    border-radius:999px;
+    cursor:pointer;
+    font-size:14px;
+    color:#334155;
+  }
+  .mega-links button:hover{background:rgba(37,99,235,.08)}
+
+
+  .mega-panel{
+    position:absolute;
+    left:0;
+    right:0;
+    top:100%;
+    background:#fff;
+    border-bottom:1px solid #e2e8f0;
+    box-shadow:0 20px 50px rgba(0,0,0,.08);
+    opacity:0;
+    pointer-events:none;
+    transform:translateY(-8px);
+    transition:.18s ease;
+  }
+  .mega-panel.open{
+    opacity:1;
+    pointer-events:auto;
+    transform:translateY(0);
+  }
+
+  .mega-grid{
+    max-width:1240px;
+    margin:0 auto;
+    padding:26px 18px 32px;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:30px;
+  }
+
+  .mega-col h4{
+    font-size:14px;
+    margin-bottom:10px;
+    color:#0f172a;
+  }
+  .mega-col a{
+    display:block;
+    font-size:14px;
+    padding:6px 0;
+    color:#334155;
+    text-decoration:none;
+  }
+  .mega-col a:hover{color:#2563eb}
+
+
+  .mega-toggle{
+    display:none;
+    font-size:22px;
+    background:none;border:none;
+  }
+
+  .mega-mobile{
+    position:fixed;
+    inset:0;
+    background:#fff;
+    transform:translateX(100%);
+    transition:.25s ease;
+    z-index:10000;
+    padding:20px;
+  }
+  .mega-mobile.open{transform:translateX(0)}
+
+  .mega-mobile a{
+    display:block;
+    padding:16px 4px;
+    border-bottom:1px solid #e2e8f0;
+    font-size:16px;
+  }
+
+  @media(max-width:900px){
+    .mega-links{display:none}
+    .mega-toggle{display:block}
+    .mega-panel{display:none!important}
+  }

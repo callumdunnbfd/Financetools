@@ -1,0 +1,508 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Debt Repayment Strategy Calculator (Snowball vs Avalanche)</title>
+  <meta name="description" content="Compare debt snowball vs avalanche repayment strategies. Add multiple debts, see debt-free date, total interest, and a month-by-month payoff schedule with a balance chart." />
+  <link rel="stylesheet" href="/tools/assets/css/site.css">
+  <link rel="stylesheet" href="/tools/assets/css/tools/debt.css?v=5">
+
+
+
+
+
+</head>
+<body class="debt-tool">
+  <a class="skip-link" href="#calculator">Skip to calculator</a>
+
+<header class="site-header">
+  <div class="nav-wrap">
+    <div class="nav-left">
+      <a class="logo" href="/tools/">
+        <span class="logo-word">Toolz</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="/tools/">Home</a>
+        <a href="/tools/tools/vat-profit.html">VAT + Profit</a>
+        <a href="/tools/tools/percentage.html">Percentage</a>
+        <a href="/tools/tools/number-sum.html">Multi Sum</a>
+        <a href="/tools/tools/salary-pay.html">Salary / Pay</a>
+        <a href="/tools/tools/mortgage-calculator.html">Mortgage Calculator</a>
+        <a href="/tools/tools/debt-tool.html">Debt Tools</a>
+      </nav>
+    </div>
+
+    <div class="nav-right">
+      <a href="/tools/">All tools</a>
+    </div>
+  </div>
+</header>
+
+  <main class="container tool-shell" id="calculator">
+    <section class="tool-hero" aria-label="Debt strategy calculator introduction">
+      <div class="tool-hero-inner">
+        <div class="tool-hero-copy">
+          <div class="eyebrow">Debt tools</div>
+          <h1 class="hero-title">Debt repayment strategy calculator</h1>
+          <p class="hero-lede">
+            Compare Snowball vs Avalanche using a single monthly budget. See your projected debt-free month, total interest,
+            and a month-by-month schedule.
+          </p>
+
+          <div class="trust-row" aria-label="Important information">
+            <span class="trust-pill">Information only</span>
+            <span class="trust-pill">No sign-up</span>
+            <span class="trust-pill">Local save on device</span>
+          </div>
+
+          <p class="hero-note">
+            This tool uses simplified assumptions (fixed APRs, monthly payments). Results are estimates and may not match lender statements.
+          </p>
+        </div>
+
+        <div class="tool-hero-panel" role="note" aria-label="How it works">
+          <div class="panel-title">How this works</div>
+          <ul class="panel-list">
+            <li>Add each debt’s balance, APR, and minimum payment.</li>
+            <li>Optionally add an extra monthly amount to accelerate payoff.</li>
+            <li>We simulate month-by-month repayment with rollover.</li>
+          </ul>
+          <div class="panel-foot">For information only; not financial advice.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid tool-grid">
+      <section class="card" aria-labelledby="inputsTitle">
+        <div class="card-header">
+          <h2 class="h1" id="inputsTitle">Your debts and monthly payment plan</h2>
+          <p class="muted">
+            Enter each debt’s balance, APR, and minimum monthly payment. We’ll simulate month-by-month repayment using
+            two approaches and show the difference in time and interest.
+          </p>
+        </div>
+
+        <form id="debtForm" novalidate>
+          <fieldset class="fieldset">
+            <legend class="legend">Global settings</legend>
+
+            <div class="form-grid">
+              <div class="field">
+                <label for="currency">Currency</label>
+                <select id="currency" name="currency">
+                  <option value="GBP" selected>£ GBP</option>
+                  <option value="USD">$ USD</option>
+                  <option value="EUR">€ EUR</option>
+                  <option value="INR">₹ INR</option>
+                </select>
+                <div class="help">Used for display only.</div>
+              </div>
+
+              <div class="field">
+                <label for="frequency">Payment frequency</label>
+                <select id="frequency" name="frequency" disabled>
+                  <option selected>Monthly</option>
+                </select>
+                <div class="help">This tool currently supports monthly payments only.</div>
+              </div>
+
+              <div class="field">
+                <label for="startMonth">Start month</label>
+                <div class="row">
+                  <select id="startMonth" name="startMonth" aria-label="Start month"></select>
+                  <select id="startYear" name="startYear" aria-label="Start year"></select>
+                </div>
+                <div class="help">We’ll project a debt-free date from this month.</div>
+              </div>
+
+              <div class="field">
+                <label for="extraPayment">Extra monthly payment (optional)</label>
+                <input id="extraPayment" name="extraPayment" inputmode="decimal" autocomplete="off" placeholder="0" />
+                <div class="help">Added on top of minimums and applied to your target debt each month.</div>
+                <div class="error" id="errExtraPayment" aria-live="polite"></div>
+              </div>
+
+              <div class="field field-inline">
+                <label class="check">
+                  <input type="checkbox" id="roundPennies" checked />
+                  <span>Round payments to the nearest penny</span>
+                </label>
+                <div class="help">Recommended for realistic totals.</div>
+              </div>
+            </div>
+
+            <div class="info-callout" role="note">
+              <div class="info-title">Important behavior (rollover)</div>
+              <div class="info-body">
+                You’ll always pay at least each debt’s minimum while it exists. When a debt is paid off, its minimum payment is
+                automatically freed up and added to your extra payment pool, accelerating the remaining debts.
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="fieldset">
+            <legend class="legend">Debt list</legend>
+
+            <div class="table-wrap" role="region" aria-label="Debt list">
+              <table class="debt-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Debt name</th>
+                    <th scope="col">Balance</th>
+                    <th scope="col">APR %</th>
+                    <th scope="col">Minimum / month</th>
+                    <th scope="col" class="col-actions"> </th>
+                  </tr>
+                </thead>
+                <tbody id="debtsTbody"></tbody>
+              </table>
+            </div>
+
+            <div class="controls">
+              <div class="controls-left">
+                <button type="button" class="btn btn-ghost" id="btnAddDebt">Add debt</button>
+                <button type="button" class="btn btn-ghost" id="btnAddExamples">Load example debts</button>
+                <button type="button" class="btn btn-ghost" id="btnClearSaved">Clear saved data</button>
+              </div>
+
+              <div class="controls-right">
+                <button type="submit" class="btn btn-primary" id="btnCalculate">Calculate</button>
+                <button type="button" class="btn btn-ghost" id="btnReset">Reset</button>
+              </div>
+            </div>
+
+            <div class="inline-errors" id="formErrors" aria-live="polite"></div>
+          </fieldset>
+        </form>
+      </section>
+
+      <aside class="card summary-card" aria-labelledby="summaryTitle">
+        <div class="card-header">
+          <h2 class="h2" id="summaryTitle">Results comparison</h2>
+          <p class="muted">Run a calculation to compare the two strategies side-by-side.</p>
+        </div>
+
+        <div class="summary-strip" id="summaryStrip" aria-live="polite">
+          <div class="pill pill-muted">
+            <div class="pill-k">Snowball</div>
+            <div class="pill-v">—</div>
+          </div>
+          <div class="pill pill-muted">
+            <div class="pill-k">Avalanche</div>
+            <div class="pill-v">—</div>
+          </div>
+          <div class="pill pill-muted">
+            <div class="pill-k">Interest saved</div>
+            <div class="pill-v">—</div>
+          </div>
+        </div>
+
+        <div class="anchor-row">
+          <a class="anchor-link" href="#results" id="resultsLink">Jump to full results</a>
+        </div>
+
+        <div class="summary-notes">
+          <div class="mini">
+            <div class="mini-k">Typical outcome</div>
+            <div class="mini-v">Avalanche often pays less interest; Snowball can feel more motivating early on.</div>
+          </div>
+          <div class="mini">
+            <div class="mini-k">What this tool assumes</div>
+            <div class="mini-v">APR stays constant, payments are monthly, and you keep paying until balances reach zero.</div>
+          </div>
+          <div class="mini">
+            <div class="mini-k">Accuracy note</div>
+            <div class="mini-v">The final month often requires a smaller payment. Totals use the actual amount applied.</div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="card results-card" id="results" aria-labelledby="resultsTitle" hidden>
+      <div class="card-header">
+        <h2 class="h1" id="resultsTitle">Full results</h2>
+        <p class="muted">
+          The chart shows total remaining balance over time for each method. Expand the sections for tables and detailed schedules.
+        </p>
+      </div>
+
+      <div class="results-grid">
+        <div class="card-sub">
+          <div class="subhead">
+            <div class="badge badge-snow">Snowball</div>
+            <div class="subhead-title">Smallest balance first</div>
+          </div>
+          <dl class="kv" id="snowballSummary">
+            <div class="kv-row"><dt>Months to debt-free</dt><dd>—</dd></div>
+            <div class="kv-row"><dt>Debt-free date</dt><dd>—</dd></div>
+            <div class="kv-row"><dt>Total interest</dt><dd>—</dd></div>
+            <div class="kv-row"><dt>Total paid</dt><dd>—</dd></div>
+          </dl>
+        </div>
+
+        <div class="card-sub">
+          <div class="subhead">
+            <div class="badge badge-ava">Avalanche</div>
+            <div class="subhead-title">Highest APR first</div>
+          </div>
+          <dl class="kv" id="avalancheSummary">
+            <div class="kv-row"><dt>Months to debt-free</dt><dd>—</dd></div>
+            <div class="kv-row"><dt>Debt-free date</dt><dd>—</dd></div>
+            <div class="kv-row"><dt>Total interest</dt><dd>—</dd></div>
+            <div class="kv-row"><dt>Total paid</dt><dd>—</dd></div>
+          </dl>
+        </div>
+
+        <div class="card-sub">
+          <div class="subhead">
+            <div class="badge badge-neutral">Difference</div>
+            <div class="subhead-title">What changes between methods</div>
+          </div>
+          <dl class="kv" id="differenceSummary">
+            <div class="kv-row"><dt>Interest saved</dt><dd>—</dd></div>
+            <div class="kv-row"><dt>Time difference</dt><dd>—</dd></div>
+            <div class="kv-row"><dt>Monthly budget used</dt><dd>—</dd></div>
+          </dl>
+        </div>
+      </div>
+
+      <div class="chart-card">
+        <div class="chart-head">
+          <div>
+            <div class="h2">Remaining balance over time</div>
+            <div class="muted">Two lines: Snowball vs Avalanche.</div>
+          </div>
+
+          <div class="scrub">
+            <label for="monthScrub">Month</label>
+            <input type="range" id="monthScrub" min="0" max="0" value="0" />
+            <div class="scrub-readout" id="scrubReadout" aria-live="polite">—</div>
+          </div>
+        </div>
+
+        <div class="canvas-wrap">
+          <canvas id="balanceChart" width="900" height="360" aria-label="Remaining balance chart" role="img"></canvas>
+          <div id="chartTooltip" class="chart-tooltip" role="status" aria-live="polite" hidden></div>
+        </div>
+
+        <div class="legend" aria-hidden="true">
+          <span class="legend-item"><span class="swatch swatch-snow"></span>Snowball</span>
+          <span class="legend-item"><span class="swatch swatch-ava"></span>Avalanche</span>
+        </div>
+      </div>
+
+      <details class="details" open>
+        <summary class="summary">Month-by-month schedule (totals)</summary>
+        <div class="details-body">
+          <div class="table-wrap" role="region" aria-label="Monthly schedule totals">
+            <table class="data-table" id="scheduleTable">
+              <thead>
+                <tr>
+                  <th scope="col">Month</th>
+                  <th scope="col">Total payment</th>
+                  <th scope="col">Interest</th>
+                  <th scope="col">Principal</th>
+                  <th scope="col">Remaining balance</th>
+                </tr>
+              </thead>
+              <tbody id="scheduleTbody"></tbody>
+            </table>
+          </div>
+          <div class="help">Shown for the currently selected method in the toggle below. “Total payment” is the actual amount applied that month (the final month may be smaller).</div>
+        </div>
+      </details>
+
+      <details class="details">
+        <summary class="summary">Per-debt payoff details</summary>
+        <div class="details-body">
+          <div class="toggle" role="group" aria-label="Choose schedule method">
+            <button type="button" class="toggle-btn is-active" id="btnViewSnowball">View Snowball</button>
+            <button type="button" class="toggle-btn" id="btnViewAvalanche">View Avalanche</button>
+          </div>
+
+          <div class="table-wrap" role="region" aria-label="Per-debt payoff table">
+            <table class="data-table" id="payoffTable">
+              <thead>
+                <tr>
+                  <th scope="col">Debt</th>
+                  <th scope="col">Starting balance</th>
+                  <th scope="col">APR</th>
+                  <th scope="col">Min / month</th>
+                  <th scope="col">Paid off in</th>
+                  <th scope="col">Payoff month</th>
+                </tr>
+              </thead>
+              <tbody id="payoffTbody"></tbody>
+            </table>
+          </div>
+
+          <details class="details nested">
+            <summary class="summary">Optional: Expanded per-debt balances by month</summary>
+            <div class="details-body">
+              <div class="table-wrap" role="region" aria-label="Per-debt balances by month">
+                <table class="data-table" id="byDebtTable">
+                  <thead id="byDebtThead"></thead>
+                  <tbody id="byDebtTbody"></tbody>
+                </table>
+              </div>
+              <div class="help">Large tables can be slow on older devices. Use only if needed.</div>
+            </div>
+          </details>
+        </div>
+      </details>
+
+      <div class="results-actions">
+        <button type="button" class="btn btn-ghost" id="btnScrollTop">Back to inputs</button>
+      </div>
+
+      <div class="trust-note">
+        For information only; not financial advice.
+      </div>
+    </section>
+
+    <section class="card content-card" aria-labelledby="contentTitle">
+      <div class="card-header">
+        <h2 class="h1" id="contentTitle">About this debt payoff tool</h2>
+        <p class="muted">
+          This section explains the methods in plain language and answers common questions. The calculator does not replace
+          personalised guidance.
+        </p>
+      </div>
+
+      <div class="prose" id="content">
+        <p>
+          This calculator helps you plan how to pay off multiple debts using a consistent monthly budget. You enter each debt’s
+          balance, APR (interest rate), and minimum monthly payment. Then you can add an extra amount you’re willing to pay each
+          month on top of minimums.
+        </p>
+        <p>
+          The tool runs two common repayment strategies and shows a side-by-side comparison: how long it may take to become
+          debt-free, the projected debt-free month, and the total interest paid. It also generates a month-by-month schedule so you
+          can understand how payments and balances change over time.
+        </p>
+        <p>
+          A key feature is rollover. When one debt is fully paid, the minimum payment you used to send to it doesn’t disappear — it
+          becomes available to pay down the remaining debts, which can noticeably speed up payoff.
+        </p>
+
+        <h3>What is the snowball method?</h3>
+        <p>
+          Snowball means you focus any extra money on the smallest balance first (while still paying minimums on everything else).
+          The idea is to clear individual debts sooner, which can feel motivating and easier to stick with.
+        </p>
+
+        <h3>What is the avalanche method?</h3>
+        <p>
+          Avalanche means you focus extra money on the highest APR first (again, minimums on the rest). Because higher rates
+          usually cost more over time, avalanche often reduces total interest, especially when rates vary a lot.
+        </p>
+
+        <h3>FAQ</h3>
+
+        <div class="faq" id="faq">
+          <details class="details">
+            <summary class="summary">Which method usually pays less interest?</summary>
+            <div class="details-body">
+              In many cases, avalanche pays less interest because it targets the highest rate first. However, results depend on your
+              balances, rates, and monthly budget.
+            </div>
+          </details>
+
+          <details class="details">
+            <summary class="summary">Why might snowball feel easier?</summary>
+            <div class="details-body">
+              Snowball can create earlier wins by paying off small balances sooner. Some people find that progress more visible,
+              which can help consistency.
+            </div>
+          </details>
+
+          <details class="details">
+            <summary class="summary">What if my minimum payments don’t cover interest?</summary>
+            <div class="details-body">
+              If your total monthly payment can’t cover the interest being added each month, balances won’t fall. The tool will flag
+              this and suggest what to change so your plan can pay down.
+            </div>
+          </details>
+
+          <details class="details">
+            <summary class="summary">Does extra payment always help?</summary>
+            <div class="details-body">
+              In general, paying more reduces interest over time and shortens payoff. The biggest impact usually comes from
+              consistently adding extra and letting rollover compound your progress.
+            </div>
+          </details>
+
+          <details class="details">
+            <summary class="summary">Is this financial advice?</summary>
+            <div class="details-body">
+              No. This calculator is for information and planning. It uses simplified assumptions and may not match your lender’s
+              exact calculations or fees.
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <footer class="page-footer">
+        <div class="footer-line">For information only; not financial advice.</div>
+        <div class="footer-line muted">Assumes fixed APRs and monthly payments. Results are estimates.</div>
+      </footer>
+
+      <script type="application/ld+json" id="faqJsonLd">
+      {
+        "@context":"https://schema.org",
+        "@type":"FAQPage",
+        "mainEntity":[
+          {
+            "@type":"Question",
+            "name":"Which method usually pays less interest?",
+            "acceptedAnswer":{
+              "@type":"Answer",
+              "text":"In many cases, the avalanche method pays less interest because it targets the highest APR first. Your results depend on balances, rates, and the monthly budget you can maintain."
+            }
+          },
+          {
+            "@type":"Question",
+            "name":"Why might snowball feel easier?",
+            "acceptedAnswer":{
+              "@type":"Answer",
+              "text":"The snowball method can pay off smaller balances sooner, creating earlier milestones that may help you stay consistent with the plan."
+            }
+          },
+          {
+            "@type":"Question",
+            "name":"What if my minimum payments don’t cover interest?",
+            "acceptedAnswer":{
+              "@type":"Answer",
+              "text":"If total monthly payments can’t cover interest being added each month, balances may not decrease. Increasing payments, lowering APR where possible, or focusing on the highest-rate debt can help."
+            }
+          },
+          {
+            "@type":"Question",
+            "name":"Does extra payment always help?",
+            "acceptedAnswer":{
+              "@type":"Answer",
+              "text":"Paying extra generally reduces total interest and shortens the payoff timeline. The effect is strongest when extra payments are consistent and rollover is allowed to build."
+            }
+          },
+          {
+            "@type":"Question",
+            "name":"Is this financial advice?",
+            "acceptedAnswer":{
+              "@type":"Answer",
+              "text":"No. This calculator is for information and planning only and uses simplified assumptions. Consider professional guidance for decisions about your situation."
+            }
+          }
+        ]
+      }
+      </script>
+    </section>
+  </main>
+
+ <script src="/tools/assets/js/debt-tool.js?v=20260219-2"></script>
+<script src="/tools/assets/js/debt-visual.js?v=20260219-2"></script>
+
+
+</body>
+</html>

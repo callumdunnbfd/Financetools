@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Salary / Take-Home Pay Calculator (UK) | Tools</title>
+  <meta name="description" content="Estimate UK take-home pay after tax, NI, pension and student loan. Monthly, weekly and annual breakdown." />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/site.css" />
+  <link rel="stylesheet" href="/tools/assets/css/tools/salary-pay.css">
+  <link rel="stylesheet" href="../assets/css/header.css">
+  <script src="../assets/js/include.js" defer></script>
+  <script src="../assets/js/header.js" defer></script>
+</head>
+<body class="salary-tool">
+
+
+<div id="siteHeader"></div>
+<div data-include="../assets/partials/header.html"></div>
+
+
+  <main class="container">
+    <section class="tool">
+      <div class="tool-head">
+        <h1>Salary / Take-Home Pay Calculator (UK)</h1>
+        <p>Estimate take-home pay after Income Tax, National Insurance, pension and student loans. Guide only.</p>
+      </div>
+
+      <form id="salaryForm" class="tool-form" novalidate>
+        <div class="field-row">
+          <div class="field">
+            <label for="grossAnnual">Gross salary (annual)</label>
+            <input id="grossAnnual" type="number" inputmode="decimal" min="0" step="0.01" placeholder="e.g. 35000" required />
+          </div>
+
+          <div class="field">
+            <label for="frequency">Show results as</label>
+            <select id="frequency">
+              <option value="annual">Annual</option>
+              <option value="monthly" selected>Monthly</option>
+              <option value="weekly">Weekly</option>
+              <option value="fortnightly">Fortnightly</option>
+              <option value="fourweekly">4-weekly</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="region">Tax region</label>
+            <select id="region">
+              <option value="rUK" selected>England / Wales / Northern Ireland</option>
+              <option value="scotland">Scotland</option>
+            </select>
+          </div>
+        </div>
+
+        <details class="tool-advanced" id="advancedBox">
+          <summary>Advanced options</summary>
+
+          <div class="advanced-grid">
+            <div class="field">
+              <label for="taxCode">Tax code</label>
+              <input id="taxCode" type="text" placeholder="1257L" value="1257L" />
+              <div class="hint">Leave as 1257L for standard personal allowance (simplified).</div>
+            </div>
+
+            <div class="field">
+              <label for="otherIncome">Other taxable income (annual)</label>
+              <input id="otherIncome" type="number" inputmode="decimal" min="0" step="0.01" value="0" />
+              <div class="hint">Used for allowance taper and band placement (estimate).</div>
+            </div>
+          </div>
+
+          <fieldset class="fieldset">
+            <legend>Pension</legend>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="pensionPercent">Employee contribution (%)</label>
+                <input id="pensionPercent" type="number" inputmode="decimal" min="0" max="60" step="0.01" value="0" />
+              </div>
+
+              <div class="field">
+                <label for="pensionType">Pension treatment</label>
+                <select id="pensionType">
+                  <option value="none" selected>Ignore pension</option>
+                  <option value="after_tax">Relief at source (after tax)</option>
+                  <option value="before_tax">Net pay (before tax)</option>
+                  <option value="salary_sacrifice">Salary sacrifice (before tax + NI)</option>
+                </select>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="fieldset">
+            <legend>Student loan</legend>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="studentPlan">Plan</label>
+                <select id="studentPlan">
+                  <option value="none" selected>None</option>
+                  <option value="plan1">Plan 1</option>
+                  <option value="plan2">Plan 2</option>
+                  <option value="plan4">Plan 4</option>
+                  <option value="plan5">Plan 5</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label class="check">
+                  <input id="postgrad" type="checkbox" />
+                  Postgraduate loan
+                </label>
+              </div>
+            </div>
+          </fieldset>
+        </details>
+
+        <div class="actions">
+          <button type="submit">Calculate</button>
+          <button type="button" id="btnExample">Example (£35,000)</button>
+          <button type="button" id="btnReset">Reset</button>
+        </div>
+      </form>
+
+      <section class="tool-results" aria-label="Results">
+        <div id="resultTop" class="result-banner" role="status" aria-live="polite">
+          Enter your salary and press Calculate.
+        </div>
+
+        <div class="result-cards">
+          <div class="result-card">
+            <div class="kicker">Take-home</div>
+            <div id="takeHomeMain" class="big"></div>
+            <div id="takeHomeSub" class="sub"></div>
+          </div>
+
+          <div class="result-card">
+            <div class="kicker">Total deductions</div>
+            <div id="deductMain" class="big"></div>
+            <div id="deductSub" class="sub"></div>
+          </div>
+
+          <div class="result-card">
+            <div class="kicker">Effective rate</div>
+            <div id="effectiveMain" class="big"></div>
+            <div id="effectiveSub" class="sub"></div>
+          </div>
+        </div>
+
+        <details class="breakdown">
+          <summary>View full breakdown</summary>
+
+          <h2 class="h2">Per selected period</h2>
+          <table class="table">
+            <tbody>
+              <tr><td>Gross</td><td id="pGross"></td></tr>
+              <tr><td>Income Tax</td><td id="pTax"></td></tr>
+              <tr><td>National Insurance</td><td id="pNI"></td></tr>
+              <tr><td>Student loan</td><td id="pSL"></td></tr>
+              <tr><td>Pension</td><td id="pPen"></td></tr>
+              <tr><td><strong>Net (take-home)</strong></td><td id="pNet"><strong></strong></td></tr>
+            </tbody>
+          </table>
+
+          <h2 class="h2">Annual totals</h2>
+          <table class="table">
+            <tbody>
+              <tr><td>Gross</td><td id="aGross"></td></tr>
+              <tr><td>Income Tax</td><td id="aTax"></td></tr>
+              <tr><td>National Insurance</td><td id="aNI"></td></tr>
+              <tr><td>Student loan</td><td id="aSL"></td></tr>
+              <tr><td>Pension</td><td id="aPen"></td></tr>
+              <tr><td><strong>Net (take-home)</strong></td><td id="aNet"><strong></strong></td></tr>
+            </tbody>
+          </table>
+
+          <p class="hint">Guide only. This won’t match every payroll edge case.</p>
+        </details>
+      </section>
+    </section>
+  </main>
+
+  <script src="../assets/js/salary-pay.js" defer></script>
+</body>
+</html>
