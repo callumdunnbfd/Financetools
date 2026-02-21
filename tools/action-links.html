@@ -4,32 +4,24 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Result-Based Action Links | YOUR SITE NAME</title>
-  <meta name="description" content="How result-based action links work on YOUR SITE NAME." />
-  <link rel="stylesheet" href="/css/site.css" />
-  <link rel="stylesheet" href="/css/legal.css" />
+  <title>Result-Based Action Links | YourFinancialTools</title>
+  <meta name="description" content="How result-based action links work on YourfinancialTools" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/tools/assets/css/site.css" />
+  <link rel="stylesheet" href="/tools/assets/css/header.css">
+  <link rel="stylesheet" href="/tools/assets/css/footer.css">
+  <link rel="stylesheet" href="/tools/assets/css/tools/action-links.css" />
+
+  <script src="/tools/assets/js/include.js" defer></script>
+  <script src="/tools/assets/js/header.js" defer></script>
+  <script src="/tools/assets/js/footer.js" defer></script>
 </head>
 <body>
-
-  <header class="site-header">
-    <div class="nav-wrap">
-      <div class="nav-left">
-        <a class="logo" href="/">
-          <span class="logo-word">YOUR SITE</span>
-        </a>
-        <nav class="nav-links">
-          <a href="/">Tools</a>
-          <a href="/privacy.html">Privacy</a>
-          <a href="/affiliate-disclosure.html">Affiliate</a>
-          <a href="/disclaimer.html">Disclaimer</a>
-          <a class="active" href="/action-links.html">Action links</a>
-        </nav>
-      </div>
-      <div class="nav-right">
-        <a href="/contact.html">Contact</a>
-      </div>
-    </div>
-  </header>
+<div data-include="../assets/partials/header.html"></div>
 
   <section class="hero">
     <div class="container">
@@ -142,6 +134,6 @@
       </div>
     </div>
   </main>
-
+<div data-include="/tools/assets/partials/footer.html"></div>
 </body>
 </html>

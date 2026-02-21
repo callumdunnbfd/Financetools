@@ -1,54 +1,125 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Business Tools</title>
-<meta name="description" content="A clean hub of fast business calculators: VAT/GST + profit, percentage, markup, break-even." />
-<link rel="canonical" href="/tools/" />
-<link rel="stylesheet" href="/tools/assets/css/site.css?v=20260219-1">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MyFinanceTools</title>
+  <meta name="description" content="Practical financial calculators for debt, loans, budgeting and property. Estimate outcomes, compare scenarios, and understand the impact of your choices." />
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/tools/assets/css/site.css" />
+  <link rel="stylesheet" href="/tools/assets/css/header.css">
+  <link rel="stylesheet" href="/tools/assets/css/footer.css">
+  <link rel="stylesheet" href="/tools/assets/css/tools/home.css">
+
+  <script src="/tools/assets/js/include.js" defer></script>
+  <script src="/tools/assets/js/header.js" defer></script>
+  <script src="/tools/assets/js/footer.js" defer></script>
 </head>
 
-<body>
-<header class="site-header">
-  <div class="nav-wrap">
-    <div class="nav-left">
-      <a class="logo" href="/tools/">
-        <span class="logo-word">Toolz</span>
-      </a>
-
-      <nav class="nav-links">
-        <a href="/tools/">Home</a>
-        <a href="/tools/tools/vat-profit.html">VAT + Profit</a>
-        <a href="/tools/tools/percentage.html">Percentage</a>
-        <a href="/tools/tools/number-sum.html">Multi Sum</a>
-        <a href="/tools/tools/salary-pay.html">Salary / Pay</a>
-        <a href="/tools/tools/salary-pay-in.html">Salary / Pay India</a>
-        <a href="/tools/tools/mortgage-calculator.html">Mortgage Calculator</a>
-        <a href="/tools/tools/debt-tool.html">Debt Tools</a>
-        <a href="/tools/tools/affiliate-disclosure.html">Disclosure</a>
-        <a href="/tools/tools/disclaimer.html">Disclaimer</a>
-      </nav>
-    </div>
-
-    <div class="nav-right">
-      <a href="/tools/">All tools</a>
-    </div>
-  </div>
-</header>
-
+<body class="home-page">
+<div data-include="/tools/assets/partials/header.html"></div>
 
 <section class="hero">
-  <h1>Tools for your business.<span class="beta">BETA</span></h1>
-  <p>Quick links to calculators you’ll use day-to-day.</p>
+  <h1>Practical finance tools for everyday decisions.</h1>
+  <p>Estimate repayments, compare scenarios, and plan next steps with clear calculators for debt, loans, budgeting, and property. Results are general estimates and not personal financial advice.</p>
 </section>
 
 <main class="container">
   <div class="grid">
     <div class="card col-12">
-      <h2>Quick links</h2>
-      <p>Select a tool to start.</p>
+      <h2>Quick start</h2>
+      <p>Choose a path based on what you’re trying to do.</p>
+      <div class="small">
+        <a href="/tools/tools/credit-card-payoff.html">Pay off credit card debt</a> ·
+        <a href="/tools/tools/loan-repayment.html">Calculate loan repayments</a> ·
+        <a href="/tools/tools/mortgage-affordability.html">Check mortgage affordability</a> ·
+        <a href="/tools/tools/budget.html">Build a simple budget</a>
+      </div>
+    </div>
+
+    <div class="card col-12">
+      <h2>Trust and transparency</h2>
+      <p>These tools are designed to be simple, fast, and clear about assumptions.</p>
+      <div class="small">
+        No sign-up · General estimates (not advice) · We don’t guarantee approvals or rates · Some links may be affiliate links (disclosed)
+      </div>
+    </div>
+
+    <div class="card col-12">
+      <h2>Debt and borrowing</h2>
+      <p>Understand interest cost, repayment timelines, and the effect of changes to payments and rates.</p>
+      <div class="small">
+        <a href="/tools/tools/credit-card-payoff.html">Credit card payoff</a> ·
+        <a href="/tools/tools/debt-snowball-vs-avalanche.html">Snowball vs avalanche</a> ·
+        <a href="/tools/tools/minimum-payment-time.html">Minimum payment time</a> ·
+        <a href="/tools/tools/loan-repayment.html">Loan repayment</a> ·
+        <a href="/tools/tools/loan-interest-comparison.html">Loan interest comparison</a> ·
+        <a href="/tools/tools/debt-consolidation-savings.html">Debt consolidation savings</a>
+      </div>
+    </div>
+
+    <div class="card col-12">
+      <h2>Property</h2>
+      <p>Estimate affordability and see how rates, terms, and upfront costs can change outcomes.</p>
+      <div class="small">
+        <a href="/tools/tools/borrowing-power.html">Borrowing power</a> ·
+        <a href="/tools/tools/mortgage-affordability.html">Mortgage affordability</a> ·
+        <a href="/tools/tools/interest-rate-impact.html">Interest rate impact</a> ·
+        <a href="/tools/tools/stamp-duty.html">Stamp duty</a>
+      </div>
+    </div>
+
+    <div class="card col-12">
+      <h2>Everyday calculators</h2>
+      <p>Quick utilities for common money tasks and checks.</p>
+      <div class="small">
+        <a href="/tools/tools/budget.html">Budget calculator</a> ·
+        <a href="/tools/tools/inflation-impact.html">Inflation impact</a> ·
+        <a href="/tools/tools/salary.html">Salary tool</a> ·
+        <a href="/tools/tools/percentage.html">Percentage calculator</a> ·
+        <a href="/tools/tools/number-sum.html">Number sum calculator</a>
+      </div>
+    </div>
+
+    <div class="card col-12">
+      <h2>Business and pricing</h2>
+      <p>Fast checks for pricing decisions, VAT/GST handling, margin, and markup.</p>
+      <div class="small">
+        <a href="/tools/tools/vat-profit.html">VAT/GST + Profit</a> ·
+        <a href="/tools/tools/percentage.html">Percentage calculator</a> ·
+        <a href="/tools/tools/number-sum.html">Number sum calculator</a>
+      </div>
+    </div>
+
+    <div class="card col-12">
+      <h2>How results work</h2>
+      <p>Most calculators use standard formulas and simple assumptions based on the inputs you provide. Results are estimates to help you understand tradeoffs. Actual offers, eligibility, rates, fees, and terms are set by providers and may differ from estimates.</p>
+      <div class="small">
+        For details see <a href="/disclaimer.html">Financial Disclaimer</a> and <a href="/privacy.html">Privacy Policy</a>.
+      </div>
+    </div>
+
+    <div class="card col-12">
+      <h2>Methodology and updates</h2>
+      <p>We aim to keep calculators consistent with common financial definitions and update tools when formulas, edge cases, or presentation needs improvement.</p>
+      <div class="small">
+        Last updated dates appear on tool pages where relevant. If you spot an issue, review the assumptions on the page and cross-check with your lender/provider terms.
+      </div>
+    </div>
+
+    <div class="card col-12">
+      <h2>Site policies</h2>
+      <p>We prioritise transparency around data use and monetisation.</p>
+      <div class="small">
+        <a href="/privacy.html">Privacy Policy</a> ·
+        <a href="/disclaimer.html">Financial Disclaimer</a> ·
+        <a href="/affiliate-disclosure.html">Affiliate Disclosure</a> ·
+        <a href="/action-links.html">Result-Based Action Links</a>
+      </div>
     </div>
 
     <div class="card col-6">
@@ -68,34 +139,9 @@
       <p>Paste a list of numbers and instantly calculate the total.</p>
       <div class="small">Totals, invoices, quick checks</div>
     </div>
-
   </div>
 </main>
-<footer class="site-footer">
-  <div class="footer-inner">
 
-    <div class="footer-brand">
-      <a class="logo" href="/tools/">
-        <span class="logo-word">Toolz</span>
-      </a>
-      <p class="footer-tag">Simple web utilities.</p>
-    </div>
-
-    <nav class="footer-links">
-      <a href="/tools/">Home</a>
-      <a href="/tools/tools/number-sum.html">Number Sum</a>
-      <a href="/tools/tools/percentage.html">Percentage</a>
-      <a href="/tools/tools/vat-profit.html">VAT + Profit</a>
-      <a href="/tools/about.html">About</a>
-      <a href="/tools/contact.html">Contact</a>
-      <a href="/tools/privacy.html">Privacy</a>
-      <a href="/tools/terms.html">Terms</a>
-      <a href="/tools/changelog.html">Changelog</a>
-      <a href="/tools/sitemap.html">Sitemap</a>
-    </nav>
-
-  </div>
-</footer>
-
+<div data-include="/tools/assets/partials/footer.html"></div>
 </body>
 </html>
