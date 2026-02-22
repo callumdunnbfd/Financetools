@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Cookie Consent Demo</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+      (function () {
+        try {
+          var raw = localStorage.getItem("cc_consent_v1");
+          if (!raw) return;
+          var rec = JSON.parse(raw);
+          if (!rec || !rec.choices || !rec.region) return;
+          var exp = Number(rec.expiresAt || 0);
+          if (!exp || Date.now() > exp) return;
+          window.__cc = window.__cc || {};
+          window.__cc.preconsent = { region: rec.region, choices: rec.choices, gpc: !!rec.gpc, updatedAt: rec.updatedAt || null, expiresAt: rec.expiresAt || null };
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <h1 class="site-title">Commercial Website</h1>
+        <p class="site-subtitle">Demo page for a production-ready cookie consent system</p>
+      </div>
+    </header>
+
+    <main class="container content">
+      <section class="card">
+        <h2>Page content</h2>
+        <p>This page includes example scripts that are blocked by default and only run after valid consent, depending on region rules and your preferences.</p>
+        <p>Use the persistent Cookie settings control in the footer at any time to review or withdraw consent.</p>
+      </section>
+
+      <section class="card">
+        <h2>Consent-gated examples</h2>
+        <p class="muted">These scripts are embedded as blocked tags and will only execute if allowed.</p>
+
+        <div class="grid">
+          <div class="example">
+            <h3>Functional</h3>
+            <p class="muted">Example: preference storage for non-essential site features.</p>
+            <div id="functional-status" class="status">Not run</div>
+          </div>
+          <div class="example">
+            <h3>Analytics</h3>
+            <p class="muted">Example: page measurement script.</p>
+            <div id="analytics-status" class="status">Not run</div>
+          </div>
+          <div class="example">
+            <h3>Marketing</h3>
+            <p class="muted">Example: targeted advertising / tracking.</p>
+            <div id="marketing-status" class="status">Not run</div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <nav class="footer-nav" aria-label="Footer">
+          <a href="/privacy-policy">Privacy policy</a>
+          <a href="/cookie-policy">Cookie policy</a>
+          <button type="button" class="linklike" id="cc-open-settings">Cookie settings</button>
+        </nav>
+        <div class="footer-meta" id="cc-footer-meta" aria-live="polite"></div>
+      </div>
+    </footer>
+
+    <div class="cc-backdrop" id="cc-backdrop" hidden></div>
+
+    <div
+      class="cc-modal"
+      id="cc-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="cc-title"
+      aria-describedby="cc-desc"
+      hidden
+    >
+      <div class="cc-modal-inner" role="document">
+        <div class="cc-header">
+          <h2 id="cc-title">Your privacy choices</h2>
+          <div class="cc-badges">
+            <span class="badge" id="cc-region-badge" aria-live="polite"></span>
+            <span class="badge badge-warn" id="cc-gpc-badge" hidden>Global Privacy Control detected</span>
+          </div>
+        </div>
+
+        <div class="cc-body">
+          <p id="cc-desc" class="cc-desc">
+            We use cookies and similar technologies. Strictly necessary cookies are required for the site to function and cannot be switched off. Optional categories may include third-party partners. You can accept all, reject all, or customize your choices.
+          </p>
+
+          <div class="cc-links">
+            <a href="/privacy-policy">Privacy policy</a>
+            <a href="/cookie-policy">Cookie policy</a>
+          </div>
+
+          <div class="cc-panel" id="cc-first-panel">
+            <div class="cc-actions-row">
+              <button type="button" id="cc-reject" class="btn btn-secondary" onclick="alert('reject click fired')">Reject all</button>
+              <button type="button" class="btn btn-secondary" id="cc-customize">Customize</button>
+              <button type="button" id="cc-accept" class="btn btn-primary" onclick="alert('accept click fired')">Accept all</button>
+            </div>
+
+            <div class="cc-smallprint" id="cc-smallprint"></div>
+
+            <div class="cc-us-row" id="cc-us-row" hidden>
+              <div class="cc-us-title">US privacy options</div>
+              <div class="cc-us-desc">
+                You may opt out of the sale or sharing of personal information and targeted advertising. If Global Privacy Control is enabled in your browser, we will treat it as an opt-out where applicable.
+              </div>
+              <button type="button" class="btn btn-tertiary" id="cc-dnss">Do Not Sell or Share My Personal Information</button>
+            </div>
+          </div>
+
+          <div class="cc-panel" id="cc-custom-panel" hidden>
+            <form id="cc-form">
+              <fieldset class="cc-fieldset">
+                <legend class="cc-legend">Cookie categories</legend>
+
+                <div class="cc-row">
+                  <div class="cc-row-main">
+                    <div class="cc-row-title">Strictly necessary</div>
+                    <div class="cc-row-desc">Required for core site functions such as security, network management, and accessibility. Always active.</div>
+                  </div>
+                  <div class="cc-row-control">
+                    <span class="pill" aria-hidden="true">Always on</span>
+                    <input type="hidden" name="necessary" value="true">
+                  </div>
+                </div>
+
+                <div class="cc-row">
+                  <div class="cc-row-main">
+                    <label class="cc-row-title" for="cc-functional">Functional</label>
+                    <div class="cc-row-desc">Helps with enhanced features and personalization, such as remembering settings. May include third-party services if enabled.</div>
+                  </div>
+                  <div class="cc-row-control">
+                    <label class="switch">
+                      <input id="cc-functional" name="functional" type="checkbox">
+                      <span class="switch-ui" aria-hidden="true"></span>
+                      <span class="sr-only">Toggle functional cookies</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="cc-row">
+                  <div class="cc-row-main">
+                    <label class="cc-row-title" for="cc-analytics">Analytics</label>
+                    <div class="cc-row-desc">Helps us understand site usage and improve performance. May involve third-party analytics providers.</div>
+                  </div>
+                  <div class="cc-row-control">
+                    <label class="switch">
+                      <input id="cc-analytics" name="analytics" type="checkbox">
+                      <span class="switch-ui" aria-hidden="true"></span>
+                      <span class="sr-only">Toggle analytics cookies</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="cc-row">
+                  <div class="cc-row-main">
+                    <label class="cc-row-title" for="cc-marketing">Marketing</label>
+                    <div class="cc-row-desc">Used for advertising, measurement, and personalization across sites. Typically involves third-party partners and may be considered sale/sharing in some jurisdictions.</div>
+                  </div>
+                  <div class="cc-row-control">
+                    <label class="switch">
+                      <input id="cc-marketing" name="marketing" type="checkbox">
+                      <span class="switch-ui" aria-hidden="true"></span>
+                      <span class="sr-only">Toggle marketing cookies</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="cc-row cc-region-row">
+                  <div class="cc-row-main">
+                    <label class="cc-row-title" for="cc-region-select">Region behavior</label>
+                    <div class="cc-row-desc">This controls default consent behavior. Auto uses a best-effort locale and timezone heuristic and can be overridden here.</div>
+                  </div>
+                  <div class="cc-row-control">
+                    <select id="cc-region-select" name="regionSelect" class="select">
+                      <option value="auto">Auto</option>
+                      <option value="eu">EU</option>
+                      <option value="uk">UK</option>
+                      <option value="us">US</option>
+                      <option value="row">Rest of world</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="cc-row cc-us-optout-row" id="cc-us-optout-row" hidden>
+                  <div class="cc-row-main">
+                    <label class="cc-row-title" for="cc-sale">Do Not Sell or Share</label>
+                    <div class="cc-row-desc">Opt out of sale/sharing of personal information and limit targeted advertising where applicable.</div>
+                  </div>
+                  <div class="cc-row-control">
+                    <label class="switch">
+                      <input id="cc-sale" name="sale" type="checkbox">
+                      <span class="switch-ui" aria-hidden="true"></span>
+                      <span class="sr-only">Toggle do not sell or share</span>
+                    </label>
+                  </div>
+                </div>
+              </fieldset>
+
+              <div class="cc-actions-row">
+                <button type="button" class="btn btn-secondary" id="cc-back">Back</button>
+                <button type="button" class="btn btn-secondary" id="cc-reject-2">Reject all</button>
+                <button type="submit" class="btn btn-primary" id="cc-save">Save preferences</button>
+              </div>
+
+              <div class="cc-smallprint" id="cc-smallprint-2"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/plain" data-cookiecategory="functional">
+      (function () {
+        var el = document.getElementById("functional-status");
+        if (el) el.textContent = "Ran functional script at " + new Date().toLocaleString();
+        window.__functionalExample = { enabled: true, at: Date.now() };
+      })();
+    </script>
+
+    <script type="text/plain" data-cookiecategory="analytics">
+      (function () {
+        var el = document.getElementById("analytics-status");
+        if (el) el.textContent = "Ran analytics script at " + new Date().toLocaleString();
+        window.__analyticsExample = { pageView: 1, at: Date.now() };
+      })();
+    </script>
+
+    <script type="text/plain" data-cookiecategory="marketing">
+      (function () {
+        var el = document.getElementById("marketing-status");
+        if (el) el.textContent = "Ran marketing script at " + new Date().toLocaleString();
+        window.__marketingExample = { enabled: true, at: Date.now() };
+      })();
+    </script>
+
+    <script src="consent.js" defer></script>
+  </body>
+</html>

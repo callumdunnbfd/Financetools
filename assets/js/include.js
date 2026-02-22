@@ -15,3 +15,23 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   }
 });
+
+(function(){
+  function loadOnce(src){
+    var exists = Array.prototype.slice.call(document.scripts).some(function(s){ return (s.src || "").indexOf(src) !== -1; });
+    if(exists) return;
+    var s = document.createElement("script");
+    s.src = src;
+    document.body.appendChild(s);
+  }
+
+  function afterIncludes(){
+    loadOnce("/tools/assets/js/consent.js");
+  }
+
+  if(document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", afterIncludes);
+  }else{
+    afterIncludes();
+  }
+})();

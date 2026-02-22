@@ -1,3 +1,29 @@
+<head>
+<link rel="stylesheet" href="/tools/assets/css/cookie.css">
+<script>
+(function(){
+  try{
+    var raw = localStorage.getItem("cc_consent_v1");
+    if(!raw) return;
+    var rec = JSON.parse(raw);
+    if(!rec || !rec.choices || !rec.region) return;
+    var exp = Number(rec.expiresAt || 0);
+    if(!exp || Date.now() > exp) return;
+    window.__cc = window.__cc || {};
+    window.__cc.preconsent = {
+      region: rec.region,
+      choices: rec.choices,
+      gpc: !!rec.gpc,
+      updatedAt: rec.updatedAt || null,
+      expiresAt: rec.expiresAt || null
+    };
+  }catch(e){}
+})();
+</script>
+
+
+
+</head>
 <header class="site-header mega-header">
   <div class="mega-nav">
     <div class="mega-left">

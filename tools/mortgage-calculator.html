@@ -20,20 +20,15 @@
   <script src="/tools/assets/js/header.js" defer></script>
   <script src="/tools/assets/js/footer.js" defer></script>
 </head>
-<body>
+<body class="mortgage-tool">
 <div data-include="../assets/partials/header.html"></div>
-
-    <div class="nav-right">
-      <a href="/tools/">All tools</a>
-    </div>
-  </div>
 </header>
 
 <div class="main-container">
   <section class="hero hero-intro">
     <div class="hero-inner">
       <div class="hero-copy">
-        <div class="eyebrow">UK Mortgage tools</div>
+        <div class="eyebrow"></div>
         <h1>Mortgage Payment Calculator (UK)</h1>
         <p>Estimate monthly repayments, interest and fees. Adjust deposit, fixed period, overpayments and view a full schedule.</p>
       </div>
@@ -58,132 +53,15 @@
     <div class="page-shell">
       <div class="calculator-card" aria-label="Mortgage calculator">
         <div class="grid mortgage-grid">
-          <div class="card col-12 supporting-content-section" id="instantExamples" aria-label="Instant examples">
-            <div class="card-header">
-              <h2>Instant examples</h2>
-              <p class="small">Pick a scenario to prefill typical UK mortgage inputs. Monthly payment is shown as a placeholder until calculated.</p>
-            </div>
-
-            <div class="kpi kpi-examples" role="list" aria-label="Example scenarios">
-              <div class="box" role="listitem">
-                <div class="k">£200,000 • 25 years • 5.0% APR</div>
-                <div class="v" data-example-payment>—</div>
-                <button type="button" class="primary" data-example
-                  data-currency="GBP"
-                  data-property-price="200000"
-                  data-term-years="25"
-                  data-deposit-mode="percent"
-                  data-deposit-value="10"
-                  data-intro-rate="5.0"
-                  data-intro-years="0"
-                  data-follow-rate="5.0">
-                  Use example
-                </button>
-              </div>
-
-              <div class="box" role="listitem">
-                <div class="k">£300,000 • 30 years • 4.5% APR</div>
-                <div class="v" data-example-payment>—</div>
-                <button type="button" class="primary" data-example
-                  data-currency="GBP"
-                  data-property-price="300000"
-                  data-term-years="30"
-                  data-deposit-mode="percent"
-                  data-deposit-value="10"
-                  data-intro-rate="4.5"
-                  data-intro-years="0"
-                  data-follow-rate="4.5">
-                  Use example
-                </button>
-              </div>
-
-
-
-              <div class="box" role="listitem">
-                <div class="k">£350,000 • 25 years • 5.2% APR</div>
-                <div class="v" data-example-payment>—</div>
-                <button type="button" class="primary" data-example
-                  data-currency="GBP"
-                  data-property-price="350000"
-                  data-term-years="25"
-                  data-deposit-mode="percent"
-                  data-deposit-value="15"
-                  data-intro-rate="5.2"
-                  data-intro-years="0"
-                  data-follow-rate="5.2">
-                  Use example
-                </button>
-              </div>
-
-
-
-              <div class="box" role="listitem">
-                <div class="k">£250,000 • 25 years • 4.4% fixed 2y → 6.0%</div>
-                <div class="v" data-example-payment>—</div>
-                <button type="button" class="primary" data-example
-                  data-currency="GBP"
-                  data-property-price="250000"
-                  data-term-years="25"
-                  data-deposit-mode="percent"
-                  data-deposit-value="10"
-                  data-intro-rate="4.4"
-                  data-intro-years="2"
-                  data-follow-rate="6.0"
-                  data-arrangement-fee="999"
-                  data-fee-mode="addToLoan">
-                  Use example
-                </button>
-              </div>
-
-
-
-              <div class="box" role="listitem">
-                <div class="k">£400,000 • 30 years • 5.1% APR + £200 overpay</div>
-                <div class="v" data-example-payment>—</div>
-                <button type="button" class="primary" data-example
-                  data-currency="GBP"
-                  data-property-price="400000"
-                  data-term-years="30"
-                  data-deposit-mode="percent"
-                  data-deposit-value="10"
-                  data-intro-rate="5.1"
-                  data-intro-years="0"
-                  data-follow-rate="5.1"
-                  data-monthly-overpay="200"
-                  data-overpay-start-month="1">
-                  Use example
-                </button>
-              </div>
-
-
-              <div class="box" role="listitem">
-                <div class="k">£180,000 • 20 years • 4.9% APR</div>
-                <div class="v" data-example-payment>—</div>
-                <button type="button" class="primary" data-example
-                  data-currency="GBP"
-                  data-property-price="180000"
-                  data-term-years="20"
-                  data-deposit-mode="percent"
-                  data-deposit-value="5"
-                  data-intro-rate="4.9"
-                  data-intro-years="0"
-                  data-follow-rate="4.9">
-                  Use example
-                </button>
-              </div>
-            </div>
-          </div>
-
+        
           <div class="card col-6" id="calculatorInputs" aria-label="Mortgage calculator inputs">
             <div class="card-header">
               <h2>Calculator</h2>
-              <p class="small">Enter your numbers, then press Calculate to see monthly payments and totals.</p>
+              <p class="small">Enter your details and select Calculate to view estimated monthly repayments and overall costs.</p>
             </div>
 
             <form id="mortgageForm" novalidate aria-describedby="mortgageStatus mortgageError">
-              <div id="mortgageStatus" class="small" role="status" aria-live="polite">
-                Enter details to estimate repayments. Results will update after you press Calculate.
-              </div>
+              
 
               <div id="mortgageError" class="error" role="status" aria-live="polite" aria-atomic="true"></div>
 
@@ -245,31 +123,46 @@
                 <div class="row">
                   <div class="field">
                     <label for="propertyPrice">Property price</label>
-                    <input id="propertyPrice" name="propertyPrice" inputmode="decimal" placeholder="e.g. 300000" />
+                    <div class="input-split" data-split="currency">
+                      <span class="split-addon" aria-hidden="true">£</span>
+                      <input id="propertyPrice" name="propertyPrice" inputmode="decimal" placeholder="e.g. 300,000" />
+                    </div>
                     <div class="helper">Total purchase price of the property.</div>
                   </div>
 
                   <div class="field">
-                    <label for="termYears">Term (years)</label>
-                    <input id="termYears" name="termYears" inputmode="numeric" placeholder="e.g. 25" />
+                    <label for="termYears">Term</label>
+                    <div class="input-split">
+                      <input id="termYears" name="termYears" inputmode="numeric" placeholder="e.g. 25" />
+                      <span class="split-addon split-addon-right" aria-hidden="true">years</span>
+                    </div>
                     <div class="helper">Length of the mortgage.</div>
                   </div>
 
                 </div>
 
                 <div class="row">
-                  <div class="field">
-                    <label for="depositMode">Deposit type</label>
-                    <select id="depositMode" name="depositMode">
-                      <option value="amount">Deposit amount</option>
-                      <option value="percent">Deposit percent</option>
-                    </select>
+                  <div class="field field-selectlike">
+                    <label for="depositModeBtn">Deposit type</label>
+
+                    <input type="hidden" id="depositMode" name="depositMode" value="percent">
+
+                    <button type="button" class="selectlike" id="depositModeBtn" aria-haspopup="listbox" aria-expanded="false">
+                      <span class="selectlike-value" id="depositModeLabel">Amount</span>
+                      <span class="selectlike-caret" aria-hidden="true"></span>
+                    </button>
+
+                    <div class="selectlike-menu" id="depositModeMenu" role="listbox" aria-labelledby="depositModeBtn" hidden>
+                      <button type="button" class="selectlike-option" role="option" data-value="percent" aria-selected="false">Percent</button>
+                      <button type="button" class="selectlike-option" role="option" data-value="amount" aria-selected="true">Amount</button>
+                    </div>
+
                     <div class="helper">Choose amount or %.</div>
                   </div>
 
                   <div class="field">
                     <label for="depositValue">Deposit</label>
-                    <input id="depositValue" name="depositValue" inputmode="decimal" placeholder="e.g. 10 or 30000" />
+                    <input id="depositValue" name="depositValue" inputmode="decimal" placeholder="e.g. 10,000 or 30,000" />
                     <div class="small" id="depositHint">Choose deposit type above.</div>
                   </div>
                 </div>
@@ -278,7 +171,7 @@
                 <div class="row">
                   <div class="field">
                     <label for="loanAmount">Loan amount (auto)</label>
-                    <input id="loanAmount" name="loanAmount" inputmode="decimal" placeholder="e.g. 270000" />
+                    <input id="loanAmount" name="loanAmount" inputmode="decimal" placeholder="e.g. 270,000" />
                     <div class="helper">Auto-calculated from price and deposit; you can override.</div>
                   </div>
 
@@ -298,8 +191,11 @@
                 <div class="form-grid">
                   <div class="row">
                     <div class="field">
-                      <label for="introRate">Intro / fixed rate (APR %)</label>
-                      <input id="introRate" name="introRate" inputmode="decimal" placeholder="e.g. 4.89" />
+                      <label for="introRate">Intro / fixed rate</label>
+                      <div class="input-split">
+                        <input id="introRate" name="introRate" inputmode="decimal" placeholder="e.g. 4.89" />
+                        <span class="split-addon split-addon-right" aria-hidden="true">%</span>
+                      </div>
                       <div class="helper">If you don’t have an intro rate, use your standard APR.</div>
                     </div>
 
@@ -314,8 +210,11 @@
 
                   <div class="row">
                     <div class="field">
-                      <label for="followRate">Follow-on rate (APR %)</label>
-                      <input id="followRate" name="followRate" inputmode="decimal" placeholder="e.g. 6.25" />
+                      <label for="followRate">Follow-on rate</label>
+                      <div class="input-split">
+                        <input id="followRate" name="followRate" inputmode="decimal" placeholder="e.g. 6.25" />
+                        <span class="split-addon split-addon-right" aria-hidden="true">%</span>
+                      </div>
                       <div class="helper">Used after the intro period ends.</div>
                     </div>
 
@@ -393,7 +292,6 @@
               <div class="actions" aria-label="Calculator actions">
                 <button class="primary" type="submit" id="calculateBtn">Calculate</button>
                 <button type="button" id="resetBtn">Reset</button>
-                <button type="button" id="copyLinkBtn">Copy page link</button>
               </div>
 
               <div class="error" id="formError"></div>
@@ -406,10 +304,6 @@
           <div class="card col-6 results-panel" id="resultsPanel" aria-label="Mortgage calculator results">
             <div class="card-header">
               <h2>Results</h2>
-              <div class="small" id="trustNotes">
-                <span>Updated for 2026.</span>
-                <span>Estimates only; check with your lender.</span>
-              </div>
             </div>
 
 

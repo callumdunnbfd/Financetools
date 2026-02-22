@@ -28,7 +28,6 @@
   const lumpSumMonthEl = document.getElementById('lumpSumMonth');
 
   const resetBtn = document.getElementById('resetBtn');
-  const copyLinkBtn = document.getElementById('copyLinkBtn');
 
   const errEl = document.getElementById('formError');
 
@@ -48,6 +47,14 @@
   const downloadCsvBtn = document.getElementById('downloadCsvBtn');
 
   let lastResult = null;
+
+  function hideResultsPanel() {
+    document.body.classList.remove('has-results');
+  }
+
+  function showResultsPanel() {
+    document.body.classList.add('has-results');
+  }
 
   function parseNumber(value) {
     if (typeof value !== 'string') return NaN;
@@ -408,11 +415,18 @@
     return buildAmortisation(baselineInput);
   }
 
-  function updateDepositHint() {
-    depositHintEl.textContent = depositModeEl.value === 'percent'
-      ? 'Enter a percentage (e.g. 10 for 10%).'
-      : 'Enter an amount (e.g. 30000).';
+ function updateDepositHint() {
+  const mode = (depositModeEl && depositModeEl.value) ? depositModeEl.value : 'amount';
+
+  if (mode === 'percent') {
+    depositValueEl.placeholder = 'e.g. 10';
+    depositHintEl.textContent = 'Enter a percentage (e.g. 10%).';
+    return;
   }
+
+  depositValueEl.placeholder = 'e.g. 10,000 or 30,000';
+  depositHintEl.textContent = 'Enter an amount (e.g. 30,000).';
+}
 
   function autoUpdateLoanIfPossible() {
     const propertyPrice = parseNumber(propertyPriceEl.value);
@@ -619,6 +633,7 @@
 
     lastResult = { input, result };
     saveToLocalStorage(input);
+    showResultsPanel();
   }
 
   form.addEventListener('submit', function (e) {
@@ -629,6 +644,7 @@
   resetBtn.addEventListener('click', function () {
     setError('');
     clearResults();
+    hideResultsPanel();
 
     try {
       localStorage.removeItem('toolz_mortgage_inputs');
@@ -679,25 +695,6 @@
     if (statusEl) statusEl.textContent = 'Form cleared.';
   });
 
-  copyLinkBtn.addEventListener('click', async function () {
-    setError('');
-    const input = getInputsFromForm();
-    const err = validateInputs(Object.assign({}, input, { followRate: input.followRate || 0 }));
-    if (err) {
-      setError('Fill in the key fields (loan, term, rates), then copy the link.');
-      return;
-    }
-
-    const shareUrl = buildShareUrl(input);
-    try {
-      await navigator.clipboard.writeText(shareUrl);
-      setError('Link copied.');
-      setTimeout(() => setError(''), 1200);
-    } catch (e) {
-      setError('Could not copy automatically. Copy from the address bar instead.');
-      history.replaceState(null, '', shareUrl);
-    }
-  });
 
   if (toggleScheduleBtn && scheduleWrap) {
     toggleScheduleBtn.addEventListener('click', function () {
@@ -815,143 +812,193 @@
     });
   }
 
-function initExamplesDropdown() {
-  const card = document.getElementById('instantExamples');
-  if (!card) return;
+  function initExamplesDropdown() {
+    const card = document.getElementById('instantExamples');
+    if (!card) return;
 
-  const header = card.querySelector(':scope > .card-header');
-  if (!header) return;
+    const header = card.querySelector(':scope > .card-header');
+    if (!header) return;
 
-  const content = card.querySelector(':scope > .kpi');
-  if (!content) return;
+    const content = card.querySelector(':scope > .kpi');
+    if (!content) return;
 
-  const duration = 260;
+    const duration = 260;
 
-  header.setAttribute('role', 'button');
-  header.setAttribute('tabindex', '0');
-  header.setAttribute('aria-expanded', 'false');
+    header.setAttribute('role', 'button');
+    header.setAttribute('tabindex', '0');
+    header.setAttribute('aria-expanded', 'false');
 
-  const cs = window.getComputedStyle(content);
-  const padTop = cs.paddingTop;
-  const padBottom = cs.paddingBottom;
+    const cs = window.getComputedStyle(content);
+    const padTop = cs.paddingTop;
+    const padBottom = cs.paddingBottom;
 
-  let open = false;
-  let animating = false;
+    let open = false;
+    let animating = false;
 
-  content.style.overflow = 'hidden';
-  content.style.height = '0px';
-  content.style.opacity = '0';
-  content.style.transform = 'translateY(-6px)';
-  content.style.paddingTop = '0px';
-  content.style.paddingBottom = '0px';
-  content.style.willChange = 'height, opacity, transform, padding';
-
-  function setExpanded(v) {
-    header.setAttribute('aria-expanded', v ? 'true' : 'false');
-  }
-
-  function openPanel() {
-    if (animating || open) return;
-    animating = true;
-    open = true;
-
-    card.classList.add('open');
-    setExpanded(true);
-
-    content.style.transition = 'none';
+    content.style.overflow = 'hidden';
     content.style.height = '0px';
     content.style.opacity = '0';
     content.style.transform = 'translateY(-6px)';
     content.style.paddingTop = '0px';
     content.style.paddingBottom = '0px';
+    content.style.willChange = 'height, opacity, transform, padding';
 
-    requestAnimationFrame(() => {
-      const target = content.scrollHeight;
+    function setExpanded(v) {
+      header.setAttribute('aria-expanded', v ? 'true' : 'false');
+    }
 
-      content.style.transition =
-        `height ${duration}ms ease, opacity 170ms ease, transform 170ms ease, padding-top ${duration}ms ease, padding-bottom ${duration}ms ease`;
+    function openPanel() {
+      if (animating || open) return;
+      animating = true;
+      open = true;
 
-      content.style.height = target + 'px';
-      content.style.opacity = '1';
-      content.style.transform = 'translateY(0)';
-      content.style.paddingTop = padTop;
-      content.style.paddingBottom = padBottom;
+      card.classList.add('open');
+      setExpanded(true);
 
-      const done = () => {
-        content.removeEventListener('transitionend', onEnd);
-        content.style.height = 'auto';
-        animating = false;
-      };
-
-      const onEnd = (e) => {
-        if (e.propertyName === 'height') done();
-      };
-
-      content.addEventListener('transitionend', onEnd);
-      setTimeout(done, duration + 120);
-    });
-  }
-
-  function closePanel() {
-    if (animating || !open) return;
-    animating = true;
-    open = false;
-
-    setExpanded(false);
-
-    const currentH = content.getBoundingClientRect().height || content.scrollHeight;
-
-    content.style.transition = 'none';
-    content.style.height = currentH + 'px';
-    content.style.opacity = '1';
-    content.style.transform = 'translateY(0)';
-    content.style.paddingTop = padTop;
-    content.style.paddingBottom = padBottom;
-
-    requestAnimationFrame(() => {
-      content.style.transition =
-        `height ${duration}ms ease, opacity 120ms ease, transform 120ms ease, padding-top ${duration}ms ease, padding-bottom ${duration}ms ease`;
-
+      content.style.transition = 'none';
       content.style.height = '0px';
       content.style.opacity = '0';
       content.style.transform = 'translateY(-6px)';
       content.style.paddingTop = '0px';
       content.style.paddingBottom = '0px';
 
-      const done = () => {
-        content.removeEventListener('transitionend', onEnd);
-        card.classList.remove('open');
-        animating = false;
-      };
+      requestAnimationFrame(() => {
+        const target = content.scrollHeight;
 
-      const onEnd = (e) => {
-        if (e.propertyName === 'height') done();
-      };
+        content.style.transition =
+          `height ${duration}ms ease, opacity 170ms ease, transform 170ms ease, padding-top ${duration}ms ease, padding-bottom ${duration}ms ease`;
 
-      content.addEventListener('transitionend', onEnd);
-      setTimeout(done, duration + 120);
-    });
-  }
+        content.style.height = target + 'px';
+        content.style.opacity = '1';
+        content.style.transform = 'translateY(0)';
+        content.style.paddingTop = padTop;
+        content.style.paddingBottom = padBottom;
 
-  function toggle() {
-    if (open) closePanel();
-    else openPanel();
-  }
+        const done = () => {
+          content.removeEventListener('transitionend', onEnd);
+          content.style.height = 'auto';
+          animating = false;
+        };
 
-  header.addEventListener('click', toggle);
+        const onEnd = (e) => {
+          if (e.propertyName === 'height') done();
+        };
 
-  header.addEventListener('keydown', function (e) {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      toggle();
+        content.addEventListener('transitionend', onEnd);
+        setTimeout(done, duration + 120);
+      });
     }
+
+    function closePanel() {
+      if (animating || !open) return;
+      animating = true;
+      open = false;
+
+      setExpanded(false);
+
+      const currentH = content.getBoundingClientRect().height || content.scrollHeight;
+
+      content.style.transition = 'none';
+      content.style.height = currentH + 'px';
+      content.style.opacity = '1';
+      content.style.transform = 'translateY(0)';
+      content.style.paddingTop = padTop;
+      content.style.paddingBottom = padBottom;
+
+      requestAnimationFrame(() => {
+        content.style.transition =
+          `height ${duration}ms ease, opacity 120ms ease, transform 120ms ease, padding-top ${duration}ms ease, padding-bottom ${duration}ms ease`;
+
+        content.style.height = '0px';
+        content.style.opacity = '0';
+        content.style.transform = 'translateY(-6px)';
+        content.style.paddingTop = '0px';
+        content.style.paddingBottom = '0px';
+
+        const done = () => {
+          content.removeEventListener('transitionend', onEnd);
+          card.classList.remove('open');
+          animating = false;
+        };
+
+        const onEnd = (e) => {
+          if (e.propertyName === 'height') done();
+        };
+
+        content.addEventListener('transitionend', onEnd);
+        setTimeout(done, duration + 120);
+      });
+    }
+
+    function toggle() {
+      if (open) closePanel();
+      else openPanel();
+    }
+
+    header.addEventListener('click', toggle);
+
+    header.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggle();
+      }
+    });
+
+    card.classList.remove('open');
+    setExpanded(false);
+  }
+  initDefaults();
+
+(function () {
+  const btn = document.getElementById('depositModeBtn');
+  const menu = document.getElementById('depositModeMenu');
+  const hidden = document.getElementById('depositMode');
+  const label = document.getElementById('depositModeLabel');
+
+  if (!btn || !menu || !hidden || !label) return;
+
+  function setOpen(open) {
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    menu.hidden = !open;
+  }
+
+  function close() {
+    setOpen(false);
+  }
+
+  btn.addEventListener('click', function () {
+    const isOpen = btn.getAttribute('aria-expanded') === 'true';
+    setOpen(!isOpen);
   });
 
-  card.classList.remove('open');
-  setExpanded(false);
-}
+  menu.addEventListener('click', function (e) {
+    const opt = e.target.closest('.selectlike-option');
+    if (!opt) return;
 
-  initInstantExamples();
-  initExamplesDropdown();
-  initDefaults();
+    const value = opt.getAttribute('data-value');
+    hidden.value = value;
+    label.textContent = opt.textContent || '';
+
+    menu.querySelectorAll('.selectlike-option').forEach(function (b) {
+      b.setAttribute('aria-selected', b === opt ? 'true' : 'false');
+    });
+
+    close();
+
+    hidden.dispatchEvent(new Event('change', { bubbles: true }));
+  });
+
+  document.addEventListener('click', function (e) {
+    if (btn.contains(e.target)) return;
+    if (menu.contains(e.target)) return;
+    close();
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') close();
+  });
+})();
+
+
+
 })();

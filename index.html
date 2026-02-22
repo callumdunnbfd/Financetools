@@ -18,7 +18,6 @@
   <script src="/tools/assets/js/include.js" defer></script>
   <script src="/tools/assets/js/header.js" defer></script>
   <script src="/tools/assets/js/footer.js" defer></script>
-</head>
 
 <script>
 document.addEventListener("DOMContentLoaded", function(){
@@ -127,7 +126,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
 });
 </script>
-
+</head>
 
 
 
@@ -198,7 +197,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
 <section class="info-split col-12" aria-labelledby="how-results-work">
   <a class="info-media" href="#" aria-label="How results work image">
-    <img src="/assets/imagesfinance-calculator-illustration.png" alt="" loading="lazy">
+    <img src="" alt="" loading="lazy">
   </a>
   <div class="info-body">
     <h2 id="how-results-work">How results work</h2>
@@ -211,7 +210,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
 <section class="info-split col-12" aria-labelledby="methodology-updates">
   <a class="info-media" href="#" aria-label="Methodology and updates image">
-<img src="/assets/images/finance-calculator-illustration.png" alt="Budget calculation illustration" loading="lazy">
+<img src="" alt="Budget calculation illustration" loading="lazy">
   </a>
   <div class="info-body">
     <h2 id="methodology-updates">Methodology and updates</h2>
@@ -226,5 +225,172 @@ document.addEventListener("DOMContentLoaded", function(){
 </main>
 
 <div data-include="/tools/assets/partials/footer.html"></div>
+
+<div id="cc-backdrop" class="cc-backdrop" hidden></div>
+
+<div
+  id="cc-modal"
+  class="cc-modal"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="cc-title"
+  aria-describedby="cc-desc"
+  hidden
+>
+  <div class="cc-modal-inner" role="document">
+
+    <div class="cc-header">
+      <h2 id="cc-title">Your privacy choices</h2>
+      <div class="cc-badges">
+        <span class="badge" id="cc-region-badge" aria-live="polite"></span>
+        <span class="badge badge-warn" id="cc-gpc-badge" hidden>
+          Global Privacy Control detected
+        </span>
+      </div>
+    </div>
+
+    <div class="cc-body">
+      <p id="cc-desc" class="cc-desc">
+        We use cookies and similar technologies. Strictly necessary cookies are required for the site to function and cannot be switched off. Optional categories may include third-party partners. You can accept all, reject all, or customize your choices.
+      </p>
+
+      <div class="cc-links">
+        <a href="/tools/tools/privacy.html">Privacy policy</a>
+        <a href="/tools/tools/cookie-consent.html">Cookie policy</a>
+      </div>
+
+      <div class="cc-panel" id="cc-first-panel">
+        <div class="cc-actions-row">
+          <button type="button" id="cc-reject" class="btn btn-secondary">Reject all</button>
+          <button type="button" id="cc-customize" class="btn btn-secondary">Customize</button>
+          <button type="button" id="cc-accept" class="btn btn-primary">Accept all</button>
+        </div>
+
+        <div class="cc-smallprint" id="cc-smallprint"></div>
+
+        <div class="cc-us-row" id="cc-us-row" hidden>
+          <div class="cc-us-title">US privacy options</div>
+          <div class="cc-us-desc">
+            You may opt out of the sale or sharing of personal information and targeted advertising. If Global Privacy Control is enabled in your browser, we will treat it as an opt-out where applicable.
+          </div>
+          <button type="button" id="cc-dnss" class="btn btn-tertiary">
+            Do Not Sell or Share My Personal Information
+          </button>
+        </div>
+      </div>
+
+      <div class="cc-panel" id="cc-custom-panel" hidden>
+        <form id="cc-form">
+          <fieldset class="cc-fieldset">
+            <legend class="cc-legend">Cookie categories</legend>
+
+            <div class="cc-row">
+              <div class="cc-row-main">
+                <div class="cc-row-title">Strictly necessary</div>
+                <div class="cc-row-desc">
+                  Required for core site functions such as security, network management, and accessibility. Always active.
+                </div>
+              </div>
+              <div class="cc-row-control">
+                <span class="pill">Always on</span>
+                <input type="hidden" name="necessary" value="true">
+              </div>
+            </div>
+
+            <div class="cc-row">
+              <div class="cc-row-main">
+                <label for="cc-functional" class="cc-row-title">Functional</label>
+                <div class="cc-row-desc">
+                  Helps with enhanced features and personalization.
+                </div>
+              </div>
+              <div class="cc-row-control">
+                <label class="switch">
+                  <input id="cc-functional" name="functional" type="checkbox">
+                  <span class="switch-ui" aria-hidden="true"></span>
+                </label>
+              </div>
+            </div>
+
+            <div class="cc-row">
+              <div class="cc-row-main">
+                <label for="cc-analytics" class="cc-row-title">Analytics</label>
+                <div class="cc-row-desc">
+                  Helps us understand site usage and improve performance.
+                </div>
+              </div>
+              <div class="cc-row-control">
+                <label class="switch">
+                  <input id="cc-analytics" name="analytics" type="checkbox">
+                  <span class="switch-ui" aria-hidden="true"></span>
+                </label>
+              </div>
+            </div>
+
+            <div class="cc-row">
+              <div class="cc-row-main">
+                <label for="cc-marketing" class="cc-row-title">Marketing</label>
+                <div class="cc-row-desc">
+                  Used for advertising and personalization across sites.
+                </div>
+              </div>
+              <div class="cc-row-control">
+                <label class="switch">
+                  <input id="cc-marketing" name="marketing" type="checkbox">
+                  <span class="switch-ui" aria-hidden="true"></span>
+                </label>
+              </div>
+            </div>
+
+            <div class="cc-row cc-region-row">
+              <div class="cc-row-main">
+                <label for="cc-region-select" class="cc-row-title">
+                  Region behavior
+                </label>
+                <div class="cc-row-desc">
+                  Auto uses a best-effort locale and timezone heuristic.
+                </div>
+              </div>
+              <div class="cc-row-control">
+                <select id="cc-region-select" name="regionSelect" class="select">
+                  <option value="auto">Auto</option>
+                  <option value="eu">EU</option>
+                  <option value="uk">UK</option>
+                  <option value="us">US</option>
+                  <option value="row">Rest of world</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="cc-row cc-us-optout-row" id="cc-us-optout-row" hidden>
+              <div class="cc-row-main">
+                <label for="cc-sale" class="cc-row-title">Do Not Sell or Share</label>
+                <div class="cc-row-desc">
+                  Opt out of sale/sharing and limit targeted advertising.
+                </div>
+              </div>
+              <div class="cc-row-control">
+                <label class="switch">
+                  <input id="cc-sale" name="sale" type="checkbox">
+                  <span class="switch-ui" aria-hidden="true"></span>
+                </label>
+              </div>
+            </div>
+          </fieldset>
+
+          <div class="cc-actions-row">
+            <button type="button" id="cc-back" class="btn btn-secondary">Back</button>
+            <button type="button" id="cc-reject-2" class="btn btn-secondary">Reject all</button>
+            <button type="submit" id="cc-save" class="btn btn-primary">Save preferences</button>
+          </div>
+
+          <div class="cc-smallprint" id="cc-smallprint-2"></div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>
+<script src="/tools/assets/js/consent.js"></script>
 </body>
 </html>
