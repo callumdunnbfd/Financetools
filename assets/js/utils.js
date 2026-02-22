@@ -32,3 +32,12 @@ export function setError(id, msg){
   el.style.display = msg ? "block" : "none";
 }
 
+document.addEventListener("DOMContentLoaded", function(){
+  var el = document.querySelectorAll("[data-currency]");
+  if(!el.length) return;
+  var locale = (navigator.language || "").toLowerCase();
+  var symbol = locale.includes("gb") ? "£" : "$";
+  for(var i=0;i<el.length;i++){
+    el[i].textContent = symbol;
+  }
+});

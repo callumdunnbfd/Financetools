@@ -124,3 +124,23 @@
   });
   obs.observe(document.documentElement, { childList: true, subtree: true });
 })();
+
+document.addEventListener("click", function(e){
+  var btn = e.target.closest(".mega-acc-btn");
+  if(!btn) return;
+
+  var panelId = btn.getAttribute("aria-controls");
+  if(!panelId) return;
+
+  var panel = document.getElementById(panelId);
+  if(!panel) return;
+
+  var expanded = btn.getAttribute("aria-expanded") === "true";
+  btn.setAttribute("aria-expanded", expanded ? "false" : "true");
+
+  if(expanded){
+    panel.setAttribute("hidden", "");
+  }else{
+    panel.removeAttribute("hidden");
+  }
+});

@@ -7,3 +7,13 @@
 .u-mb-0{margin-bottom:0 !important}
 .u-mb-4{margin-bottom:var(--space-4) !important}
 .u-mb-6{margin-bottom:var(--space-6) !important}
+
+document.addEventListener("DOMContentLoaded", function(){
+  var el = document.querySelectorAll("[data-currency]");
+  if(!el.length) return;
+  var locale = (navigator.language || "").toLowerCase();
+  var symbol = locale.includes("gb") ? "£" : "$";
+  for(var i=0;i<el.length;i++){
+    el[i].textContent = symbol;
+  }
+});

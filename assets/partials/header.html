@@ -1,32 +1,64 @@
 <header class="site-header mega-header">
-
   <div class="mega-nav">
     <div class="mega-left">
       <a href="/tools/" class="mega-logo">MyFinanceTools</a>
+    </div>
 
-<nav class="mega-links">
-  <button type="button" data-menu="calculators">Calculators</button>
-  <button type="button" data-menu="finance">Finance</button>
-  <button type="button" data-menu="property">Property</button>
-</nav>
+    <nav class="mega-links" aria-label="Primary">
+      <button type="button" data-menu="finance">Finance</button>
+      <button type="button" data-menu="property">Property</button>
+      <button type="button" data-menu="calculators">Calculators</button>
+    </nav>
 
-    <button class="mega-toggle" id="megaOpen">☰</button>
+    <button class="mega-toggle" id="megaOpen" type="button" aria-controls="megaMobile" aria-expanded="false">☰</button>
   </div>
-
 
   <div class="mega-panel" id="megaPanel">
     <div class="mega-grid" id="megaContent"></div>
   </div>
 
+  <div class="mega-mobile" id="megaMobile" aria-hidden="true">
+    <button id="megaClose" type="button" aria-label="Close menu">✕</button>
 
+    <div class="mega-acc">
+      <div class="mega-acc-item">
+        <button class="mega-acc-btn" type="button" aria-expanded="true" aria-controls="mega-finance">
+          <span>Finance</span>
+          <span class="mega-acc-chevron" aria-hidden="true"></span>
+        </button>
+        <div class="mega-acc-panel" id="mega-finance">
+          <a href="/tools/tools/credit-card-payoff.html">Credit card payoff</a>
+          <a href="/tools/tools/debt-tool.html">Debt tracker</a>
+          <a href="/tools/tools/loan-repayment.html">Loan repayment</a>
+          <a href="/tools/tools/budget.html">Budget calculator</a>
+        </div>
+      </div>
 
-  <div class="mega-mobile" id="megaMobile">
-    <button id="megaClose">✕</button>
+      <div class="mega-acc-item">
+        <button class="mega-acc-btn" type="button" aria-expanded="false" aria-controls="mega-property">
+          <span>Property</span>
+          <span class="mega-acc-chevron" aria-hidden="true"></span>
+        </button>
+        <div class="mega-acc-panel" id="mega-property" hidden>
+          <a href="/tools/tools/mortgage-calculator.html">Mortgage calculator</a>
+          <a href="/tools/tools/mortgage-affordability.html">Mortgage affordability</a>
+          <a href="/tools/tools/borrowing-power.html">Borrowing power</a>
+          <a href="/tools/tools/stamp-duty.html">Stamp duty</a>
+        </div>
+      </div>
 
-    <a href="/tools/tools/salary-pay.html">Salary calculator</a>
-    <a href="/tools/tools/mortgage-calculator.html">Mortgage calculator</a>
-    <a href="/tools/tools/percentage.html">Percentage</a>
-    <a href="/tools/tools/number-sum.html">Number sum</a>
-    <a href="/tools/tools/vat-profit.html">VAT & Profit</a>
+      <div class="mega-acc-item">
+        <button class="mega-acc-btn" type="button" aria-expanded="false" aria-controls="mega-calcs">
+          <span>Calculators</span>
+          <span class="mega-acc-chevron" aria-hidden="true"></span>
+        </button>
+        <div class="mega-acc-panel" id="mega-calcs" hidden>
+          <a href="/tools/tools/salary-pay.html">Salary calculator</a>
+          <a href="/tools/tools/percentage.html">Percentage</a>
+          <a href="/tools/tools/number-sum.html">Number sum</a>
+          <a href="/tools/tools/vat-profit.html">VAT &amp; Profit</a>
+        </div>
+      </div>
+    </div>
   </div>
 </header>
