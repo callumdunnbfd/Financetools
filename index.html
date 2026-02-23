@@ -194,24 +194,68 @@ document.addEventListener("DOMContentLoaded", function(){
   </div>
 </div>
 
+<section class="categories-section">
+  <div class="categories-wrapper cat-carousel" tabindex="0">
+    <div class="cat-pad"></div>
 
-<section class="info-split col-12" aria-labelledby="how-results-work">
-  <a class="info-media" href="#" aria-label="How results work image">
-    <img src="" alt="" loading="lazy">
-  </a>
-  <div class="info-body">
-    <h2 id="how-results-work">How results work</h2>
-    <p>Most calculators use standard formulas and simple assumptions based on the inputs you provide. Results are estimates to help you understand tradeoffs. Actual offers, eligibility, rates, fees, and terms are set by providers and may differ from estimates.</p>
-    <div class="small">
-      For details see <a href="/disclaimer.html">Financial Disclaimer</a> and <a href="/privacy.html">Privacy Policy</a>.
+    <div class="category-block">
+      <h2 class="category-title">Debt & Repayment</h2>
+      <p class="cat-desc">Tools to reduce interest and optimise repayment strategy.</p>
+      <ul class="category-links">
+        <li><a class="cat-link" href="/tools/tools/debt-repayment.html">Debt Snowball vs Avalanche</a></li>
+        <li><a class="cat-link" href="/tools/tools/debt-repayment.html">Credit Card Payoff</a></li>
+        <li><a class="cat-link" href="/tools/tools/debt-repayment.html">Debt Consolidation Savings</a></li>
+        <li><a class="cat-link" href="/tools/tools/debt-repayment.html">Loan Repayment Calculator</a></li>
+        <li><a class="cat-link" href="/tools/tools/debt-repayment.html">Overpayment Impact</a></li>
+      </ul>
+      <a class="cat-more-link" href="/tools/tools/debt-repayment.html"><span class="cat-more-text">More tools</span></a>
     </div>
+
+    <div class="category-block">
+      <h2 class="category-title">Mortgages & Property</h2>
+      <p class="cat-desc">Calculate your borrowing power and mortgage savings.</p>
+      <ul class="category-links">
+        <li><a class="cat-link" href="/tools/tools/mortgage-property.html">Mortgage Calculator</a></li>
+        <li><a class="cat-link" href="/tools/tools/mortgage-property.html">Remortgage Savings</a></li>
+        <li><a class="cat-link" href="/tools/tools/mortgage-property.html">Stamp Duty Calculator</a></li>
+        <li><a class="cat-link" href="/tools/tools/mortgage-property.html">Borrowing Power</a></li>
+        <li><a class="cat-link" href="/tools/tools/mortgage-property.html">Loan-to-Value (LTV)</a></li>
+      </ul>
+      <a class="cat-more-link" href="/tools/tools/mortgage-property.html"><span class="cat-more-text">More tools</span></a>
+    </div>
+
+    <div class="category-block">
+      <h2 class="category-title">Tax & Income</h2>
+      <p class="cat-desc">Estimate income tax, capital gains, and more.</p>
+      <ul class="category-links">
+        <li><a class="cat-link" href="/tools/tools/tax-income.html">Salary Calculator</a></li>
+        <li><a class="cat-link" href="/tools/tools/tax-income.html">VAT & Profit</a></li>
+        <li><a class="cat-link" href="/tools/tools/tax-income.html">Self-Employed Tax</a></li>
+        <li><a class="cat-link" href="/tools/tools/tax-income.html">Dividend Tax</a></li>
+        <li><a class="cat-link" href="/tools/tools/tax-income.html">Capital Gains</a></li>
+
+      </ul>
+      <a class="cat-more-link" href="/tools/tools/tax-income.html"><span class="cat-more-text">More tools</span></a>
+    </div>
+
+    <div class="category-block">
+      <h2 class="category-title">Savings & Planning</h2>
+      <p class="cat-desc">Set saving goals and estimate investment returns.</p>
+      <ul class="category-links">
+        <li><a class="cat-link" href="/tools/tools/savings-planning.html">Savings Goal Calculator</a></li>
+        <li><a class="cat-link" href="/tools/tools/savings-planning.html">Compound Interest</a></li>
+        <li><a class="cat-link" href="/tools/tools/savings-planning.html">Emergency Fund Calculator</a></li>
+        <li><a class="cat-link" href="/tools/tools/savings-planning.html">Pension Growth Calculator</a></li>
+        <li><a class="cat-link" href="/tools/tools/savings-planning.html">ISA Growth</a></li>
+      </ul>
+      <a class="cat-more-link" href="/tools/tools/savings-planning.html"><span class="cat-more-text">More tools</span></a>
+    </div>
+
+    <div class="cat-pad"></div>
   </div>
 </section>
 
 <section class="info-split col-12" aria-labelledby="methodology-updates">
-  <a class="info-media" href="#" aria-label="Methodology and updates image">
-<img src="" alt="Budget calculation illustration" loading="lazy">
-  </a>
   <div class="info-body">
     <h2 id="methodology-updates">Methodology and updates</h2>
     <p>We aim to keep calculators consistent with common financial definitions and update tools when formulas, edge cases, or presentation needs improvement.</p>
@@ -221,10 +265,18 @@ document.addEventListener("DOMContentLoaded", function(){
   </div>
 </section>
 
+<section class="info-split col-12" aria-labelledby="how-results-work">
+  <div class="info-body">
+    <h2 id="how-results-work">How results work</h2>
+    <p>Most calculators use standard formulas and simple assumptions based on the inputs you provide. Results are estimates to help you understand tradeoffs. Actual offers, eligibility, rates, fees, and terms are set by providers and may differ from estimates.</p>
+    <div class="small">
+      For details see <a href="/disclaimer.html">Financial Disclaimer</a> and <a href="/privacy.html">Privacy Policy</a>.
+    </div>
+  </div>
+</section>
+
 
 </main>
-
-<div data-include="/tools/assets/partials/footer.html"></div>
 
 <div id="cc-backdrop" class="cc-backdrop" hidden></div>
 
@@ -391,6 +443,8 @@ document.addEventListener("DOMContentLoaded", function(){
 
   </div>
 </div>
+<div data-include="/tools/assets/partials/footer.html"></div>
 <script src="/tools/assets/js/consent.js"></script>
+<script src="/tools/assets/js/footer.js" defer></script>
 </body>
 </html>

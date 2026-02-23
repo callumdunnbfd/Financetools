@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Debt Repayment Strategy Calculator (Snowball vs Avalanche)</title>
+  <meta name="Compare debt snowball vs avalanche repayment strategies. Add multiple debts, see debt-free date, total interest, and a month-by-month payoff schedule with a balance chart." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/tools/assets/css/site.css" />
+  <link rel="stylesheet" href="/tools/assets/css/header.css">
+  <link rel="stylesheet" href="/tools/assets/css/footer.css">
+  <link rel="stylesheet" href="/tools/assets/css/tools/debt-repayment.css">
+
+  <script src="/tools/assets/js/include.js" defer></script>
+  <script src="/tools/assets/js/header.js" defer></script>
+  <script src="/tools/assets/js/footer.js" defer></script>
+</head>
+
+<body>
+  <div data-include="/tools/assets/partials/header.html"></div>
+
+  <main class="cat-landing">
+    <div class="cat-landing__container">
+      <header class="cat-landing__header">
+        <h1 class="cat-landing__title">Debt &amp; Repayment</h1>
+        <p class="cat-landing__subtitle">Explore our tools to help you reduce interest costs, optimise repayment strategies, and tackle debt faster.</p>
+      </header>
+
+      <section class="cat-landing__grid" aria-label="Debt and repayment tools">
+        <a class="cat-landing__card" href="/tools/debt-snowball-avalanche">
+          <div class="cat-landing__icon-tile" aria-hidden="true">
+            <svg class="cat-landing__icon" viewBox="0 0 24 24" fill="none">
+              <path d="M7 10.5h10" />
+              <path d="M7 14h10" />
+              <path d="M8.5 8.5c0-1.1 1.57-2 3.5-2s3.5.9 3.5 2-1.57 2-3.5 2-3.5-.9-3.5-2Z" />
+              <path d="M8.5 8.5v7c0 1.1 1.57 2 3.5 2s3.5-.9 3.5-2v-7" />
+              <path d="M4.25 16.25c1.1-1.1 2.05-1.1 3.15 0" />
+              <path d="M6.2 14.3v3.9" />
+              <path d="M19.75 7.75c-1.1 1.1-2.05 1.1-3.15 0" />
+              <path d="M17.8 5.8v3.9" />
+            </svg>
+          </div>
+          <div class="cat-landing__card-body">
+            <h2 class="cat-landing__card-title">Debt Snowball vs Avalanche</h2>
+            <p class="cat-landing__card-desc">Compare the snowball and avalanche methods to find the best debt repayment strategy.</p>
+          </div>
+          <span class="cat-landing__chevron" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="none">
+              <path d="M7.5 4.5 13 10l-5.5 5.5" />
+            </svg>
+          </span>
+        </a>
+
+        <a class="cat-landing__card" href="/tools/credit-card-payoff">
+          <div class="cat-landing__icon-tile" aria-hidden="true">
+            <svg class="cat-landing__icon" viewBox="0 0 24 24" fill="none">
+              <path d="M5.5 9.5h13" />
+              <path d="M7.25 14.25h5.5" />
+              <path d="M6.5 6.75h11c1.1 0 2 .9 2 2v8.5c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2v-8.5c0-1.1.9-2 2-2Z" />
+              <path d="M15.5 14.5h1.75" />
+            </svg>
+          </div>
+          <div class="cat-landing__card-body">
+            <h2 class="cat-landing__card-title">Credit Card Payoff</h2>
+            <p class="cat-landing__card-desc">Calculate how soon you can pay off credit card debt based on your balance and payments.</p>
+          </div>
+          <span class="cat-landing__chevron" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="none">
+              <path d="M7.5 4.5 13 10l-5.5 5.5" />
+            </svg>
+          </span>
+        </a>
+
+        <a class="cat-landing__card" href="/tools/debt-consolidation-savings">
+          <div class="cat-landing__icon-tile" aria-hidden="true">
+            <svg class="cat-landing__icon" viewBox="0 0 24 24" fill="none">
+              <path d="M6.25 8.25c0-1.1 1.57-2 3.5-2s3.5.9 3.5 2-1.57 2-3.5 2-3.5-.9-3.5-2Z" />
+              <path d="M6.25 8.25v3.5c0 1.1 1.57 2 3.5 2s3.5-.9 3.5-2v-3.5" />
+              <path d="M10 17.75h8.25" />
+              <path d="M10 14.75h6.25" />
+              <path d="M18 12.25l2 2-2 2" />
+              <path d="M20 14.25H14.5" />
+            </svg>
+          </div>
+          <div class="cat-landing__card-body">
+            <h2 class="cat-landing__card-title">Debt Consolidation Savings</h2>
+            <p class="cat-landing__card-desc">See how consolidating multiple debts can lower your overall payments.</p>
+          </div>
+          <span class="cat-landing__chevron" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="none">
+              <path d="M7.5 4.5 13 10l-5.5 5.5" />
+            </svg>
+          </span>
+        </a>
+
+        <a class="cat-landing__card" href="/tools/loan-repayment-calculator">
+          <div class="cat-landing__icon-tile" aria-hidden="true">
+            <svg class="cat-landing__icon" viewBox="0 0 24 24" fill="none">
+              <path d="M8 6.5h6.75" />
+              <path d="M8 9.5h8" />
+              <path d="M8 12.5h5.25" />
+              <path d="M7.25 4.75h9.5c1 0 1.8.8 1.8 1.8v11.9c0 1-.8 1.8-1.8 1.8h-9.5c-1 0-1.8-.8-1.8-1.8V6.55c0-1 .8-1.8 1.8-1.8Z" />
+              <path d="M9 16.5h2" />
+              <path d="M13 16.5h2" />
+              <path d="M9 18.5h2" />
+              <path d="M13 18.5h2" />
+            </svg>
+          </div>
+          <div class="cat-landing__card-body">
+            <h2 class="cat-landing__card-title">Loan Repayment Calculator</h2>
+            <p class="cat-landing__card-desc">Estimate your loan repayment schedule, interest costs, and time to pay off your debt.</p>
+          </div>
+          <span class="cat-landing__chevron" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="none">
+              <path d="M7.5 4.5 13 10l-5.5 5.5" />
+            </svg>
+          </span>
+        </a>
+
+        <a class="cat-landing__card" href="/tools/overpayment-impact-calculator">
+          <div class="cat-landing__icon-tile" aria-hidden="true">
+            <svg class="cat-landing__icon" viewBox="0 0 24 24" fill="none">
+              <path d="M6.25 9c0-1.1 1.57-2 3.5-2s3.5.9 3.5 2-1.57 2-3.5 2-3.5-.9-3.5-2Z" />
+              <path d="M6.25 9v3.25c0 1.1 1.57 2 3.5 2s3.5-.9 3.5-2V9" />
+              <path d="M17 10v6" />
+              <path d="M14 13h6" />
+              <path d="M10.25 17.5H18.5" />
+            </svg>
+          </div>
+          <div class="cat-landing__card-body">
+            <h2 class="cat-landing__card-title">Overpayment Impact Calculator</h2>
+            <p class="cat-landing__card-desc">See how making extra payments on loans can save interest and shorten your payback period.</p>
+          </div>
+          <span class="cat-landing__chevron" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="none">
+              <path d="M7.5 4.5 13 10l-5.5 5.5" />
+            </svg>
+          </span>
+        </a>
+
+        <a class="cat-landing__card" href="/tools/early-mortgage-payoff">
+          <div class="cat-landing__icon-tile" aria-hidden="true">
+            <svg class="cat-landing__icon" viewBox="0 0 24 24" fill="none">
+              <path d="M4.5 11.5 12 5.75l7.5 5.75" />
+              <path d="M7.5 10.75v8c0 .95.8 1.75 1.75 1.75h5.5c.95 0 1.75-.8 1.75-1.75v-8" />
+              <path d="M12 12v6" />
+              <path d="M9.75 16.25 12 18.5l2.25-2.25" />
+            </svg>
+          </div>
+          <div class="cat-landing__card-body">
+            <h2 class="cat-landing__card-title">Early Mortgage Payoff</h2>
+            <p class="cat-landing__card-desc">Calculate how additional payments can help you pay off your mortgage earlier.</p>
+          </div>
+          <span class="cat-landing__chevron" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="none">
+              <path d="M7.5 4.5 13 10l-5.5 5.5" />
+            </svg>
+          </span>
+        </a>
+
+        <a class="cat-landing__card" href="/tools/debt-free-date-calculator">
+          <div class="cat-landing__icon-tile" aria-hidden="true">
+            <svg class="cat-landing__icon" viewBox="0 0 24 24" fill="none">
+              <path d="M7 5.75v2.5" />
+              <path d="M17 5.75v2.5" />
+              <path d="M6.75 9.25h10.5" />
+              <path d="M7.5 12.25h2.25" />
+              <path d="M11 12.25h2.25" />
+              <path d="M14.5 12.25h2.25" />
+              <path d="M7.5 15.25h2.25" />
+              <path d="M11 15.25h2.25" />
+              <path d="M6.75 7.25h10.5c1.1 0 2 .9 2 2v9c0 1.1-.9 2-2 2H6.75c-1.1 0-2-.9-2-2v-9c0-1.1.9-2 2-2Z" />
+            </svg>
+          </div>
+          <div class="cat-landing__card-body">
+            <h2 class="cat-landing__card-title">Debt Free Date Calculator</h2>
+            <p class="cat-landing__card-desc">Find out the exact date you will become debt-free based on your current payments.</p>
+          </div>
+          <span class="cat-landing__chevron" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="none">
+              <path d="M7.5 4.5 13 10l-5.5 5.5" />
+            </svg>
+          </span>
+        </a>
+
+        <a class="cat-landing__card" href="/tools/credit-card-interest-calculator">
+          <div class="cat-landing__icon-tile" aria-hidden="true">
+            <svg class="cat-landing__icon" viewBox="0 0 24 24" fill="none">
+              <path d="M8.25 7.5h7.5" />
+              <path d="M8.25 16.5h7.5" />
+              <path d="M9.75 7.5c0 2.5 4.5 2.5 4.5 5s-4.5 2.5-4.5 5" />
+              <path d="M8.5 16.75 15.5 7.25" />
+              <path d="M8.1 10.1h.01" />
+              <path d="M15.9 13.9h.01" />
+            </svg>
+          </div>
+          <div class="cat-landing__card-body">
+            <h2 class="cat-landing__card-title">Credit Card Interest Calculator</h2>
+            <p class="cat-landing__card-desc">See how interest rates on credit cards impact your balance and payment plan.</p>
+          </div>
+          <span class="cat-landing__chevron" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="none">
+              <path d="M7.5 4.5 13 10l-5.5 5.5" />
+            </svg>
+          </span>
+        </a>
+
+        <a class="cat-landing__card" href="/tools/more-tools-coming-soon">
+          <div class="cat-landing__icon-tile" aria-hidden="true">
+            <svg class="cat-landing__icon" viewBox="0 0 24 24" fill="none">
+              <path d="M12 9.25a2.75 2.75 0 1 0 0 5.5 2.75 2.75 0 0 0 0-5.5Z" />
+              <path d="M19.25 12a7.25 7.25 0 0 0-.08-1.05l1.35-1.05-1.35-2.35-1.65.65a7.4 7.4 0 0 0-1.8-1.05l-.25-1.75h-2.7l-.25 1.75a7.4 7.4 0 0 0-1.8 1.05l-1.65-.65-1.35 2.35 1.35 1.05c-.05.35-.08.7-.08 1.05s.03.7.08 1.05l-1.35 1.05 1.35 2.35 1.65-.65c.55.45 1.15.8 1.8 1.05l.25 1.75h2.7l.25-1.75c.65-.25 1.25-.6 1.8-1.05l1.65.65 1.35-2.35-1.35-1.05c.05-.35.08-.7.08-1.05Z" />
+            </svg>
+          </div>
+          <div class="cat-landing__card-body">
+            <h2 class="cat-landing__card-title">More tools coming soon</h2>
+            <p class="cat-landing__card-desc">We’re working on new tools to help you manage and repay debt more effectively.</p>
+          </div>
+          <span class="cat-landing__chevron" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="none">
+              <path d="M7.5 4.5 13 10l-5.5 5.5" />
+            </svg>
+          </span>
+        </a>
+      </section>
+    </div>
+  </main>
+
+  <div data-include="/tools/assets/partials/footer.html"></div>
+</body>
+</html>

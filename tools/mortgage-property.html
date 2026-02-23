@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Debt Repayment Strategy Calculator (Snowball vs Avalanche)</title>
+  <meta name="Compare debt snowball vs avalanche repayment strategies. Add multiple debts, see debt-free date, total interest, and a month-by-month payoff schedule with a balance chart." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/tools/assets/css/site.css" />
+  <link rel="stylesheet" href="/tools/assets/css/header.css">
+  <link rel="stylesheet" href="/tools/assets/css/footer.css">
+  <link rel="stylesheet" href="/tools/assets/css/tools/mortgage-property.css">
+
+  <script src="/tools/assets/js/include.js" defer></script>
+  <script src="/tools/assets/js/header.js" defer></script>
+  <script src="/tools/assets/js/footer.js" defer></script>
+</head>
+
+<body>
+  <div data-include="/tools/assets/partials/header.html"></div>
+  <main class="cat-landing">
+    <div class="cat-landing__container">
+      <header class="cat-landing__header">
+        <h1 class="cat-landing__title">Mortgages &amp; Property</h1>
+        <p class="cat-landing__subtitle">Explore our tools to estimate mortgage costs, compare property scenarios, and make smarter housing decisions.</p>
+      </header>
+
+      <section class="cat-landing__grid" aria-label="Mortgage and property tools">
+        <a class="cat-landing__card" href="/tools/mortgage-payment-calculator">
+          <div class="cat-landing__icon-tile" aria-hidden="true">
+            <svg class="cat-landing__icon" viewBox="0 0 24 24" fill="none">
+              <path d="M4.75 11.25 12 5.75l7.25 5.5" />
+              <path d="M7.25 10.75v8c0 .95.8 1.75 1.75 1.75h6c.95 0 1.75-.8 1.75-1.75v-8" />
+              <path d="M10 15.25h4" />
+              <path d="M10 13.25h4" />
+              <path d="M10 17.25h2.25" />
+            </svg>
+          </div>
+          <div class="cat-landing__card-body">
+            <h2 class="cat-landing__card-title">Mortgage Payment Calculator</h2>
+            <p class="cat-landing__card-desc">Estimate monthly repayments, interest, and total cost based on rate, term, and deposit.</p>
+          </div>
+          <span class="cat-landing__chevron" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="none">
+              <path d="M7.5 4.5 13 10l-5.5 5.5" />
+            </svg>
+          </span>
+        </a>
+
+        <a class="cat-landing__card" href="/tools/mortgage-affordability">
+          <div class="cat-landing__icon-tile" aria-hidden="true">
+            <svg class="cat-landing__icon" viewBox="0 0 24 24" fill="none">
+              <path d="M8.25 9.5c0-1.55 1.55-2.75 3.75-2.75s3.75 1.2 3.75 2.75-1.55 2.75-3.75 2.75-3.75-1.2-3.75-2.75Z" />
+              <path d="M6.5 19.25c.9-3 3.05-4.5 5.5-4.5s4.6 1.5 5.5 4.5" />
+              <path d="M18 7.5h2" />
+              <path d="M19 6.5v2" />
+            </svg>
+          </div>
+          <div class="cat-landing__card-body">
+            <h2 class="cat-landing__card-title">Mortgage Affordability</h2>
+            <p class="cat-landing__card-desc">Estimate how much you may be able to borrow based on income, outgoings, and deposit.</p>
+          </div>
+          <span class="cat-landing__chevron" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="none">
+              <path d="M7.5 4.5 13 10l-5.5 5.5" />
+            </svg>
+          </span>
+        </a>
+
+        <a class="cat-landing__card" href="/tools/mortgage-overpayment">
+          <div class="cat-landing__icon-tile" aria-hidden="true">
+            <svg class="cat-landing__icon" viewBox="0 0 24 24" fill="none">
+              <path d="M6 16.5V9.25" />
+              <path d="M4.5 10.75 6 9.25l1.5 1.5" />
+              <path d="M10 10.5h8.25" />
+              <path d="M10 14h6.25" />
+              <path d="M10 17.5h8.25" />
+            </svg>
+          </div>
+          <div class="cat-landing__card-body">
+            <h2 class="cat-landing__card-title">Mortgage Overpayment Savings</h2>
+            <p class="cat-landing__card-desc">See how extra payments can reduce interest and shorten your mortgage term.</p>
+          </div>
+          <span class="cat-landing__chevron" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="none">
+              <path d="M7.5 4.5 13 10l-5.5 5.5" />
+            </svg>
+          </span>
+        </a>
+
+        <a class="cat-landing__card" href="/tools/stamp-duty-calculator">
+          <div class="cat-landing__icon-tile" aria-hidden="true">
+            <svg class="cat-landing__icon" viewBox="0 0 24 24" fill="none">
+              <path d="M7.5 6.75h9c1 0 1.75.75 1.75 1.75v8.75c0 1-.75 1.75-1.75 1.75h-9c-1 0-1.75-.75-1.75-1.75V8.5c0-1 .75-1.75 1.75-1.75Z" />
+              <path d="M9 10h6" />
+              <path d="M9 12.75h4.5" />
+              <path d="M9 15.5h6" />
+              <path d="M15.75 6.75V5.5c0-.95-.8-1.75-1.75-1.75H10c-.95 0-1.75.8-1.75 1.75v1.25" />
+            </svg>
+          </div>
+          <div class="cat-landing__card-body">
+            <h2 class="cat-landing__card-title">Stamp Duty Calculator</h2>
+            <p class="cat-landing__card-desc">Estimate stamp duty or transfer taxes based on property price and buyer type.</p>
+          </div>
+          <span class="cat-landing__chevron" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="none">
+              <path d="M7.5 4.5 13 10l-5.5 5.5" />
+            </svg>
+          </span>
+        </a>
+
+        <a class="cat-landing__card" href="/tools/rent-vs-buy">
+          <div class="cat-landing__icon-tile" aria-hidden="true">
+            <svg class="cat-landing__icon" viewBox="0 0 24 24" fill="none">
+              <path d="M5.25 11.25 12 6l6.75 5.25" />
+              <path d="M7.25 10.75v8c0 .95.8 1.75 1.75 1.75h6c.95 0 1.75-.8 1.75-1.75v-8" />
+              <path d="M5.75 16.25h5" />
+              <path d="M9.25 14.75 10.75 16.25l-1.5 1.5" />
+              <path d="M18.25 16.25h-5" />
+              <path d="M14.75 14.75 13.25 16.25l1.5 1.5" />
+            </svg>
+          </div>
+          <div class="cat-landing__card-body">
+            <h2 class="cat-landing__card-title">Rent vs Buy</h2>
+            <p class="cat-landing__card-desc">Compare renting and buying over time using costs, deposit, and assumptions.</p>
+          </div>
+          <span class="cat-landing__chevron" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="none">
+              <path d="M7.5 4.5 13 10l-5.5 5.5" />
+            </svg>
+          </span>
+        </a>
+
+        <a class="cat-landing__card" href="/tools/remortgage-savings">
+          <div class="cat-landing__icon-tile" aria-hidden="true">
+            <svg class="cat-landing__icon" viewBox="0 0 24 24" fill="none">
+              <path d="M7 7.75h10" />
+              <path d="M7 11.25h7" />
+              <path d="M7 14.75h10" />
+              <path d="M16.5 6.25 18.75 8.5 16.5 10.75" />
+              <path d="M18.75 8.5H14.5" />
+              <path d="M7.25 5.75h9.5c1 0 1.8.8 1.8 1.8v11.2c0 1-.8 1.8-1.8 1.8h-9.5c-1 0-1.8-.8-1.8-1.8V7.55c0-1 .8-1.8 1.8-1.8Z" />
+            </svg>
+          </div>
+          <div class="cat-landing__card-body">
+            <h2 class="cat-landing__card-title">Remortgage Savings</h2>
+            <p class="cat-landing__card-desc">Estimate potential savings by switching rates, terms, or lenders, including fees.</p>
+          </div>
+          <span class="cat-landing__chevron" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="none">
+              <path d="M7.5 4.5 13 10l-5.5 5.5" />
+            </svg>
+          </span>
+        </a>
+
+        <a class="cat-landing__card" href="/tools/buy-to-let-yield">
+          <div class="cat-landing__icon-tile" aria-hidden="true">
+            <svg class="cat-landing__icon" viewBox="0 0 24 24" fill="none">
+              <path d="M6.25 10.5c0-1.1 1.57-2 3.5-2s3.5.9 3.5 2-1.57 2-3.5 2-3.5-.9-3.5-2Z" />
+              <path d="M6.25 10.5v3c0 1.1 1.57 2 3.5 2s3.5-.9 3.5-2v-3" />
+              <path d="M14.25 18.25V9.5" />
+              <path d="M14.25 18.25h4.75" />
+              <path d="M16 16.5 14.25 18.25l-1.75-1.75" />
+              <path d="M16.25 9.5h2.75" />
+            </svg>
+          </div>
+          <div class="cat-landing__card-body">
+            <h2 class="cat-landing__card-title">Buy-to-Let Yield</h2>
+            <p class="cat-landing__card-desc">Calculate rental yield, expenses, and a simple return estimate for a property.</p>
+          </div>
+          <span class="cat-landing__chevron" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="none">
+              <path d="M7.5 4.5 13 10l-5.5 5.5" />
+            </svg>
+          </span>
+        </a>
+
+        <a class="cat-landing__card" href="/tools/more-tools-coming-soon">
+          <div class="cat-landing__icon-tile" aria-hidden="true">
+            <svg class="cat-landing__icon" viewBox="0 0 24 24" fill="none">
+              <path d="M12 9.25a2.75 2.75 0 1 0 0 5.5 2.75 2.75 0 0 0 0-5.5Z" />
+              <path d="M19.25 12a7.25 7.25 0 0 0-.08-1.05l1.35-1.05-1.35-2.35-1.65.65a7.4 7.4 0 0 0-1.8-1.05l-.25-1.75h-2.7l-.25 1.75a7.4 7.4 0 0 0-1.8 1.05l-1.65-.65-1.35 2.35 1.35 1.05c-.05.35-.08.7-.08 1.05s.03.7.08 1.05l-1.35 1.05 1.35 2.35 1.65-.65c.55.45 1.15.8 1.8 1.05l.25 1.75h2.7l.25-1.75c.65-.25 1.25-.6 1.8-1.05l1.65.65 1.35-2.35-1.35-1.05c.05-.35.08-.7.08-1.05Z" />
+              <path d="M19.75 6.25 21 5" />
+              <path d="M3 19 4.25 17.75" />
+            </svg>
+          </div>
+          <div class="cat-landing__card-body">
+            <h2 class="cat-landing__card-title">More tools coming soon</h2>
+            <p class="cat-landing__card-desc">We’re working on new tools to help you evaluate mortgages and property costs more effectively.</p>
+          </div>
+          <span class="cat-landing__chevron" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="none">
+              <path d="M7.5 4.5 13 10l-5.5 5.5" />
+            </svg>
+          </span>
+        </a>
+      </section>
+    </div>
+  </main>
+   <div data-include="/tools/assets/partials/footer.html"></div>
+</body>
+</html>

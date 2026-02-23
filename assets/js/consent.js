@@ -367,9 +367,11 @@
     if (lock) {
       body.dataset.ccScrollLock = "true";
       body.style.overflow = "hidden";
+      body.style.touchAction = "none";
     } else {
       if (body.dataset.ccScrollLock === "true") {
         body.style.overflow = "";
+        body.style.touchAction = "";
         delete body.dataset.ccScrollLock;
       }
     }
@@ -485,6 +487,26 @@
     var sp2 = document.getElementById("cc-smallprint-2");
     if (sp1) sp1.textContent = t;
     if (sp2) sp2.textContent = t;
+  }
+
+  function consumeIfModalOpen(e) {
+    if (!Consent.state.isOpen) return;
+    var modal = document.getElementById("cc-modal");
+    var backdrop = document.getElementById("cc-backdrop");
+    if (!modal || !backdrop) return;
+    if (modal.contains(e.target) || backdrop === e.target) {
+      e.stopPropagation();
+      if (e.type === "touchmove") e.preventDefault();
+    }
+  }
+
+  function enableModalEventShield() {
+    document.addEventListener("touchstart", consumeIfModalOpen, true);
+    document.addEventListener("touchmove", consumeIfModalOpen, { capture: true, passive: false });
+    document.addEventListener("touchend", consumeIfModalOpen, true);
+    document.addEventListener("pointerdown", consumeIfModalOpen, true);
+    document.addEventListener("pointerup", consumeIfModalOpen, true);
+    document.addEventListener("click", consumeIfModalOpen, true);
   }
 
   function openModal(initialPanel) {
@@ -646,77 +668,81 @@
     }
   }
 
+  function findActionId(target) {
+    var el = target;
+    var guard = 0;
+    while (el && guard < 10) {
+      if (el.id) return el.id;
+      el = el.parentElement;
+      guard++;
+    }
+    return "";
+  }
+
+  function handleAction(id, e) {
+    if (!id) return false;
+
+    if (id === "cc-open-settings") {
+      if (e) e.preventDefault();
+      openModal("custom");
+      return true;
+    }
+
+    if (id === "cc-accept") {
+      if (e) e.preventDefault();
+      acceptAll();
+      return true;
+    }
+
+    if (id === "cc-reject" || id === "cc-reject-2") {
+      if (e) e.preventDefault();
+      rejectAll();
+      return true;
+    }
+
+    if (id === "cc-customize") {
+      if (e) e.preventDefault();
+      setPanel("custom");
+      updateRegionUi(Consent.state.regionResolved);
+      updateSmallprint(Consent.state.regionResolved);
+      focusFirst(document.getElementById("cc-modal"));
+      return true;
+    }
+
+    if (id === "cc-back") {
+      if (e) e.preventDefault();
+      setPanel("first");
+      updateRegionUi(Consent.state.regionResolved);
+      updateSmallprint(Consent.state.regionResolved);
+      focusFirst(document.getElementById("cc-modal"));
+      return true;
+    }
+
+    if (id === "cc-dnss") {
+      if (e) e.preventDefault();
+      doNotSellOrShare();
+      return true;
+    }
+
+    return false;
+  }
+
   function wireUiOnce() {
     if (Consent.state.wired) return;
     Consent.state.wired = true;
 
-    document.addEventListener(
-      "click",
-      function (e) {
-        var t = e.target;
-        if (!t) return;
+    enableModalEventShield();
 
-        var el = t;
-        var guard = 0;
-        while (el && guard < 6) {
-          if (el.id) break;
-          el = el.parentElement;
-          guard++;
-        }
-        if (!el || !el.id) return;
+    function routed(e) {
+      var id = findActionId(e.target);
+      if (handleAction(id, e)) {
+        e.stopPropagation();
+      }
+    }
 
-        var id = el.id;
-
-        if (id === "cc-open-settings") {
-          e.preventDefault();
-          e.stopPropagation();
-          openModal("custom");
-          return;
-        }
-
-        if (id === "cc-accept") {
-          e.preventDefault();
-          e.stopPropagation();
-          acceptAll();
-          return;
-        }
-
-        if (id === "cc-reject" || id === "cc-reject-2") {
-          e.preventDefault();
-          e.stopPropagation();
-          rejectAll();
-          return;
-        }
-
-        if (id === "cc-customize") {
-          e.preventDefault();
-          e.stopPropagation();
-          setPanel("custom");
-          updateRegionUi(Consent.state.regionResolved);
-          updateSmallprint(Consent.state.regionResolved);
-          focusFirst(document.getElementById("cc-modal"));
-          return;
-        }
-
-        if (id === "cc-back") {
-          e.preventDefault();
-          e.stopPropagation();
-          setPanel("first");
-          updateRegionUi(Consent.state.regionResolved);
-          updateSmallprint(Consent.state.regionResolved);
-          focusFirst(document.getElementById("cc-modal"));
-          return;
-        }
-
-        if (id === "cc-dnss") {
-          e.preventDefault();
-          e.stopPropagation();
-          doNotSellOrShare();
-          return;
-        }
-      },
-      true
-    );
+    document.addEventListener("click", routed, true);
+    document.addEventListener("pointerup", routed, true);
+    document.addEventListener("touchend", routed, { capture: true, passive: false });
 
     document.addEventListener(
       "submit",
@@ -724,6 +750,7 @@
         var form = e.target;
         if (!form || form.id !== "cc-form") return;
         savePreferences(e);
+        e.stopPropagation();
       },
       true
     );
@@ -756,6 +783,7 @@
           }
           setFormFromChoices(effective, choices);
           updateGpcUi();
+          e.stopPropagation();
           return;
         }
 
