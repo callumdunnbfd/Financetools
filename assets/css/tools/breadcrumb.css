@@ -86,3 +86,13 @@
     margin-left: -25px !important;
   }
 }
+
+.breadcrumb {
+  min-height: 76px;
+}
+
+@media (max-width: 480px) {
+  .breadcrumb {
+    min-height: 72px;
+  }
+}

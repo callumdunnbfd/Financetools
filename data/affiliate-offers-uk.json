@@ -1,0 +1,58 @@
+{
+  "locale": "uk",
+  "currency": "GBP",
+  "offers": [
+    {
+      "id": "balance-transfer-0",
+      "type": "balance_transfer",
+      "priority": 100,
+      "when": {
+        "all": [
+          { "field": "apr", "op": "gte", "value": 18 },
+          { "field": "balance", "op": "gte", "value": 500 }
+        ]
+      },
+      "headline": "You could reduce interest by switching to a 0% balance transfer card.",
+      "body": "If you’re paying a high APR, a 0% balance transfer offer may reduce interest costs while you pay down the balance. Always check the transfer fee, the 0% period length, and what APR applies after the promotion ends.",
+      "ctas": [
+        { "label": "Compare 0% balance transfer cards", "url": "https://example.com/affiliate/uk-bt-cards", "rel": "sponsored noopener noreferrer", "target": "_blank" },
+        { "label": "How balance transfers work", "url": "/tools/action-links.html", "rel": "noopener", "target": "_self" }
+      ],
+      "disclosure": "Affiliate disclosure: if you apply via our links, we may earn a commission at no extra cost to you."
+    },
+    {
+      "id": "consolidation-loan",
+      "type": "consolidation_loan",
+      "priority": 80,
+      "when": {
+        "all": [
+          { "field": "balance", "op": "gte", "value": 5000 },
+          { "field": "apr", "op": "gte", "value": 20 }
+        ]
+      },
+      "headline": "A consolidation loan may lower your monthly interest cost.",
+      "body": "If your balance is large and the APR is high, consolidating into a lower-rate fixed loan could reduce interest and give you a set payoff date. Check the representative APR, fees, and whether you can afford the required repayments.",
+      "ctas": [
+        { "label": "Check consolidation loan rates", "url": "https://example.com/affiliate/uk-loans", "rel": "sponsored noopener noreferrer", "target": "_blank" }
+      ],
+      "disclosure": "Affiliate disclosure: we may earn a commission if you take out a product via our links."
+    },
+    {
+      "id": "repayment-plan",
+      "type": "repayment_tip",
+      "priority": 10,
+      "when": {
+        "any": [
+          { "field": "interestSaved", "op": "gte", "value": 150 },
+          { "field": "monthsToPayoff", "op": "gte", "value": 24 }
+        ]
+      },
+      "headline": "Small increases can make a bigger difference than you expect.",
+      "body": "If you can increase your payment even slightly, you typically reduce the repayment term first, then interest. Consider setting an affordable standing order above the minimum, and review it whenever your income changes.",
+      "ctas": [
+        { "label": "Explore repayment strategies", "url": "/tools/debt-repayment.html", "rel": "noopener", "target": "_self" }
+      ],
+      "disclosure": "We may earn a commission from some links, but recommendations are based on your inputs."
+    }
+  ]
+}

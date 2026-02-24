@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", async () => {
+document.addEventListener("DOMContentLoaded", async function () {
   const nodes = document.querySelectorAll("[data-include]");
   for (const node of nodes) {
     const file = node.getAttribute("data-include");
@@ -8,30 +8,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     try {
       const res = await fetch(url, { cache: "no-cache" });
-      if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
-      node.outerHTML = await res.text();
+      if (!res.ok) throw new Error("HTTP " + res.status + " for " + url);
+      node.innerHTML = await res.text();
+      node.removeAttribute("data-include");
     } catch (err) {
       console.error("Include failed:", err);
     }
   }
+
+  document.dispatchEvent(new Event("includes:loaded"));
 });
 
-(function(){
-  function loadOnce(src){
-    var exists = Array.prototype.slice.call(document.scripts).some(function(s){ return (s.src || "").indexOf(src) !== -1; });
-    if(exists) return;
-    var s = document.createElement("script");
-    s.src = src;
-    document.body.appendChild(s);
-  }
-
-  function afterIncludes(){
-    loadOnce("/tools/assets/js/consent.js");
-  }
-
-  if(document.readyState === "loading"){
-    document.addEventListener("DOMContentLoaded", afterIncludes);
-  }else{
-    afterIncludes();
-  }
-})();

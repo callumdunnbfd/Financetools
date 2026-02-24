@@ -25,7 +25,8 @@
         { "path": "/tools/salary-pay.html", "changefreq": "monthly", "priority": 0.7 },
         { "path": "/tools/savings-planning.html", "changefreq": "monthly", "priority": 0.7 },
         { "path": "/tools/tax-income.html", "changefreq": "monthly", "priority": 0.7 },
-        { "path": "/tools/vat-profit.html", "changefreq": "monthly", "priority": 0.7 }
+        { "path": "/tools/vat-profit.html", "changefreq": "monthly", "priority": 0.7 },
+        { "path": "/tools/credit-card-payoff.html", "changefreq": "monthly", "priority": 0.7 }
       ]
     }
   }

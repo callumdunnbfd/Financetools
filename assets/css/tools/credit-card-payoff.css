@@ -1,0 +1,553 @@
+body.credit-card-payoff{
+  --bg:#ffffff;
+  --bg-2:#f6f8fc;
+  --surface:#ffffff;
+  --surface-2:#fbfcfe;
+  --surface-tint:#f3f0ff;
+  --text:#0f172a;
+  --muted:#475569;
+  --subtle:#64748b;
+  --border:#e6e8ef;
+  --shadow:0 10px 30px rgba(15,23,42,.08);
+  --shadow-soft:0 8px 22px rgba(15,23,42,.06);
+  --accent:#6d28d9;
+  --accent-2:#7c3aed;
+  --accent-soft:rgba(124,58,237,.12);
+  background:var(--bg);
+  color:var(--text);
+}
+
+body.credit-card-payoff .main-container{
+  background:transparent;
+}
+
+body.credit-card-payoff .hero{
+  padding:26px 0 14px;
+}
+
+body.credit-card-payoff .hero-inner{
+  max-width:var(--container-wide);
+  margin:0 auto;
+  padding:0 var(--space-6);
+  display:grid;
+  grid-template-columns:1fr;
+  gap:18px;
+}
+
+body.credit-card-payoff .eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  font-size:12px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--subtle);
+  font-weight:700;
+  margin-bottom:8px;
+}
+
+body.credit-card-payoff h1{
+  font-size:42px;
+  line-height:1.08;
+  letter-spacing:-.03em;
+  margin:0 0 10px;
+}
+
+body.credit-card-payoff .hero-lede{
+  max-width:70ch;
+  color:var(--muted);
+  line-height:1.55;
+  margin:0 0 14px;
+}
+
+body.credit-card-payoff .trust-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:8px;
+}
+
+body.credit-card-payoff .trust-pill{
+  display:inline-flex;
+  align-items:center;
+  padding:8px 12px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  background:var(--surface-2);
+  font-size:13px;
+  color:var(--muted);
+  font-weight:600;
+}
+
+body.credit-card-payoff .trust-info-block{
+  border:1px solid var(--border);
+  border-radius:18px;
+  background:linear-gradient(180deg, var(--surface-2), var(--surface));
+  box-shadow:var(--shadow-soft);
+  padding:16px 16px 14px;
+}
+
+body.credit-card-payoff .panel-title{
+  font-size:14px;
+  font-weight:800;
+  margin:0 0 10px;
+}
+
+body.credit-card-payoff .panel-list{
+  margin:0;
+  padding-left:18px;
+  color:var(--muted);
+  line-height:1.5;
+  font-size:14px;
+}
+
+body.credit-card-payoff .hero-note{
+  color:var(--subtle);
+  font-size:13px;
+  margin-top:10px;
+}
+
+body.credit-card-payoff .page-shell{
+  padding:8px 0 40px;
+}
+
+body.credit-card-payoff .calculator-card{
+  border:1px solid var(--border);
+  border-radius:22px;
+  background:var(--surface);
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
+
+body.credit-card-payoff .payoff-grid{
+  gap:0;
+}
+
+body.credit-card-payoff .card{
+  padding:18px;
+  border-right:1px solid var(--border);
+}
+
+body.credit-card-payoff .results-card{
+  border-right:0;
+}
+
+body.credit-card-payoff .card-header{
+  padding-bottom:14px;
+  border-bottom:1px solid var(--border);
+  margin-bottom:14px;
+}
+
+body.credit-card-payoff .card-title{
+  margin:0;
+  font-size:18px;
+  letter-spacing:-.01em;
+}
+
+body.credit-card-payoff .card-subtitle{
+  margin:6px 0 0;
+  color:var(--subtle);
+  font-size:13px;
+  line-height:1.45;
+}
+
+body.credit-card-payoff .field{
+  margin-top:12px;
+}
+
+body.credit-card-payoff label{
+  font-size:13px;
+  font-weight:700;
+  color:var(--muted);
+  margin:0 0 8px;
+}
+
+body.credit-card-payoff .input-wrap{
+  display:flex;
+  align-items:stretch;
+  border:1px solid var(--border);
+  border-radius:14px;
+  background:var(--surface-2);
+  overflow:hidden;
+}
+
+body.credit-card-payoff .prefix,
+body.credit-card-payoff .suffix{
+  display:inline-flex;
+  align-items:center;
+  padding:0 12px;
+  color:var(--subtle);
+  font-weight:700;
+  font-size:14px;
+  user-select:none;
+}
+
+body.credit-card-payoff input{
+  border:0;
+  background:transparent;
+  padding:14px 12px;
+  width:100%;
+  font-size:15px;
+  outline:none;
+  color:var(--text);
+}
+
+body.credit-card-payoff input:focus{
+  outline:none;
+}
+
+body.credit-card-payoff .input-wrap:focus-within{
+  border-color:rgba(124,58,237,.55);
+  box-shadow:0 0 0 4px var(--accent-soft);
+  background:var(--surface);
+}
+
+body.credit-card-payoff .hint{
+  margin-top:6px;
+  color:var(--subtle);
+  font-size:12.5px;
+  line-height:1.45;
+}
+
+body.credit-card-payoff .form-row{
+  display:flex;
+  gap:10px;
+  margin-top:16px;
+  flex-wrap:wrap;
+}
+
+body.credit-card-payoff .btn{
+  appearance:none;
+  border:1px solid var(--border);
+  background:var(--surface);
+  color:var(--text);
+  padding:12px 14px;
+  border-radius:14px;
+  font-weight:800;
+  font-size:14px;
+  cursor:pointer;
+}
+
+body.credit-card-payoff .btn.primary{
+  background:linear-gradient(180deg, var(--accent-2), var(--accent));
+  border-color:rgba(124,58,237,.6);
+  color:#ffffff;
+}
+
+body.credit-card-payoff .btn:active{
+  transform:translateY(1px);
+}
+
+body.credit-card-payoff .save-toggle{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-top:14px;
+  padding:10px 12px;
+  border:1px dashed var(--border);
+  border-radius:16px;
+  background:var(--surface-2);
+  color:var(--muted);
+  font-size:13px;
+  font-weight:600;
+}
+
+body.credit-card-payoff .save-toggle input{
+  width:18px;
+  height:18px;
+  margin:0;
+  padding:0;
+  accent-color:var(--accent);
+}
+
+body.credit-card-payoff .form-message{
+  margin-top:10px;
+  min-height:20px;
+  color:var(--muted);
+  font-size:13px;
+}
+
+body.credit-card-payoff .results-shell{
+  min-height:460px;
+}
+
+body.credit-card-payoff .kpi-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+body.credit-card-payoff .kpi{
+  border:1px solid var(--border);
+  border-radius:18px;
+  background:linear-gradient(180deg, var(--surface-2), var(--surface));
+  padding:14px 14px 12px;
+}
+
+body.credit-card-payoff .kpi-label{
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  color:var(--subtle);
+  font-weight:800;
+  margin-bottom:6px;
+}
+
+body.credit-card-payoff .kpi-value{
+  font-size:22px;
+  font-weight:900;
+  letter-spacing:-.02em;
+}
+
+body.credit-card-payoff .kpi-meta{
+  margin-top:6px;
+  color:var(--subtle);
+  font-size:12.5px;
+  line-height:1.35;
+}
+
+body.credit-card-payoff .callout{
+  margin-top:14px;
+  border:1px solid rgba(124,58,237,.28);
+  background:var(--surface-tint);
+  border-radius:18px;
+  padding:12px 14px;
+}
+
+body.credit-card-payoff .callout-title{
+  font-weight:900;
+  margin-bottom:4px;
+}
+
+body.credit-card-payoff .callout-body{
+  color:var(--muted);
+  line-height:1.5;
+  font-size:13.5px;
+}
+
+body.credit-card-payoff details.schedule{
+  margin-top:14px;
+  border:1px solid var(--border);
+  border-radius:18px;
+  background:var(--surface);
+  overflow:hidden;
+}
+
+body.credit-card-payoff details.schedule summary{
+  list-style:none;
+  cursor:pointer;
+  padding:12px 14px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  font-weight:900;
+}
+
+body.credit-card-payoff details.schedule summary::-webkit-details-marker{
+  display:none;
+}
+
+body.credit-card-payoff .summary-meta{
+  color:var(--subtle);
+  font-size:12.5px;
+  font-weight:700;
+}
+
+body.credit-card-payoff .table-wrap{
+  max-height:340px;
+  overflow:auto;
+  border-top:1px solid var(--border);
+}
+
+body.credit-card-payoff .table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:13px;
+}
+
+body.credit-card-payoff .table th,
+body.credit-card-payoff .table td{
+  padding:10px 12px;
+  border-bottom:1px solid var(--border);
+  text-align:right;
+  white-space:nowrap;
+}
+
+body.credit-card-payoff .table th:first-child,
+body.credit-card-payoff .table td:first-child{
+  text-align:left;
+}
+
+body.credit-card-payoff .table thead th{
+  position:sticky;
+  top:0;
+  background:var(--surface-2);
+  z-index:1;
+  font-weight:900;
+  color:var(--muted);
+}
+
+body.credit-card-payoff .affiliate-slot{
+  margin-top:14px;
+  min-height:160px;
+}
+
+body.credit-card-payoff .affiliate-card{
+  border:1px solid rgba(124,58,237,.25);
+  background:linear-gradient(180deg, var(--surface-2), var(--surface));
+  border-radius:18px;
+  padding:14px;
+}
+
+body.credit-card-payoff .affiliate-title{
+  font-size:16px;
+  font-weight:900;
+  margin:0 0 6px;
+}
+
+body.credit-card-payoff .affiliate-body{
+  color:var(--muted);
+  font-size:13.5px;
+  line-height:1.55;
+  margin:0 0 12px;
+}
+
+body.credit-card-payoff .affiliate-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+body.credit-card-payoff .affiliate-actions a{
+  text-decoration:none;
+}
+
+body.credit-card-payoff .affiliate-disclosure{
+  margin-top:10px;
+  color:var(--subtle);
+  font-size:12px;
+  line-height:1.4;
+}
+
+body.credit-card-payoff .content-block{
+  margin-top:22px;
+  border:1px solid var(--border);
+  border-radius:22px;
+  background:var(--surface);
+  box-shadow:var(--shadow-soft);
+  padding:18px;
+}
+
+body.credit-card-payoff .content-block h2{
+  margin:0 0 10px;
+  font-size:20px;
+  letter-spacing:-.01em;
+}
+
+body.credit-card-payoff .content-block p{
+  color:var(--muted);
+  line-height:1.6;
+  margin:10px 0 0;
+}
+
+body.credit-card-payoff .two-col{
+  margin-top:14px;
+  display:grid;
+  grid-template-columns:1fr;
+  gap:12px;
+}
+
+body.credit-card-payoff .info-card{
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:14px;
+  background:linear-gradient(180deg, var(--surface-2), var(--surface));
+}
+
+body.credit-card-payoff .info-card h3{
+  margin:0 0 6px;
+  font-size:16px;
+  font-weight:900;
+}
+
+body.credit-card-payoff .bullets{
+  margin:8px 0 0;
+  padding-left:18px;
+  color:var(--muted);
+  line-height:1.55;
+}
+
+body.credit-card-payoff .faq details{
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:12px 14px;
+  background:var(--surface);
+  margin-top:10px;
+}
+
+body.credit-card-payoff .faq summary{
+  cursor:pointer;
+  font-weight:900;
+}
+
+body.credit-card-payoff .faq p{
+  margin:10px 0 0;
+}
+
+body.credit-card-payoff .last-updated{
+  margin-top:14px;
+  color:var(--subtle);
+  font-size:12.5px;
+}
+
+body.credit-card-payoff .related-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:10px;
+  margin-top:12px;
+}
+
+body.credit-card-payoff .related-card{
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:12px 14px;
+  background:var(--surface-2);
+  color:var(--text);
+  font-weight:800;
+  text-decoration:none;
+}
+
+body.credit-card-payoff .related-card:hover{
+  border-color:rgba(124,58,237,.35);
+}
+
+body.credit-card-payoff .affiliate-placeholder{
+  opacity:0;
+  border-color:transparent;
+  background:transparent;
+}
+
+body.credit-card-payoff #resultsShell[data-has-results="true"] .affiliate-placeholder{
+  opacity:1;
+  border-color:var(--border);
+  background:var(--surface-2);
+}
+
+@media (min-width: 920px){
+  body.credit-card-payoff .hero-inner{
+    grid-template-columns:1.25fr .75fr;
+    align-items:start;
+  }
+  body.credit-card-payoff .payoff-grid{
+    grid-template-columns:repeat(12,1fr);
+  }
+  body.credit-card-payoff .col-6{
+    grid-column:span 6;
+  }
+  body.credit-card-payoff .two-col{
+    grid-template-columns:1fr 1fr;
+  }
+  body.credit-card-payoff .related-grid{
+    grid-template-columns:repeat(2, 1fr);
+  }
+}

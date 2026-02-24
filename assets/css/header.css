@@ -518,3 +518,17 @@ body[class] .site-header.mega-header{
     height: var(--mega-header-h-mobile);
   }
 }
+
+html {
+  --header-h: 64px;
+}
+
+@media (min-width: 721px) {
+  html {
+    --header-h: 72px;
+  }
+}
+
+.site-header-slot {
+  min-height: var(--header-h);
+}
