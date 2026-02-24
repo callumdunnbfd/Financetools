@@ -14,377 +14,364 @@
   <link rel="stylesheet" href="/tools/assets/css/site.css" />
   <link rel="stylesheet" href="/tools/assets/css/header.css">
   <link rel="stylesheet" href="/tools/assets/css/footer.css">
-  <link rel="stylesheet" href="/tools/assets/css/tools/.mortgage-tool.css">
+  <link rel="stylesheet" href="/tools/assets/css/tools/mortgage-tool.css">
+  <link rel="stylesheet" href="/tools/assets/css/tools/breadcrumb.css">
 
   <script src="/tools/assets/js/include.js" defer></script>
   <script src="/tools/assets/js/header.js" defer></script>
   <script src="/tools/assets/js/footer.js" defer></script>
-</head>
+  <script defer src="/tools/assets/js/breadcrumb.js"></script>
+  <script defer src="/tools/assets/js/breadcrumb-init.js"></script>
+
 <body class="mortgage-tool">
-<div data-include="../assets/partials/header.html"></div>
+  <div data-include="../assets/partials/header.html"></div>
+   <div class="breadcrumb"></div>
 
-
-
-<div class="main-container">
-  <section class="hero hero-intro">
-    <div class="hero-inner">
-      <div class="hero-copy">
-        <div class="eyebrow"></div>
-        <h1>Mortgage Payment Calculator (UK)</h1>
-        <p>Estimate monthly repayments, interest and fees. Adjust deposit, fixed period, overpayments and view a full schedule.</p>
-      </div>
-
-      <div class="trust-info-block" aria-label="Trust information">
-        <div class="trust-row">
-          <span class="trust-pill">Updated for 2026</span>
-          <span class="trust-pill">Estimates only</span>
-          <span class="trust-pill">Check with lender</span>
+  <div class="main-container">
+    <section class="hero hero-intro">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <div class="eyebrow"></div>
+          <h1>Mortgage Payment Calculator (UK)</h1>
+          <p>Estimate monthly repayments, interest and fees. Adjust deposit, fixed period, overpayments and view a full schedule.</p>
         </div>
-        <div class="trust-meta">
-          Figures are indicative. Lenders may use daily interest and different fee structures.
+
+        <div class="trust-info-block" aria-label="Trust information">
+          <div class="trust-row">
+            <span class="trust-pill">Updated for 2026</span>
+            <span class="trust-pill">Estimates only</span>
+            <span class="trust-pill">Check with lender</span>
+          </div>
+          <div class="trust-meta">
+            Figures are indicative. Lenders may use daily interest and different fee structures.
+          </div>
         </div>
       </div>
-    </div>
+    </section>
 
-  </section>
+    <main class="container">
+      <div class="page-shell">
+        <div class="calculator-card" aria-label="Mortgage calculator">
+          <div class="grid mortgage-grid">
 
+            <div class="card col-6" id="calculatorInputs" aria-label="Mortgage calculator inputs">
+              <div class="card-header">
+                <h2>Calculator</h2>
+                <p class="small">Enter your details and select Calculate to view estimated monthly repayments and overall costs.</p>
+              </div>
 
+              <form id="mortgageForm" novalidate aria-describedby="mortgageStatus mortgageError">
+                <div id="mortgageError" class="error" role="status" aria-live="polite" aria-atomic="true"></div>
 
-  <main class="container">
-    <div class="page-shell">
-      <div class="calculator-card" aria-label="Mortgage calculator">
-        <div class="grid mortgage-grid">
-        
-          <div class="card col-6" id="calculatorInputs" aria-label="Mortgage calculator inputs">
-            <div class="card-header">
-              <h2>Calculator</h2>
-              <p class="small">Enter your details and select Calculate to view estimated monthly repayments and overall costs.</p>
+                <div class="form-grid">
+                  <div class="field">
+                    <label for="currency">Currency</label>
+                    <select id="currency" name="currency">
+                      <option value="GBP">GBP (£)</option>
+                      <option value="EUR">EUR (€)</option>
+                      <option value="USD">USD ($)</option>
+                      <option value="CAD">CAD ($)</option>
+                      <option value="AUD">AUD ($)</option>
+                      <option value="NZD">NZD ($)</option>
+                      <option value="JPY">JPY (¥)</option>
+                      <option value="CNY">CNY (¥)</option>
+                      <option value="HKD">HKD ($)</option>
+                      <option value="SGD">SGD ($)</option>
+                      <option value="INR">INR (₹)</option>
+                      <option value="PKR">PKR (₨)</option>
+                      <option value="BDT">BDT (৳)</option>
+                      <option value="LKR">LKR (Rs)</option>
+                      <option value="AED">AED (د.إ)</option>
+                      <option value="SAR">SAR (﷼)</option>
+                      <option value="QAR">QAR (﷼)</option>
+                      <option value="KWD">KWD (د.ك)</option>
+                      <option value="ZAR">ZAR (R)</option>
+                      <option value="NGN">NGN (₦)</option>
+                      <option value="KES">KES (KSh)</option>
+                      <option value="GHS">GHS (GH₵)</option>
+                      <option value="EGP">EGP (£)</option>
+                      <option value="TRY">TRY (₺)</option>
+                      <option value="CHF">CHF (Fr)</option>
+                      <option value="NOK">NOK (kr)</option>
+                      <option value="SEK">SEK (kr)</option>
+                      <option value="DKK">DKK (kr)</option>
+                      <option value="PLN">PLN (zł)</option>
+                      <option value="CZK">CZK (Kč)</option>
+                      <option value="HUF">HUF (Ft)</option>
+                      <option value="RON">RON (lei)</option>
+                      <option value="BGN">BGN (лв)</option>
+                      <option value="RUB">RUB (₽)</option>
+                      <option value="UAH">UAH (₴)</option>
+                      <option value="BRL">BRL (R$)</option>
+                      <option value="MXN">MXN ($)</option>
+                      <option value="ARS">ARS ($)</option>
+                      <option value="CLP">CLP ($)</option>
+                      <option value="COP">COP ($)</option>
+                      <option value="PEN">PEN (S/)</option>
+                      <option value="KRW">KRW (₩)</option>
+                      <option value="THB">THB (฿)</option>
+                      <option value="MYR">MYR (RM)</option>
+                      <option value="IDR">IDR (Rp)</option>
+                      <option value="PHP">PHP (₱)</option>
+                      <option value="VND">VND (₫)</option>
+                    </select>
+                    <div class="helper">Used for formatting results.</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="field">
+                      <label for="propertyPrice">Property price</label>
+                      <div class="input-split" data-split="currency">
+                        <span class="split-addon" aria-hidden="true">£</span>
+                        <input id="propertyPrice" name="propertyPrice" inputmode="decimal" placeholder="e.g. 300,000" />
+                      </div>
+                      <div class="helper">Total purchase price of the property.</div>
+                    </div>
+
+                    <div class="field">
+                      <label for="termYears">Term</label>
+                      <div class="input-split">
+                        <input id="termYears" name="termYears" inputmode="numeric" placeholder="e.g. 25" />
+                        <span class="split-addon split-addon-right" aria-hidden="true">years</span>
+                      </div>
+                      <div class="helper">Length of the mortgage.</div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="field field-selectlike">
+                      <label for="depositModeBtn">Deposit type</label>
+
+                      <input type="hidden" id="depositMode" name="depositMode" value="percent">
+
+                      <button type="button" class="selectlike" id="depositModeBtn" aria-haspopup="listbox" aria-expanded="false">
+                        <span class="selectlike-value" id="depositModeLabel">Amount</span>
+                        <span class="selectlike-caret" aria-hidden="true"></span>
+                      </button>
+
+                      <div class="selectlike-menu" id="depositModeMenu" role="listbox" aria-labelledby="depositModeBtn" hidden>
+                        <button type="button" class="selectlike-option" role="option" data-value="percent" aria-selected="false">Percent</button>
+                        <button type="button" class="selectlike-option" role="option" data-value="amount" aria-selected="true">Amount</button>
+                      </div>
+
+                      <div class="helper">Choose amount or %.</div>
+                    </div>
+
+                    <div class="field">
+                      <label for="depositValue">Deposit</label>
+                      <input id="depositValue" name="depositValue" inputmode="decimal" placeholder="e.g. 10,000 or 30,000" />
+                      <div class="small" id="depositHint">Choose deposit type above.</div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="field">
+                      <label for="loanAmount">Loan amount (auto)</label>
+                      <input id="loanAmount" name="loanAmount" inputmode="decimal" placeholder="e.g. 270,000" />
+                      <div class="helper">Auto-calculated from price and deposit; you can override.</div>
+                    </div>
+
+                    <div class="field">
+                      <label for="startDate">Start date (optional)</label>
+                      <input id="startDate" name="startDate" type="date" />
+                      <div class="helper">Used for schedule dates only.</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <details class="mortgage-advanced">
+                  <summary class="mortgage-summary">Advanced options</summary>
+
+                  <div class="form-grid">
+                    <div class="row">
+                      <div class="field">
+                        <label for="introRate">Intro / fixed rate</label>
+                        <div class="input-split">
+                          <input id="introRate" name="introRate" inputmode="decimal" placeholder="e.g. 4.89" />
+                          <span class="split-addon split-addon-right" aria-hidden="true">%</span>
+                        </div>
+                        <div class="helper">If you don’t have an intro rate, use your standard APR.</div>
+                      </div>
+
+                      <div class="field">
+                        <label for="introYears">Intro period (years)</label>
+                        <input id="introYears" name="introYears" inputmode="decimal" placeholder="e.g. 2" />
+                        <div class="small">Set 0 to skip.</div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="field">
+                        <label for="followRate">Follow-on rate</label>
+                        <div class="input-split">
+                          <input id="followRate" name="followRate" inputmode="decimal" placeholder="e.g. 6.25" />
+                          <span class="split-addon split-addon-right" aria-hidden="true">%</span>
+                        </div>
+                        <div class="helper">Used after the intro period ends.</div>
+                      </div>
+
+                      <div class="field">
+                        <label for="arrangementFee">Arrangement fee</label>
+                        <input id="arrangementFee" name="arrangementFee" inputmode="decimal" placeholder="e.g. 999" />
+                        <div class="helper">Optional lender fee.</div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="field">
+                        <label for="feeMode">Arrangement fee handling</label>
+                        <select id="feeMode" name="feeMode">
+                          <option value="upfront">Pay upfront</option>
+                          <option value="addToLoan">Add to loan</option>
+                        </select>
+                        <div class="helper">If added to the loan, interest may apply.</div>
+                      </div>
+
+                      <div class="field">
+                        <label for="otherUpfrontFees">Other upfront fees</label>
+                        <input id="otherUpfrontFees" name="otherUpfrontFees" inputmode="decimal" placeholder="e.g. 1500" />
+                        <div class="helper">Solicitor, valuation, broker fee, etc.</div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="field">
+                        <label for="monthlyOverpay">Monthly overpayment</label>
+                        <input id="monthlyOverpay" name="monthlyOverpay" inputmode="decimal" placeholder="e.g. 100" />
+                        <div class="helper">Optional extra repayment each month.</div>
+                      </div>
+
+                      <div class="field">
+                        <label for="overpayStartMonth">Overpayment start month</label>
+                        <input id="overpayStartMonth" name="overpayStartMonth" inputmode="numeric" placeholder="e.g. 1" />
+                        <div class="small">1 means first payment month.</div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="field">
+                        <label for="overpayEndMonth">Overpayment end month (optional)</label>
+                        <input id="overpayEndMonth" name="overpayEndMonth" inputmode="numeric" placeholder="e.g. 60" />
+                        <div class="small">Leave blank to continue until payoff.</div>
+                      </div>
+
+                      <div class="field">
+                        <label for="lumpSumAmount">One-off lump sum (optional)</label>
+                        <input id="lumpSumAmount" name="lumpSumAmount" inputmode="decimal" placeholder="e.g. 5000" />
+                        <div class="helper">A single extra payment.</div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="field">
+                        <label for="lumpSumMonth">Lump sum month (optional)</label>
+                        <input id="lumpSumMonth" name="lumpSumMonth" inputmode="numeric" placeholder="e.g. 12" />
+                        <div class="helper">Month number in the schedule.</div>
+                      </div>
+                      <div></div>
+                    </div>
+                  </div>
+                </details>
+
+                <div class="actions" aria-label="Calculator actions">
+                  <button class="primary" type="submit" id="calculateBtn">Calculate</button>
+                  <button type="button" id="resetBtn">Reset</button>
+                </div>
+
+                <div class="error" id="formError"></div>
+                <div class="small disclaimer-block">Estimates only. Lenders can use different fee structures and daily interest calculations.</div>
+              </form>
             </div>
 
-            <form id="mortgageForm" novalidate aria-describedby="mortgageStatus mortgageError">
-              
+            <div class="card col-6 results-panel" id="resultsPanel" aria-label="Mortgage calculator results">
+              <div class="card-header">
+                <h2>Results</h2>
+              </div>
 
-              <div id="mortgageError" class="error" role="status" aria-live="polite" aria-atomic="true"></div>
+              <div class="kpi kpi-results" aria-live="polite" aria-atomic="true">
+                <div class="box"><div class="k">Monthly payment (intro)</div><div class="v" id="paymentIntroValue">—</div></div>
+                <div class="box"><div class="k">Monthly payment (after intro)</div><div class="v" id="paymentFollowValue">—</div></div>
+                <div class="box"><div class="k">Total interest</div><div class="v" id="totalInterestValue">—</div></div>
+                <div class="box"><div class="k">Total paid</div><div class="v" id="totalPaidValue">—</div></div>
+              </div>
 
-              <div class="form-grid">
-                <div class="field">
-                  <label for="currency">Currency</label>
-                  <select id="currency" name="currency">
-                    <option value="GBP">GBP (£)</option>
-                    <option value="EUR">EUR (€)</option>
-                    <option value="USD">USD ($)</option>
-                    <option value="CAD">CAD ($)</option>
-                    <option value="AUD">AUD ($)</option>
-                    <option value="NZD">NZD ($)</option>
-                    <option value="JPY">JPY (¥)</option>
-                    <option value="CNY">CNY (¥)</option>
-                    <option value="HKD">HKD ($)</option>
-                    <option value="SGD">SGD ($)</option>
-                    <option value="INR">INR (₹)</option>
-                    <option value="PKR">PKR (₨)</option>
-                    <option value="BDT">BDT (৳)</option>
-                    <option value="LKR">LKR (Rs)</option>
-                    <option value="AED">AED (د.إ)</option>
-                    <option value="SAR">SAR (﷼)</option>
-                    <option value="QAR">QAR (﷼)</option>
-                    <option value="KWD">KWD (د.ك)</option>
-                    <option value="ZAR">ZAR (R)</option>
-                    <option value="NGN">NGN (₦)</option>
-                    <option value="KES">KES (KSh)</option>
-                    <option value="GHS">GHS (GH₵)</option>
-                    <option value="EGP">EGP (£)</option>
-                    <option value="TRY">TRY (₺)</option>
-                    <option value="CHF">CHF (Fr)</option>
-                    <option value="NOK">NOK (kr)</option>
-                    <option value="SEK">SEK (kr)</option>
-                    <option value="DKK">DKK (kr)</option>
-                    <option value="PLN">PLN (zł)</option>
-                    <option value="CZK">CZK (Kč)</option>
-                    <option value="HUF">HUF (Ft)</option>
-                    <option value="RON">RON (lei)</option>
-                    <option value="BGN">BGN (лв)</option>
-                    <option value="RUB">RUB (₽)</option>
-                    <option value="UAH">UAH (₴)</option>
-                    <option value="BRL">BRL (R$)</option>
-                    <option value="MXN">MXN ($)</option>
-                    <option value="ARS">ARS ($)</option>
-                    <option value="CLP">CLP ($)</option>
-                    <option value="COP">COP ($)</option>
-                    <option value="PEN">PEN (S/)</option>
-                    <option value="KRW">KRW (₩)</option>
-                    <option value="THB">THB (฿)</option>
-                    <option value="MYR">MYR (RM)</option>
-                    <option value="IDR">IDR (Rp)</option>
-                    <option value="PHP">PHP (₱)</option>
-                    <option value="VND">VND (₫)</option>
-                  </select>
-                  <div class="helper">Used for formatting results.</div>
-                </div>
+              <div class="kpi kpi-results" aria-live="polite" aria-atomic="true">
+                <div class="box"><div class="k">Payoff time</div><div class="v" id="payoffTimeValue">—</div></div>
+                <div class="box"><div class="k">Savings vs no extras</div><div class="v" id="savingsValue">—</div></div>
+                <div class="box"><div class="k">Upfront fees</div><div class="v" id="upfrontFeesValue">—</div></div>
+                <div class="box"><div class="k">Loan amount used</div><div class="v" id="loanShownValue">—</div></div>
+              </div>
 
-                <div class="row">
-                  <div class="field">
-                    <label for="propertyPrice">Property price</label>
-                    <div class="input-split" data-split="currency">
-                      <span class="split-addon" aria-hidden="true">£</span>
-                      <input id="propertyPrice" name="propertyPrice" inputmode="decimal" placeholder="e.g. 300,000" />
-                    </div>
-                    <div class="helper">Total purchase price of the property.</div>
-                  </div>
-
-                  <div class="field">
-                    <label for="termYears">Term</label>
-                    <div class="input-split">
-                      <input id="termYears" name="termYears" inputmode="numeric" placeholder="e.g. 25" />
-                      <span class="split-addon split-addon-right" aria-hidden="true">years</span>
-                    </div>
-                    <div class="helper">Length of the mortgage.</div>
-                  </div>
-
-                </div>
-
-                <div class="row">
-                  <div class="field field-selectlike">
-                    <label for="depositModeBtn">Deposit type</label>
-
-                    <input type="hidden" id="depositMode" name="depositMode" value="percent">
-
-                    <button type="button" class="selectlike" id="depositModeBtn" aria-haspopup="listbox" aria-expanded="false">
-                      <span class="selectlike-value" id="depositModeLabel">Amount</span>
-                      <span class="selectlike-caret" aria-hidden="true"></span>
-                    </button>
-
-                    <div class="selectlike-menu" id="depositModeMenu" role="listbox" aria-labelledby="depositModeBtn" hidden>
-                      <button type="button" class="selectlike-option" role="option" data-value="percent" aria-selected="false">Percent</button>
-                      <button type="button" class="selectlike-option" role="option" data-value="amount" aria-selected="true">Amount</button>
-                    </div>
-
-                    <div class="helper">Choose amount or %.</div>
-                  </div>
-
-                  <div class="field">
-                    <label for="depositValue">Deposit</label>
-                    <input id="depositValue" name="depositValue" inputmode="decimal" placeholder="e.g. 10,000 or 30,000" />
-                    <div class="small" id="depositHint">Choose deposit type above.</div>
-                  </div>
-                </div>
-
-
-                <div class="row">
-                  <div class="field">
-                    <label for="loanAmount">Loan amount (auto)</label>
-                    <input id="loanAmount" name="loanAmount" inputmode="decimal" placeholder="e.g. 270,000" />
-                    <div class="helper">Auto-calculated from price and deposit; you can override.</div>
-                  </div>
-
-                  <div class="field">
-                    <label for="startDate">Start date (optional)</label>
-                    <input id="startDate" name="startDate" type="date" />
-                    <div class="helper">Used for schedule dates only.</div>
-                  </div>
-                </div>
+              <div class="actions" aria-label="Results actions">
+                <button type="button" id="downloadCsvBtn" disabled>Download CSV</button>
               </div>
 
               <div class="divider"></div>
-
-              <details class="mortgage-advanced">
-                <summary class="mortgage-summary">Advanced options</summary>
-
-                <div class="form-grid">
-                  <div class="row">
-                    <div class="field">
-                      <label for="introRate">Intro / fixed rate</label>
-                      <div class="input-split">
-                        <input id="introRate" name="introRate" inputmode="decimal" placeholder="e.g. 4.89" />
-                        <span class="split-addon split-addon-right" aria-hidden="true">%</span>
-                      </div>
-                      <div class="helper">If you don’t have an intro rate, use your standard APR.</div>
-                    </div>
-
-                    <div class="field">
-                      <label for="introYears">Intro period (years)</label>
-                      <input id="introYears" name="introYears" inputmode="decimal" placeholder="e.g. 2" />
-                      <div class="small">Set 0 to skip.</div>
-                    </div>
-                  </div>
-
-
-
-                  <div class="row">
-                    <div class="field">
-                      <label for="followRate">Follow-on rate</label>
-                      <div class="input-split">
-                        <input id="followRate" name="followRate" inputmode="decimal" placeholder="e.g. 6.25" />
-                        <span class="split-addon split-addon-right" aria-hidden="true">%</span>
-                      </div>
-                      <div class="helper">Used after the intro period ends.</div>
-                    </div>
-
-                    <div class="field">
-                      <label for="arrangementFee">Arrangement fee</label>
-                      <input id="arrangementFee" name="arrangementFee" inputmode="decimal" placeholder="e.g. 999" />
-                      <div class="helper">Optional lender fee.</div>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="field">
-                      <label for="feeMode">Arrangement fee handling</label>
-                      <select id="feeMode" name="feeMode">
-                        <option value="upfront">Pay upfront</option>
-                        <option value="addToLoan">Add to loan</option>
-                      </select>
-                      <div class="helper">If added to the loan, interest may apply.</div>
-                    </div>
-
-                    <div class="field">
-                      <label for="otherUpfrontFees">Other upfront fees</label>
-                      <input id="otherUpfrontFees" name="otherUpfrontFees" inputmode="decimal" placeholder="e.g. 1500" />
-                      <div class="helper">Solicitor, valuation, broker fee, etc.</div>
-                    </div>
-
-                  </div>
-
-
-
-                  <div class="row">
-                    <div class="field">
-                      <label for="monthlyOverpay">Monthly overpayment</label>
-                      <input id="monthlyOverpay" name="monthlyOverpay" inputmode="decimal" placeholder="e.g. 100" />
-                      <div class="helper">Optional extra repayment each month.</div>
-                    </div>
-
-                    <div class="field">
-                      <label for="overpayStartMonth">Overpayment start month</label>
-                      <input id="overpayStartMonth" name="overpayStartMonth" inputmode="numeric" placeholder="e.g. 1" />
-                      <div class="small">1 means first payment month.</div>
-                    </div>
-                  </div>
-
-
-                  <div class="row">
-
-                    <div class="field">
-                      <label for="overpayEndMonth">Overpayment end month (optional)</label>
-                      <input id="overpayEndMonth" name="overpayEndMonth" inputmode="numeric" placeholder="e.g. 60" />
-                      <div class="small">Leave blank to continue until payoff.</div>
-                    </div>
-
-                    <div class="field">
-                      <label for="lumpSumAmount">One-off lump sum (optional)</label>
-                      <input id="lumpSumAmount" name="lumpSumAmount" inputmode="decimal" placeholder="e.g. 5000" />
-                      <div class="helper">A single extra payment.</div>
-                    </div>
-                  </div>
-
-                  <div class="row">
-
-                    <div class="field">
-                      <label for="lumpSumMonth">Lump sum month (optional)</label>
-                      <input id="lumpSumMonth" name="lumpSumMonth" inputmode="numeric" placeholder="e.g. 12" />
-                      <div class="helper">Month number in the schedule.</div>
-                    </div>
-                    <div></div>
-                  </div>
+              <div id="scheduleWrap" style="display:none">
+                <div class="mortgage-table-wrap">
+                  <table class="mortgage-table" id="scheduleTable">
+                    <thead>
+                      <tr>
+                        <th>Month</th>
+                        <th>Date</th>
+                        <th>Rate</th>
+                        <th>Payment</th>
+                        <th>Interest</th>
+                        <th>Principal</th>
+                        <th>Overpay</th>
+                        <th>Lump sum</th>
+                        <th>Balance</th>
+                      </tr>
+                    </thead>
+                    <tbody id="scheduleBody"></tbody>
+                  </table>
                 </div>
-              </details>
-
-
-
-              <div class="actions" aria-label="Calculator actions">
-                <button class="primary" type="submit" id="calculateBtn">Calculate</button>
-                <button type="button" id="resetBtn">Reset</button>
-              </div>
-
-              <div class="error" id="formError"></div>
-              <div class="small disclaimer-block">Estimates only. Lenders can use different fee structures and daily interest calculations.</div>
-            </form>
-          </div>
-
-
-
-          <div class="card col-6 results-panel" id="resultsPanel" aria-label="Mortgage calculator results">
-            <div class="card-header">
-              <h2>Results</h2>
-            </div>
-
-
-
-            <div class="kpi kpi-results" aria-live="polite" aria-atomic="true">
-              <div class="box"><div class="k">Monthly payment (intro)</div><div class="v" id="paymentIntroValue">—</div></div>
-              <div class="box"><div class="k">Monthly payment (after intro)</div><div class="v" id="paymentFollowValue">—</div></div>
-              <div class="box"><div class="k">Total interest</div><div class="v" id="totalInterestValue">—</div></div>
-              <div class="box"><div class="k">Total paid</div><div class="v" id="totalPaidValue">—</div></div>
-            </div>
-
-            <div class="kpi kpi-results" aria-live="polite" aria-atomic="true">
-              <div class="box"><div class="k">Payoff time</div><div class="v" id="payoffTimeValue">—</div></div>
-              <div class="box"><div class="k">Savings vs no extras</div><div class="v" id="savingsValue">—</div></div>
-              <div class="box"><div class="k">Upfront fees</div><div class="v" id="upfrontFeesValue">—</div></div>
-              <div class="box"><div class="k">Loan amount used</div><div class="v" id="loanShownValue">—</div></div>
-            </div>
-
-            <div class="actions" aria-label="Results actions">
-              <button type="button" id="downloadCsvBtn" disabled>Download CSV</button>
-            </div>
-
-            <div class="divider"></div>
-            <div id="scheduleWrap" style="display:none">
-              <div class="mortgage-table-wrap">
-                <table class="mortgage-table" id="scheduleTable">
-                  <thead>
-                    <tr>
-                      <th>Month</th>
-                      <th>Date</th>
-                      <th>Rate</th>
-                      <th>Payment</th>
-                      <th>Interest</th>
-                      <th>Principal</th>
-                      <th>Overpay</th>
-                      <th>Lump sum</th>
-                      <th>Balance</th>
-                    </tr>
-                  </thead>
-                  <tbody id="scheduleBody"></tbody>
-                </table>
               </div>
             </div>
-          </div>
 
+          </div>
         </div>
+
+        <section class="supporting-content-section" aria-label="Supporting information">
+          <div class="support-grid">
+            <div class="card trust-card">
+              <h3>How to use this calculator</h3>
+              <ul class="bullets">
+                <li>Enter property price, term and deposit.</li>
+                <li>Add optional fees, fixed period and overpayments.</li>
+                <li>Press Calculate to generate payments and schedule.</li>
+              </ul>
+            </div>
+
+            <div class="card trust-card">
+              <h3>Important</h3>
+              <p class="small">
+                This is an estimate tool. Some lenders calculate interest daily and apply fees differently.
+                Always confirm figures with your lender or adviser.
+              </p>
+              <p class="small">
+                Your property may be repossessed if you do not keep up repayments on your mortgage.
+              </p>
+            </div>
+          </div>
+        </section>
       </div>
+    </main>
+  </div>
 
-      <section class="supporting-content-section" aria-label="Supporting information">
+  <script src="/tools/assets/js/mortgage-calculator.js" defer></script>
+  <script src="../assets/js/site.js" defer></script>
+  <div data-include="/tools/assets/partials/footer.html"></div>
 
-        <div class="support-grid">
-          <div class="card trust-card">
-            <h3>How to use this calculator</h3>
-            <ul class="bullets">
-              <li>Enter property price, term and deposit.</li>
-              <li>Add optional fees, fixed period and overpayments.</li>
-              <li>Press Calculate to generate payments and schedule.</li>
-            </ul>
-          </div>
-
-          <div class="card trust-card">
-            <h3>Important</h3>
-            <p class="small">
-              This is an estimate tool. Some lenders calculate interest daily and apply fees differently.
-              Always confirm figures with your lender or adviser.
-            </p>
-            <p class="small">
-              Your property may be repossessed if you do not keep up repayments on your mortgage.
-            </p>
-          </div>
-        </div>
-      </section>
-    </div>
-  </main>
-</div>
-
-<script src="/tools/assets/js/mortgage-calculator.js" defer></script>
-<script src="../assets/js/site.js" defer></script>
-
-<div data-include="/tools/assets/partials/footer.html"></div>
-
+   <script>
+  window.__BREADCRUMB__ = {
+    categoryName: "Mortgage & Property",
+    categoryUrl: "/tools/tools/mortgage-property.html",
+    toolName: "Mortgage Calculator",
+    toolUrl: "/tools/tools/mortgage-calculator.html"
+  };
+</script>
 </body>
 </html>

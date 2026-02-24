@@ -9,7 +9,7 @@
   --accent: #4f5bd6;
   --tile: #eef0ff;
 
-  background: var(--bg);
+  background: #ffffff;
   color: var(--text);
   min-height: 100%;
   padding: 54px 18px 72px;

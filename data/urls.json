@@ -1,0 +1,32 @@
+{
+  "site": {
+    "baseUrl": "http://8.228.63.55",
+    "defaultChangefreq": "weekly",
+    "defaultPriority": 0.5
+  },
+  "locales": {
+    "uk": {
+      "basePath": "/",
+      "pages": [
+        { "path": "/", "changefreq": "daily", "priority": 1.0 },
+
+        { "path": "/tools/", "priority": 0.8 },
+
+        { "path": "/tools/mortgage-property.html", "changefreq": "monthly", "priority": 0.7 },
+        { "path": "/tools/stamp-duty.html", "changefreq": "monthly", "priority": 0.7 },
+        { "path": "/tools/action-links.html", "changefreq": "monthly", "priority": 0.7 },
+        { "path": "/tools/debt-repayment.html", "changefreq": "monthly", "priority": 0.7 },
+        { "path": "/tools/debt-tool.html", "changefreq": "monthly", "priority": 0.7 },
+        { "path": "/tools/disclaimer.html", "changefreq": "monthly", "priority": 0.7 },
+        { "path": "/tools/mortgage-calculator.html", "changefreq": "monthly", "priority": 0.7 },
+        { "path": "/tools/number-sum.html", "changefreq": "monthly", "priority": 0.7 },
+        { "path": "/tools/percentage.html", "changefreq": "monthly", "priority": 0.7 },
+        { "path": "/tools/privacy.html", "changefreq": "monthly", "priority": 0.7 },
+        { "path": "/tools/salary-pay.html", "changefreq": "monthly", "priority": 0.7 },
+        { "path": "/tools/savings-planning.html", "changefreq": "monthly", "priority": 0.7 },
+        { "path": "/tools/tax-income.html", "changefreq": "monthly", "priority": 0.7 },
+        { "path": "/tools/vat-profit.html", "changefreq": "monthly", "priority": 0.7 }
+      ]
+    }
+  }
+}

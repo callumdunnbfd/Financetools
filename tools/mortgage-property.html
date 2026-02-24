@@ -14,14 +14,19 @@
   <link rel="stylesheet" href="/tools/assets/css/header.css">
   <link rel="stylesheet" href="/tools/assets/css/footer.css">
   <link rel="stylesheet" href="/tools/assets/css/tools/mortgage-property.css">
+  <link rel="stylesheet" href="/tools/assets/css/tools/breadcrumb.css">
 
   <script src="/tools/assets/js/include.js" defer></script>
   <script src="/tools/assets/js/header.js" defer></script>
   <script src="/tools/assets/js/footer.js" defer></script>
+  <script defer src="/tools/assets/js/breadcrumb.js"></script>
+  <script defer src="/tools/assets/js/breadcrumb-init.js"></script>
+  
 </head>
 
 <body>
   <div data-include="/tools/assets/partials/header.html"></div>
+  <div class="breadcrumb"></div>
   <main class="cat-landing">
     <div class="cat-landing__container">
       <header class="cat-landing__header">
@@ -30,7 +35,7 @@
       </header>
 
       <section class="cat-landing__grid" aria-label="Mortgage and property tools">
-        <a class="cat-landing__card" href="/tools/mortgage-payment-calculator">
+        <a class="cat-landing__card" href="/tools/tools/mortgage-calculator.html">
           <div class="cat-landing__icon-tile" aria-hidden="true">
             <svg class="cat-landing__icon" viewBox="0 0 24 24" fill="none">
               <path d="M4.75 11.25 12 5.75l7.25 5.5" />
@@ -202,5 +207,11 @@
     </div>
   </main>
    <div data-include="/tools/assets/partials/footer.html"></div>
+<script>
+  window.__BREADCRUMB__ = {
+    categoryName: "Mortgage & Property",
+    categoryUrl: "/tools/tools/mortgage-property.html"
+  };
+</script>
 </body>
 </html>

@@ -4,3 +4,10 @@
 @import url("./components.css");
 @import url("./utilities.css");
 @import url("./legacy.css");
+[data-include="/tools/assets/partials/header.html"] {
+  min-height: 84px;
+}
+
+[data-include="/tools/assets/partials/footer.html"] {
+  min-height: 260px;
+}

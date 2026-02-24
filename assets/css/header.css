@@ -498,3 +498,23 @@ body[class] .site-header.mega-header{
   }
 
 }
+
+[data-include="/tools/assets/partials/header.html"] {
+  height: var(--mega-header-h);
+}
+
+@media (max-width: 700px) {
+  [data-include="/tools/assets/partials/header.html"] {
+    height: var(--mega-header-h-mobile);
+  }
+}
+
+.mega-header {
+  height: var(--mega-header-h);
+}
+
+@media (max-width: 700px) {
+  .mega-header {
+    height: var(--mega-header-h-mobile);
+  }
+}
