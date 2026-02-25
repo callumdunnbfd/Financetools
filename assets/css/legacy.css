@@ -148,7 +148,8 @@ input,select{
 
 button.primary{
   border-color:var(--color-accent);
-  background:var(--color-accent);
+  background:#7c3aed99;
+;
   color:#fff;
 }
 

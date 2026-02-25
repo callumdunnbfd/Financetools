@@ -1,17 +1,16 @@
 (function () {
-  const STORAGE_KEY = "cc_payoff_inputs_v1";
 
   const form = document.getElementById("ccPayoffForm");
-  const msg = document.getElementById("formMessage");
   const resetBtn = document.getElementById("resetBtn");
-
-  const balanceEl = document.getElementById("balance");
-  const aprEl = document.getElementById("apr");
-  const paymentEl = document.getElementById("payment");
-  const extraEl = document.getElementById("extra");
   const persistToggle = document.getElementById("persistToggle");
 
+  const balanceInput = document.getElementById("balance");
+  const aprInput = document.getElementById("apr");
+  const paymentInput = document.getElementById("payment");
+  const extraInput = document.getElementById("extra");
+
   const resultsShell = document.getElementById("resultsShell");
+  const resultsCard = document.querySelector(".results-card");
 
   const kpiTime = document.getElementById("kpiTime");
   const kpiTimeMeta = document.getElementById("kpiTimeMeta");
@@ -19,305 +18,185 @@
   const kpiInterest = document.getElementById("kpiInterest");
   const kpiSaved = document.getElementById("kpiSaved");
 
-  const scheduleMeta = document.getElementById("scheduleMeta");
   const scheduleBody = document.getElementById("scheduleBody");
+  const formMessage = document.getElementById("formMessage");
 
-  const callout = document.getElementById("resultsCallout");
-  const calloutTitle = document.getElementById("calloutTitle");
-  const calloutBody = document.getElementById("calloutBody");
+  const STORAGE_KEY = "cc_payoff_inputs_v1";
 
-  const affiliateSlot = document.getElementById("affiliateSlot");
+  let openedOnceDesktop = false;
 
-  const moneyFmt = new Intl.NumberFormat("en-GB", { style: "currency", currency: "GBP", maximumFractionDigits: 2 });
-
-  function parseMoney(v) {
-    if (v === null || v === undefined) return NaN;
-    const s = String(v).trim().replace(/[,£\s]/g, "");
-    if (!s) return NaN;
-    return Number(s);
+  function isDesktop() {
+    return window.innerWidth >= 920;
   }
 
-  function parsePercent(v) {
-    if (v === null || v === undefined) return NaN;
-    const s = String(v).trim().replace(/[%\s]/g, "");
-    if (!s) return NaN;
-    return Number(s);
+  function setResultsState(state) {
+    resultsShell.dataset.state = state;
+    resultsShell.dataset.hasResults = state === "ready" ? "true" : "false";
   }
 
-  function fmtMoney(n) {
-    if (!Number.isFinite(n)) return "—";
-    return moneyFmt.format(n);
+  function setDesktopCollapsed(collapsed) {
+    if (!resultsCard) return;
+    if (!isDesktop()) return;
+    resultsCard.setAttribute("data-collapsed", collapsed ? "true" : "false");
   }
 
-  function fmtMonths(totalMonths) {
-    const m = Math.max(0, Math.floor(totalMonths));
+  function openDesktopOnce() {
+    if (!isDesktop()) return;
+    if (openedOnceDesktop) return;
+    setDesktopCollapsed(false);
+    openedOnceDesktop = true;
+  }
+
+  function currency(n) {
+    return "£" + n.toLocaleString("en-GB", { maximumFractionDigits: 2 });
+  }
+
+  function monthsToYearsMonths(m) {
     const years = Math.floor(m / 12);
     const months = m % 12;
-    const parts = [];
-    if (years) parts.push(years + " year" + (years === 1 ? "" : "s"));
-    parts.push(months + " month" + (months === 1 ? "" : "s"));
-    return { years, months, text: parts.join(" ") };
+    if (years > 0) return years + " yr " + months + " mo";
+    return months + " mo";
   }
 
-  function addMonthsToToday(months) {
-    const d = new Date();
-    return new Date(d.getFullYear(), d.getMonth() + months, 1);
-  }
-
-  function fmtMonthYear(dateObj) {
-    try {
-      return new Intl.DateTimeFormat("en-GB", { month: "long", year: "numeric" }).format(dateObj);
-    } catch (e) {
-      return "—";
-    }
-  }
-
-  function calcSchedule(balance, apr, monthlyPayment) {
-    const r = (apr / 100) / 12;
-    let b = balance;
+  function calculate(balance, apr, payment, extra) {
+    const monthlyRate = apr / 100 / 12;
+    let remaining = balance;
+    let month = 0;
     let totalInterest = 0;
-    let months = 0;
-    const rows = [];
-    const maxMonths = 1200;
+    const schedule = [];
 
-    while (b > 0.005 && months < maxMonths) {
-      months += 1;
-      const interest = r > 0 ? b * r : 0;
-      const pay = Math.min(monthlyPayment, b + interest);
-      const principal = pay - interest;
-
-      if (principal <= 0) {
-        return { ok: false, months: Infinity, totalInterest: Infinity, rows: [] };
-      }
-
-      b = b - principal;
+    while (remaining > 0 && month < 600) {
+      month++;
+      const interest = remaining * monthlyRate;
       totalInterest += interest;
 
-      rows.push({
-        m: months,
-        payment: pay,
-        interest: interest,
-        principal: principal,
-        balance: Math.max(0, b)
+      const totalPayment = Math.min(payment + extra, remaining + interest);
+      const principal = totalPayment - interest;
+
+      remaining = remaining + interest - totalPayment;
+      if (remaining < 0) remaining = 0;
+
+      schedule.push({
+        month,
+        payment: totalPayment,
+        interest,
+        principal,
+        balance: remaining
       });
     }
 
-    if (months >= maxMonths) {
-      return { ok: false, months: Infinity, totalInterest: Infinity, rows: [] };
-    }
-
-    return { ok: true, months, totalInterest, rows };
-  }
-
-  function setCallout(title, body) {
-    if (!title && !body) {
-      callout.hidden = true;
-      calloutTitle.textContent = "";
-      calloutBody.textContent = "";
-      return;
-    }
-    callout.hidden = false;
-    calloutTitle.textContent = title || "";
-    calloutBody.textContent = body || "";
-  }
-
-  function clearTable() {
-    scheduleBody.innerHTML = "";
-  }
-
-  function renderSchedule(rows) {
-    const frag = document.createDocumentFragment();
-    for (const row of rows) {
-      const tr = document.createElement("tr");
-
-      const tdM = document.createElement("td");
-      tdM.textContent = String(row.m);
-      tr.appendChild(tdM);
-
-      const tdP = document.createElement("td");
-      tdP.textContent = fmtMoney(row.payment);
-      tr.appendChild(tdP);
-
-      const tdI = document.createElement("td");
-      tdI.textContent = fmtMoney(row.interest);
-      tr.appendChild(tdI);
-
-      const tdPr = document.createElement("td");
-      tdPr.textContent = fmtMoney(row.principal);
-      tr.appendChild(tdPr);
-
-      const tdB = document.createElement("td");
-      tdB.textContent = fmtMoney(row.balance);
-      tr.appendChild(tdB);
-
-      frag.appendChild(tr);
-    }
-    scheduleBody.appendChild(frag);
-  }
-
-  function saveInputs() {
-    if (!persistToggle.checked) return;
-    const rec = {
-      balance: balanceEl.value,
-      apr: aprEl.value,
-      payment: paymentEl.value,
-      extra: extraEl.value
+    return {
+      months: month,
+      totalInterest,
+      schedule
     };
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(rec));
-    } catch (e) {}
   }
 
-  function loadInputs() {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) return;
-      const rec = JSON.parse(raw);
-      if (!rec) return;
-      balanceEl.value = rec.balance || "";
-      aprEl.value = rec.apr || "";
-      paymentEl.value = rec.payment || "";
-      extraEl.value = rec.extra || "";
-      persistToggle.checked = true;
-    } catch (e) {}
-  }
-
-  function clearSaved() {
-    try {
-      localStorage.removeItem(STORAGE_KEY);
-    } catch (e) {}
-  }
-
-  function setMessage(t) {
-    msg.textContent = t || "";
-  }
-
-  async function runAffiliate(context) {
-    if (!affiliateSlot) return;
-    if (!window.AffiliateEngine || typeof window.AffiliateEngine.run !== "function") return;
-    await window.AffiliateEngine.run({
-      container: affiliateSlot,
-      configUrl: "/tools/assets/data/affiliate-offers-uk.json",
-      context: context
+  function renderSchedule(schedule) {
+    scheduleBody.innerHTML = "";
+    schedule.forEach(row => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${row.month}</td>
+        <td>${currency(row.payment)}</td>
+        <td>${currency(row.interest)}</td>
+        <td>${currency(row.principal)}</td>
+        <td>${currency(row.balance)}</td>
+      `;
+      scheduleBody.appendChild(tr);
     });
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    setMessage("");
-    setCallout("", "");
-    clearTable();
 
-    const balance = parseMoney(balanceEl.value);
-    const apr = parsePercent(aprEl.value);
-    const payment = parseMoney(paymentEl.value);
-    const extra = parseMoney(extraEl.value);
-    const extraPay = Number.isFinite(extra) ? Math.max(0, extra) : 0;
+    const balance = parseFloat(balanceInput.value);
+    const apr = parseFloat(aprInput.value);
+    const payment = parseFloat(paymentInput.value);
+    const extra = parseFloat(extraInput.value || 0);
 
-    if (!Number.isFinite(balance) || balance <= 0) {
-      setMessage("Enter a valid current balance.");
-      return;
-    }
-    if (!Number.isFinite(apr) || apr < 0 || apr > 200) {
-      setMessage("Enter a valid APR (0–200).");
-      return;
-    }
-    if (!Number.isFinite(payment) || payment <= 0) {
-      setMessage("Enter a valid monthly payment.");
+    if (!balance || !apr || !payment) {
+      formMessage.textContent = "Please complete all required fields.";
+      setResultsState("empty");
       return;
     }
 
-    const base = calcSchedule(balance, apr, payment);
-    if (!base.ok) {
-      setMessage("Your monthly payment is too low to reduce the balance (it doesn’t cover interest). Increase the payment and try again.");
-      resultsShell.dataset.hasResults = "false";
-      kpiTime.textContent = "—";
-      kpiTimeMeta.textContent = "—";
-      kpiDate.textContent = "—";
-      kpiInterest.textContent = "—";
-      kpiSaved.textContent = "—";
-      scheduleMeta.textContent = "—";
-      affiliateSlot.innerHTML = '<div class="affiliate-placeholder" aria-hidden="true"></div>';
+    if (payment <= balance * (apr / 100 / 12)) {
+      formMessage.textContent = "Monthly payment is too low to reduce the balance.";
+      setResultsState("empty");
       return;
     }
 
-    const withExtra = calcSchedule(balance, apr, payment + extraPay);
+    formMessage.textContent = "";
 
-    const baseTime = fmtMonths(base.months);
-    kpiTime.textContent = baseTime.text;
-    kpiTimeMeta.textContent = extraPay > 0 && withExtra.ok ? "With extra: " + fmtMonths(withExtra.months).text : "—";
+    const base = calculate(balance, apr, payment, 0);
+    const withExtra = calculate(balance, apr, payment, extra);
 
-    kpiDate.textContent = fmtMonthYear(addMonthsToToday(base.months));
-    kpiInterest.textContent = fmtMoney(base.totalInterest);
+    kpiTime.textContent = monthsToYearsMonths(withExtra.months);
+    kpiTimeMeta.textContent = withExtra.months + " months";
 
-    let saved = 0;
-    if (extraPay > 0 && withExtra.ok) saved = Math.max(0, base.totalInterest - withExtra.totalInterest);
-    kpiSaved.textContent = extraPay > 0 && withExtra.ok ? fmtMoney(saved) : fmtMoney(0);
+    const payoffDate = new Date();
+    payoffDate.setMonth(payoffDate.getMonth() + withExtra.months);
+    kpiDate.textContent = payoffDate.toLocaleDateString("en-GB", { month: "long", year: "numeric" });
 
-    scheduleMeta.textContent = base.months === 1 ? "1 month" : base.months + " months";
-    renderSchedule(base.rows);
+    kpiInterest.textContent = currency(withExtra.totalInterest);
+    kpiSaved.textContent = currency(base.totalInterest - withExtra.totalInterest);
 
-    if (extraPay > 0 && withExtra.ok) {
-      const monthsSaved = Math.max(0, base.months - withExtra.months);
-      setCallout(
-        "Impact of the extra payment",
-        "An extra " + fmtMoney(extraPay) + " per month could save about " + fmtMoney(saved) + " in interest and shorten repayment by " + fmtMonths(monthsSaved).text + "."
-      );
-    } else {
-      setCallout("", "");
+    renderSchedule(withExtra.schedule);
+
+    setResultsState("ready");
+
+    openDesktopOnce();
+
+    if (window.innerWidth < 920) {
+      document.querySelector(".results-card").scrollIntoView({ behavior: "smooth" });
     }
 
-    resultsShell.dataset.hasResults = "true";
-    saveInputs();
-
-    runAffiliate({
-      balance: balance,
-      apr: apr,
-      payment: payment,
-      extraPayment: extraPay,
-      monthsToPayoff: base.months,
-      totalInterest: base.totalInterest,
-      interestSaved: saved
-    });
+    if (persistToggle.checked) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({
+        balance, apr, payment, extra
+      }));
+    }
   }
 
   function handleReset() {
-    balanceEl.value = "";
-    aprEl.value = "";
-    paymentEl.value = "";
-    extraEl.value = "";
-    setMessage("");
-    setCallout("", "");
-    clearTable();
-    resultsShell.dataset.hasResults = "false";
-    kpiTime.textContent = "—";
-    kpiTimeMeta.textContent = "—";
-    kpiDate.textContent = "—";
-    kpiInterest.textContent = "—";
-    kpiSaved.textContent = "—";
-    scheduleMeta.textContent = "—";
-    affiliateSlot.innerHTML = '<div class="affiliate-placeholder" aria-hidden="true"></div>';
-    if (!persistToggle.checked) clearSaved();
+    form.reset();
+    scheduleBody.innerHTML = "";
+    formMessage.textContent = "";
+    setResultsState("empty");
+    localStorage.removeItem(STORAGE_KEY);
   }
 
-  function handlePersistToggle() {
-    if (!persistToggle.checked) {
-      clearSaved();
-      return;
-    }
-    saveInputs();
+  function loadInputs() {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (!saved) return;
+    try {
+      const data = JSON.parse(saved);
+      balanceInput.value = data.balance || "";
+      aprInput.value = data.apr || "";
+      paymentInput.value = data.payment || "";
+      extraInput.value = data.extra || "";
+      persistToggle.checked = true;
+    } catch {}
   }
 
   loadInputs();
+  setResultsState("empty");
+
+  if (isDesktop()) {
+    setDesktopCollapsed(true);
+  }
 
   form.addEventListener("submit", handleSubmit);
   resetBtn.addEventListener("click", handleReset);
-  persistToggle.addEventListener("change", handlePersistToggle);
 
-  const inputs = [balanceEl, aprEl, paymentEl, extraEl];
-  for (const el of inputs) {
-    el.addEventListener("input", function () {
-      if (persistToggle.checked) saveInputs();
-    });
-  }
+  window.addEventListener("resize", () => {
+    if (!isDesktop()) return;
+    if (openedOnceDesktop) {
+      setDesktopCollapsed(false);
+      return;
+    }
+    setDesktopCollapsed(true);
+  });
+
 })();

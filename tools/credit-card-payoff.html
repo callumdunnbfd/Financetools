@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Credit Card Payoff Calculator (UK) – Payoff Date, Interest & Schedule</title>
+  <title>Credit Card Payoff Calculator (UK) – Payoff Date, Interest &amp; Schedule</title>
   <meta name="description" content="Calculate how long it will take to pay off your credit card balance, your payoff date, total interest, and how much interest you could save with extra payments. Includes an amortisation schedule." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -34,7 +34,6 @@
     <section class="hero hero-intro" aria-label="Credit card payoff calculator introduction">
       <div class="hero-inner">
         <div class="hero-copy">
-          <div class="eyebrow">Debt tools</div>
           <h1>Credit card payoff calculator</h1>
           <p class="hero-lede">
             Use this calculator to estimate your credit card payoff date, total interest, and the impact of adding an extra payment.
@@ -72,7 +71,14 @@
 
               <form id="ccPayoffForm" class="form" novalidate>
                 <div class="field">
-                  <label for="balance">Current balance</label>
+                  <label for="balance" class="field-label">
+                    <span class="li" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" width="16" height="16" fill="none">
+                        <path d="M7 7h10M7 12h10M7 17h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                      </svg>
+                    </span>
+                    <span>Current balance</span>
+                  </label>
                   <div class="input-wrap">
                     <span class="prefix" aria-hidden="true">£</span>
                     <input id="balance" name="balance" inputmode="decimal" autocomplete="off" placeholder="e.g., 3500" />
@@ -81,7 +87,15 @@
                 </div>
 
                 <div class="field">
-                  <label for="apr">APR</label>
+                  <label for="apr" class="field-label">
+                    <span class="li" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" width="16" height="16" fill="none">
+                        <path d="M12 6v6l4 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M21 12a9 9 0 1 1-9-9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                      </svg>
+                    </span>
+                    <span>APR (Annual Percentage Rate)</span>
+                  </label>
                   <div class="input-wrap">
                     <input id="apr" name="apr" inputmode="decimal" autocomplete="off" placeholder="e.g., 24.9" />
                     <span class="suffix" aria-hidden="true">%</span>
@@ -90,7 +104,15 @@
                 </div>
 
                 <div class="field">
-                  <label for="payment">Monthly payment</label>
+                  <label for="payment" class="field-label">
+                    <span class="li" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" width="16" height="16" fill="none">
+                        <path d="M7 7h10v10H7z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                        <path d="M7 11h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                      </svg>
+                    </span>
+                    <span>Monthly payment</span>
+                  </label>
                   <div class="input-wrap">
                     <span class="prefix" aria-hidden="true">£</span>
                     <input id="payment" name="payment" inputmode="decimal" autocomplete="off" placeholder="e.g., 150" />
@@ -99,7 +121,14 @@
                 </div>
 
                 <div class="field">
-                  <label for="extra">Extra monthly payment (optional)</label>
+                  <label for="extra" class="field-label">
+                    <span class="li" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" width="16" height="16" fill="none">
+                        <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                      </svg>
+                    </span>
+                    <span>Extra monthly payment (optional)</span>
+                  </label>
                   <div class="input-wrap">
                     <span class="prefix" aria-hidden="true">£</span>
                     <input id="extra" name="extra" inputmode="decimal" autocomplete="off" placeholder="e.g., 50" />
@@ -124,157 +153,141 @@
             <section class="card results-card col-6" aria-label="Results">
               <div class="card-header">
                 <h2 class="card-title">Results</h2>
-                <p class="card-subtitle">Calculated after you run the tool. The space below is reserved to avoid layout shift.</p>
               </div>
 
-              <div class="results-shell" id="resultsShell" data-has-results="false">
-                <div class="kpi-grid" aria-label="Key results">
-                  <div class="kpi">
-                    <div class="kpi-label">Time to repay</div>
-                    <div class="kpi-value" id="kpiTime">—</div>
-                    <div class="kpi-meta" id="kpiTimeMeta">—</div>
+              <div class="results-shell" id="resultsShell" data-state="empty" data-has-results="false">
+                <div class="results-content">
+                  <div class="kpi-grid" aria-label="Key results">
+                    <div class="kpi">
+                      <div class="kpi-label">Time to repay</div>
+                      <div class="kpi-value" id="kpiTime">—</div>
+                      <div class="kpi-meta" id="kpiTimeMeta">—</div>
+                    </div>
+
+                    <div class="kpi">
+                      <div class="kpi-label">Payoff date</div>
+                      <div class="kpi-value" id="kpiDate">—</div>
+                      <div class="kpi-meta">Estimated month you become debt-free</div>
+                    </div>
+
+                    <div class="kpi">
+                      <div class="kpi-label">Total interest</div>
+                      <div class="kpi-value" id="kpiInterest">—</div>
+                      <div class="kpi-meta">Across the full payoff period</div>
+                    </div>
+
+                    <div class="kpi">
+                      <div class="kpi-label">Interest saved</div>
+                      <div class="kpi-value" id="kpiSaved">—</div>
+                      <div class="kpi-meta">With extra payment vs none</div>
+                    </div>
                   </div>
 
-                  <div class="kpi">
-                    <div class="kpi-label">Payoff date</div>
-                    <div class="kpi-value" id="kpiDate">—</div>
-                    <div class="kpi-meta">Estimated month you become debt-free</div>
+                  <div class="callout" id="resultsCallout" hidden>
+                    <div class="callout-title" id="calloutTitle"></div>
+                    <div class="callout-body" id="calloutBody"></div>
                   </div>
 
-                  <div class="kpi">
-                    <div class="kpi-label">Total interest</div>
-                    <div class="kpi-value" id="kpiInterest">—</div>
-                    <div class="kpi-meta">Across the full payoff period</div>
+                  <details class="schedule" id="scheduleDetails" aria-label="Amortisation schedule">
+                    <summary>
+                      <span>Amortisation schedule</span>
+                      <span class="summary-meta" id="scheduleMeta">—</span>
+                    </summary>
+
+                    <div class="table-wrap" role="region" aria-label="Schedule table" tabindex="0">
+                      <table class="table" id="scheduleTable">
+                        <thead>
+                          <tr>
+                            <th scope="col">Month</th>
+                            <th scope="col">Payment</th>
+                            <th scope="col">Interest</th>
+                            <th scope="col">Principal</th>
+                            <th scope="col">Balance</th>
+                          </tr>
+                        </thead>
+                        <tbody id="scheduleBody"></tbody>
+                      </table>
+                    </div>
+                  </details>
+
+                  <div class="mini-how mini-how--results">
+                    <div class="mh-head">
+                      <span class="mh-ic" aria-hidden="true">?</span>
+                      <span class="mh-title">How this calculator works</span>
+                    </div>
+                    <ul class="mh-list">
+                      <li>Updated for current UK assumptions.</li>
+                      <li>APR stays fixed throughout.</li>
+                      <li>Interest compounds monthly (APR ÷ 12).</li>
+                      <li>Payments are made monthly and stay the same until the final payment.</li>
+                    </ul>
                   </div>
 
-                  <div class="kpi">
-                    <div class="kpi-label">Interest saved</div>
-                    <div class="kpi-value" id="kpiSaved">—</div>
-                    <div class="kpi-meta">With extra payment vs none</div>
+                  <div class="affiliate-slot" id="affiliateSlot" aria-label="Relevant next steps">
+                    <div class="affiliate-placeholder" aria-hidden="true"></div>
                   </div>
-                </div>
-
-                <div class="callout" id="resultsCallout" hidden>
-                  <div class="callout-title" id="calloutTitle"></div>
-                  <div class="callout-body" id="calloutBody"></div>
-                </div>
-
-                <details class="schedule" id="scheduleDetails" aria-label="Amortisation schedule">
-                  <summary>
-                    <span>Amortisation schedule</span>
-                    <span class="summary-meta" id="scheduleMeta">—</span>
-                  </summary>
-
-                  <div class="table-wrap" role="region" aria-label="Schedule table" tabindex="0">
-                    <table class="table" id="scheduleTable">
-                      <thead>
-                        <tr>
-                          <th scope="col">Month</th>
-                          <th scope="col">Payment</th>
-                          <th scope="col">Interest</th>
-                          <th scope="col">Principal</th>
-                          <th scope="col">Balance</th>
-                        </tr>
-                      </thead>
-                      <tbody id="scheduleBody"></tbody>
-                    </table>
-                  </div>
-                </details>
-
-                <div class="affiliate-slot" id="affiliateSlot" aria-label="Relevant next steps">
-                  <div class="affiliate-placeholder" aria-hidden="true"></div>
                 </div>
               </div>
             </section>
           </div>
         </div>
 
-        <section class="content-block" aria-label="Guide">
-          <h2>How to use this calculator</h2>
-          <p>
-            Start with your current balance, then enter the APR shown on your statement (or in the card’s summary box). Add the
-            amount you normally pay each month. If you can afford an extra monthly payment, include it to see how much quicker
-            you could clear the balance and how much interest you might avoid.
-          </p>
-          <p>
-            The calculator assumes no new spending. If you continue using the card, repayments typically take longer and cost more.
-            For a more realistic plan, consider separating day-to-day spending from existing debt and focusing repayments on the balance.
-          </p>
+        <section class="section-card faq-card" aria-label="Frequently asked questions">
+          <h2 class="section-title">FAQs</h2>
+          <p class="section-subtitle">Common questions about credit card repayment</p>
 
-          <div class="two-col">
-            <div class="info-card">
-              <h3>Worked UK example</h3>
-              <p>
-                If you owe £3,500 at 24.9% APR and pay £150 per month, you may clear the balance in around 2 years and pay over £800 in interest.
-                Adding £50 extra per month could reduce the term by many months and cut total interest meaningfully.
-              </p>
-              <p class="small">Example figures are illustrative. Your statement may differ due to daily interest and fees.</p>
-            </div>
-
-            <div class="info-card">
-              <h3>Assumptions and limitations</h3>
-              <ul class="bullets">
-                <li>Monthly compounding (APR ÷ 12) for interest.</li>
-                <li>Payments occur once per month.</li>
-                <li>No fees, late charges, or new purchases.</li>
-                <li>No changes to APR or promotional rates.</li>
-              </ul>
-              <p class="small">If your monthly payment is too low to cover interest, the balance will not reduce.</p>
-            </div>
-          </div>
-        </section>
-
-        <section class="content-block" aria-label="Frequently asked questions">
-          <h2>FAQs</h2>
-
-          <div class="faq">
-            <details>
+          <div class="faq-grid">
+            <details class="faq-item">
               <summary>Why does my statement payoff differ from this calculator?</summary>
-              <p>Many UK cards calculate interest daily and apply it at different times. Fees, promotional rates, and minimum payment rules can also change the result.</p>
+              <div class="faq-body">
+                <p>Many UK cards calculate interest daily and apply it at different times. Fees, promotional rates, and minimum payment rules can also change the result.</p>
+              </div>
             </details>
 
-            <details>
+            <details class="faq-item">
               <summary>What if I only pay the minimum?</summary>
-              <p>If the minimum barely exceeds interest, repayment can take a long time. Use your typical minimum as the monthly payment input to see an estimate.</p>
+              <div class="faq-body">
+                <p>If the minimum barely exceeds interest, repayment can take a long time. Use your typical minimum as the monthly payment input to see an estimate.</p>
+              </div>
             </details>
 
-            <details>
+            <details class="faq-item">
               <summary>What APR should I use?</summary>
-              <p>Use the APR for the balance you’re repaying (purchase APR, cash APR, or balance transfer APR). If multiple rates apply, this tool is an estimate.</p>
+              <div class="faq-body">
+                <p>Use the APR for the balance you’re repaying (purchase APR, cash APR, or balance transfer APR). If multiple rates apply, this tool is an estimate.</p>
+              </div>
             </details>
 
-            <details>
+            <details class="faq-item">
               <summary>Does an extra payment always help?</summary>
-              <p>Yes, if it reduces principal. Extra payments usually shorten the term and reduce interest, unless your card has fixed fees or you increase spending again.</p>
+              <div class="faq-body">
+                <p>Yes, if it reduces principal. Extra payments usually shorten the term and reduce interest, unless your card has fixed fees or you increase spending again.</p>
+              </div>
             </details>
 
-            <details>
+            <details class="faq-item">
               <summary>Can I use this for 0% promotional periods?</summary>
-              <p>You can enter 0% APR to estimate a payoff schedule during the promotional period. When the promo ends, rerun the calculation with the new APR.</p>
+              <div class="faq-body">
+                <p>You can enter 0% APR to estimate a payoff schedule during the promotional period. When the promo ends, rerun the calculation with the new APR.</p>
+              </div>
             </details>
 
-            <details>
+            <details class="faq-item">
               <summary>Is it better to overpay or switch cards?</summary>
-              <p>Overpaying reduces interest at your current APR. A 0% balance transfer may reduce interest faster, but check fees, eligibility, and the end date of the promotional rate.</p>
+              <div class="faq-body">
+                <p>Overpaying reduces interest at your current APR. A 0% balance transfer may reduce interest faster, but check fees, eligibility, and the end date of the promotional rate.</p>
+              </div>
             </details>
 
-            <details>
+            <details class="faq-item">
               <summary>What if my payment date is mid-month?</summary>
-              <p>This tool models monthly periods. If you pay mid-month, the payoff month is still a reasonable estimate, but interest can differ slightly.</p>
+              <div class="faq-body">
+                <p>This tool models monthly periods. If you pay mid-month, the payoff month is still a reasonable estimate, but interest can differ slightly.</p>
+              </div>
             </details>
           </div>
 
           <div class="last-updated">Last updated: <time datetime="2026-02-24">24 February 2026</time></div>
-        </section>
-
-        <section class="content-block" aria-label="Related tools">
-          <h2>Related tools</h2>
-          <div class="related-grid">
-            <a class="related-card" href="/tools/debt-tool.html">Debt tracker</a>
-            <a class="related-card" href="/tools/debt-repayment.html">Debt repayment strategy</a>
-            <a class="related-card" href="/tools/savings-planning.html">Savings planning</a>
-            <a class="related-card" href="/tools/mortgage-calculator.html">Mortgage calculator</a>
-          </div>
         </section>
       </div>
     </main>
@@ -349,7 +362,7 @@
 
   <script>
     window.__BREADCRUMB__ = {
-      categoryName: "Debt & Repayment",
+      categoryName: "Debt & Credit",
       categoryUrl: "/tools/debt-repayment.html",
       toolName: "Credit Card Payoff Calculator",
       toolUrl: "/tools/credit-card-payoff.html"

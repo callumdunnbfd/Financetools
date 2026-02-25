@@ -37,7 +37,7 @@
   }
 
   function defaultHome() {
-    return { name: "Home", url: "/" };
+    return { name: "Home", url: "tools/" };
   }
 
   function buildCrumbs(config) {
