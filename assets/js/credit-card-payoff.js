@@ -23,6 +23,7 @@
   const scheduleDetails = document.getElementById("scheduleDetails");
 
   const formMessage = document.getElementById("formMessage");
+  const affiliateSlot = document.getElementById("affiliateSlot");
 
   const STORAGE_KEY = "cc_payoff_inputs_v1";
 
@@ -193,6 +194,21 @@
         balance, apr, payment, extra
       }));
     }
+
+    if (window.Affiliate && affiliateSlot) {
+      window.Affiliate.render({
+        slot: affiliateSlot,
+        context: {
+          balance,
+          apr,
+          payment,
+          extra,
+          months: withExtra.months,
+          totalInterest: withExtra.totalInterest,
+          interestSaved: base.totalInterest - withExtra.totalInterest
+        }
+      });
+    }
   }
 
   function handleReset() {
@@ -202,6 +218,10 @@
     formMessage.textContent = "";
     setResultsState("empty");
     localStorage.removeItem(STORAGE_KEY);
+
+    if (window.Affiliate && affiliateSlot) {
+      window.Affiliate.clear(affiliateSlot);
+    }
   }
 
   function loadInputs() {
