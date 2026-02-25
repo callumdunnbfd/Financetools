@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Credit Card Payoff Calculator (UK) – Payoff Date, Interest &amp; Schedule</title>
-  <meta name="description" content="Calculate how long it will take to pay off your credit card balance, your payoff date, total interest, and how much interest you could save with extra payments. Includes an amortisation schedule." />
+  <meta name="description" content="Calculate how long it will take to pay off your credit card balance, your payoff date, total interest, and how much interest you could save with extra payments." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -188,9 +188,9 @@
                     <div class="callout-body" id="calloutBody"></div>
                   </div>
 
-                  <details class="schedule" id="scheduleDetails" aria-label="Amortisation schedule">
+                  <details class="schedule" id="scheduleDetails" aria-label="Payment timeline">
                     <summary>
-                      <span>Amortisation schedule</span>
+                      <span>Payment timeline</span>
                       <span class="summary-meta" id="scheduleMeta">—</span>
                     </summary>
 
@@ -198,10 +198,9 @@
                       <table class="table" id="scheduleTable">
                         <thead>
                           <tr>
-                            <th scope="col">Month</th>
+                            <th scope="col">Checkpoint</th>
                             <th scope="col">Payment</th>
                             <th scope="col">Interest</th>
-                            <th scope="col">Principal</th>
                             <th scope="col">Balance</th>
                           </tr>
                         </thead>
@@ -209,6 +208,10 @@
                       </table>
                     </div>
                   </details>
+
+                  <div class="affiliate-slot" id="affiliateSlot" aria-label="Relevant next steps">
+                    <div class="affiliate-placeholder" aria-hidden="true"></div>
+                  </div>
 
                   <div class="mini-how mini-how--results">
                     <div class="mh-head">
@@ -223,9 +226,6 @@
                     </ul>
                   </div>
 
-                  <div class="affiliate-slot" id="affiliateSlot" aria-label="Relevant next steps">
-                    <div class="affiliate-placeholder" aria-hidden="true"></div>
-                  </div>
                 </div>
               </div>
             </section>

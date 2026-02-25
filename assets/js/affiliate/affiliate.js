@@ -22,6 +22,8 @@
   const scheduleMeta = document.getElementById("scheduleMeta");
   const scheduleDetails = document.getElementById("scheduleDetails");
 
+  const affiliateSlot = document.getElementById("affiliateSlot");
+
   const formMessage = document.getElementById("formMessage");
 
   const STORAGE_KEY = "cc_payoff_inputs_v1";
@@ -142,6 +144,35 @@
     }
   }
 
+  function renderAffiliate(context) {
+  if (!affiliateSlot) return;
+
+  affiliateSlot.classList.remove("affiliate-placeholder");
+
+  if (window.Affiliate && typeof window.Affiliate.render === "function") {
+    window.Affiliate.render({ slot: affiliateSlot, context });
+    return;
+  }
+
+    affiliateSlot.innerHTML = "";
+  }
+
+function clearAffiliate() {
+  if (!affiliateSlot) return;
+
+  affiliateSlot.classList.add("affiliate-placeholder");
+
+  if (window.Affiliate && typeof window.Affiliate.clear === "function") {
+    window.Affiliate.clear(affiliateSlot);
+    return;
+  }
+
+  affiliateSlot.innerHTML = "";
+}
+
+    affiliateSlot.innerHTML = "";
+  }
+
   function handleSubmit(e) {
     e.preventDefault();
 
@@ -153,12 +184,14 @@
     if (!balance || !apr || !payment) {
       formMessage.textContent = "Please complete all required fields.";
       setResultsState("empty");
+      clearAffiliate();
       return;
     }
 
     if (payment <= balance * (apr / 100 / 12)) {
       formMessage.textContent = "Monthly payment is too low to reduce the balance.";
       setResultsState("empty");
+      clearAffiliate();
       return;
     }
 
@@ -181,6 +214,16 @@
 
     setResultsState("ready");
 
+    renderAffiliate({
+      balance,
+      apr,
+      monthsToPayoff: withExtra.months,
+      totalInterest: withExtra.totalInterest,
+      interestSaved: base.totalInterest - withExtra.totalInterest,
+      monthlyPayment: payment,
+      extraPayment: extra
+    });
+
     openDesktopOnce();
 
     if (window.innerWidth < 920) {
@@ -201,6 +244,7 @@
     if (scheduleMeta) scheduleMeta.textContent = "—";
     formMessage.textContent = "";
     setResultsState("empty");
+    clearAffiliate();
     localStorage.removeItem(STORAGE_KEY);
   }
 
