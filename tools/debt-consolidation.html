@@ -1,0 +1,485 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Debt Consolidation Savings Calculator (UK) – Compare Interest, Time & Payments</title>
+  <meta name="description" content="Compare your current debts against a consolidation loan. Estimate payoff time, total interest, monthly payment changes, and potential savings using UK-style representative terms." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/tools/assets/css/site.css" />
+  <link rel="stylesheet" href="/tools/assets/css/header.css">
+  <link rel="stylesheet" href="/tools/assets/css/footer.css">
+  <link rel="stylesheet" href="/tools/assets/css/tools/breadcrumb.css">
+  <link rel="stylesheet" href="/tools/assets/css/tools/debt-consolidation.css">
+
+  <script src="/tools/assets/js/include.js" defer></script>
+  <script src="/tools/assets/js/header.js" defer></script>
+  <script src="/tools/assets/js/footer.js" defer></script>
+  <script src="/tools/assets/js/breadcrumb.js" defer></script>
+  <script src="/tools/assets/js/breadcrumb-init.js" defer></script>
+
+  <script src="/tools/assets/js/affiliate/affiliate.js" defer></script>
+  <script src="/tools/assets/js/debt-consolidation.js" defer></script>
+</head>
+
+<body class="debt-consolidation">
+  <div data-include="../assets/partials/header.html"></div>
+  <div class="breadcrumb"></div>
+
+  <div class="main-container">
+    <section class="hero hero-intro" aria-label="Debt consolidation calculator introduction">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <h1>Debt consolidation savings calculator</h1>
+          <p class="hero-lede">
+            This UK-focused calculator estimates how your current debts compare with replacing them using a single consolidation loan.
+            It models your current position as one combined balance with an average APR and a fixed total monthly payment, then compares
+            that with a fixed-rate instalment loan using the APR and term you enter. You’ll see estimated payoff time, total interest,
+            and how the monthly payment changes. A lower APR does not always mean a lower total cost: fees and longer terms can outweigh
+            the benefit, and eligibility can change the real rate offered. Use the results as an initial comparison, then check the
+            assumptions, affordability, and the lender’s terms before taking any action.
+          </p>
+
+          <div class="trust-row" aria-label="Important information">
+            <span class="trust-pill">Estimates only</span>
+            <span class="trust-pill">UK terminology</span>
+            <span class="trust-pill">No sign-up</span>
+          </div>
+        </div>
+
+        <div class="trust-info-block" role="note" aria-label="Key assumptions">
+          <div class="panel-title">What this assumes</div>
+          <ul class="panel-list">
+            <li>Your current debts are modelled as one balance at an average APR with a fixed monthly payment.</li>
+            <li>APRs stay constant and interest compounds monthly (APR ÷ 12).</li>
+            <li>The consolidation loan is a fixed-rate instalment loan with a fixed term and fixed payment.</li>
+            <li>No missed payments, no new borrowing, and no early repayment charges.</li>
+          </ul>
+          <div class="hero-note">For regulated advice, speak to a qualified professional.</div>
+        </div>
+      </div>
+    </section>
+
+    <main class="container" id="calculator">
+      <div class="page-shell">
+        <div class="calculator-card" aria-label="Debt consolidation savings calculator">
+          <div class="grid payoff-grid">
+            <section class="card inputs-card col-6" aria-label="Inputs">
+              <div class="card-header">
+                <h2 class="card-title">Your inputs</h2>
+                <p class="card-subtitle">Compare your current repayment against a consolidation loan using representative terms.</p>
+              </div>
+
+              <form id="dcForm" class="form" novalidate>
+                <div class="field">
+                  <label for="totalDebt" class="field-label">
+                    <span class="li" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" width="16" height="16" fill="none">
+                        <path d="M7 7h10M7 12h10M7 17h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                      </svg>
+                    </span>
+                    <span>Total debt balance</span>
+                  </label>
+                  <div class="input-wrap">
+                    <span class="prefix" aria-hidden="true">£</span>
+                    <input id="totalDebt" name="totalDebt" inputmode="decimal" autocomplete="off" placeholder="e.g., 12000" />
+                  </div>
+                  <div class="hint">If you have multiple debts, add the balances and use a reasonable average APR.</div>
+                </div>
+
+                <div class="field">
+                  <label for="averageApr" class="field-label">
+                    <span class="li" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" width="16" height="16" fill="none">
+                        <path d="M12 6v6l4 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M21 12a9 9 0 1 1-9-9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                      </svg>
+                    </span>
+                    <span>Average APR</span>
+                  </label>
+                  <div class="input-wrap">
+                    <input id="averageApr" name="averageApr" inputmode="decimal" autocomplete="off" placeholder="e.g., 24.9" />
+                    <span class="suffix" aria-hidden="true">%</span>
+                  </div>
+                  <div class="hint">Use an APR that reflects your mix of debts (cards, overdraft, loans).</div>
+                </div>
+
+                <div class="field">
+                  <label for="monthlyPayment" class="field-label">
+                    <span class="li" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" width="16" height="16" fill="none">
+                        <path d="M7 7h10v10H7z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                        <path d="M7 11h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                      </svg>
+                    </span>
+                    <span>Current total monthly payment</span>
+                  </label>
+                  <div class="input-wrap">
+                    <span class="prefix" aria-hidden="true">£</span>
+                    <input id="monthlyPayment" name="monthlyPayment" inputmode="decimal" autocomplete="off" placeholder="e.g., 350" />
+                  </div>
+                  <div class="hint">Enter what you typically pay across all included debts each month.</div>
+                </div>
+
+                <div class="field">
+                  <label for="loanApr" class="field-label">
+                    <span class="li" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" width="16" height="16" fill="none">
+                        <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                      </svg>
+                    </span>
+                    <span>New loan APR</span>
+                  </label>
+                  <div class="input-wrap">
+                    <input id="loanApr" name="loanApr" inputmode="decimal" autocomplete="off" placeholder="e.g., 12.9" />
+                    <span class="suffix" aria-hidden="true">%</span>
+                  </div>
+                  <div class="hint">Representative APR you are comparing against.</div>
+                </div>
+
+                <div class="field">
+                  <label for="loanTermYears" class="field-label">
+                    <span class="li" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" width="16" height="16" fill="none">
+                        <path d="M4 7h16M7 4v6M17 4v6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M7 14h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M7 18h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                      </svg>
+                    </span>
+                    <span>Loan term</span>
+                  </label>
+                  <div class="input-wrap">
+                    <input id="loanTermYears" name="loanTermYears" inputmode="decimal" autocomplete="off" placeholder="e.g., 4" />
+                    <span class="suffix" aria-hidden="true">years</span>
+                  </div>
+                  <div class="hint">Shorter terms are usually cheaper overall but increase the monthly payment.</div>
+                </div>
+
+                <div class="field">
+                  <label for="arrangementFee" class="field-label">
+                    <span class="li" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" width="16" height="16" fill="none">
+                        <path d="M12 3l9 4.5-9 4.5-9-4.5L12 3z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                        <path d="M3 7.5V16.5L12 21l9-4.5V7.5" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                      </svg>
+                    </span>
+                    <span>Arrangement fee (optional)</span>
+                  </label>
+                  <div class="input-wrap">
+                    <span class="prefix" aria-hidden="true">£</span>
+                    <input id="arrangementFee" name="arrangementFee" inputmode="decimal" autocomplete="off" placeholder="e.g., 250" />
+                  </div>
+                  <div class="hint">Modelled as added to the consolidation loan balance.</div>
+                </div>
+
+                <div class="form-row">
+                  <button class="btn primary" type="submit">Calculate</button>
+                  <button class="btn" type="button" id="resetBtn">Reset</button>
+                </div>
+
+                <label class="save-toggle">
+                  <input type="checkbox" id="persistToggle" />
+                  <span>Save inputs on this device</span>
+                </label>
+
+                <div class="form-message" id="formMessage" role="status" aria-live="polite"></div>
+              </form>
+            </section>
+
+            <section class="card results-card col-6" id="resultsCard" aria-label="Results" data-collapsed="true">
+              <div class="card-header">
+                <h2 class="card-title">Results</h2>
+              </div>
+
+              <div class="results-shell" id="resultsShell" data-state="empty" data-has-results="false">
+                <div class="results-content">
+                  <div class="kpi-grid" aria-label="Key results">
+                    <div class="kpi">
+                      <div class="kpi-label">Interest saved</div>
+                      <div class="kpi-value" id="kpiInterestSaved">—</div>
+                      <div class="kpi-meta" id="kpiInterestMeta">—</div>
+                    </div>
+
+                    <div class="kpi">
+                      <div class="kpi-label">Time change</div>
+                      <div class="kpi-value" id="kpiTimeChange">—</div>
+                      <div class="kpi-meta" id="kpiTimeMeta">—</div>
+                    </div>
+
+                    <div class="kpi">
+                      <div class="kpi-label">Monthly payment</div>
+                      <div class="kpi-value" id="kpiPaymentChange">—</div>
+                      <div class="kpi-meta" id="kpiPaymentMeta">—</div>
+                    </div>
+
+                    <div class="kpi">
+                      <div class="kpi-label">Payoff date change</div>
+                      <div class="kpi-value" id="kpiPayoffChange">—</div>
+                      <div class="kpi-meta" id="kpiPayoffMeta">—</div>
+                    </div>
+                  </div>
+
+                  <div class="callout" id="resultsCallout" hidden>
+                    <div class="callout-title" id="calloutTitle"></div>
+                    <div class="callout-body" id="calloutBody"></div>
+                  </div>
+
+                  <details class="schedule" id="scheduleDetails" aria-label="Consolidation loan checkpoints">
+                    <summary>
+                      <span>Consolidation loan checkpoints</span>
+                      <span class="summary-meta" id="scheduleMeta">—</span>
+                    </summary>
+
+                    <div class="table-wrap" role="region" aria-label="Schedule table" tabindex="0">
+                      <table class="table" id="scheduleTable">
+                        <thead>
+                          <tr>
+                            <th scope="col">Checkpoint</th>
+                            <th scope="col">Payment</th>
+                            <th scope="col">Interest</th>
+                            <th scope="col">Balance</th>
+                          </tr>
+                        </thead>
+                        <tbody id="scheduleBody"></tbody>
+                      </table>
+                    </div>
+                  </details>
+
+                  <div class="affiliate-slot" id="affiliateSlot" aria-label="Relevant next steps">
+                    <div class="affiliate-placeholder" aria-hidden="true"></div>
+                  </div>
+
+                  <div class="mini-how" aria-label="Side-by-side details">
+                    <div class="mh-head">
+                      <span class="mh-ic" aria-hidden="true">i</span>
+                      <div class="mh-title">Side-by-side details</div>
+                    </div>
+                    <ul class="mh-list">
+                      <li><strong>Current:</strong> <span id="curSummary">—</span></li>
+                      <li><strong>Consolidation:</strong> <span id="loanSummary">—</span></li>
+                      <li><strong>Fee model:</strong> <span id="feeSummary">—</span></li>
+                    </ul>
+                  </div>
+
+                </div>
+              </div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <section class="container section-card" aria-label="Assumptions">
+      <h2 class="section-title">Assumptions and interpretation</h2>
+      <p class="section-subtitle">
+        Debt consolidation can reduce interest and simplify repayments, but the overall cost depends on your rate, term length, fees, and whether you keep borrowing.
+      </p>
+
+      <div class="guide-shell" aria-label="Guide">
+        <div class="guide-main">
+          <p>
+            The “current” scenario treats your debts as a single balance at an average APR with a fixed monthly payment. That is a simplification:
+            cards and overdrafts often have changing minimum payments, and different products can have different rates.
+          </p>
+          <p>
+            The consolidation scenario uses a fixed-rate instalment loan with a fixed term. The monthly payment is calculated from the APR and term.
+            If you choose a longer term to lower the monthly payment, total interest can rise even when the APR is lower.
+          </p>
+          <p class="guide-footnote">
+            <i>If your current monthly payment is not high enough to reduce the balance after interest, the calculator will tell you and won’t produce results.</i>
+          </p>
+        </div>
+
+        <aside class="guide-aside" aria-label="What to check next">
+          <h3>What to check next</h3>
+          <ul>
+            <li>Whether the offered APR is realistic for your credit profile.</li>
+            <li>Fees, early repayment charges, and whether the fee is added to the loan.</li>
+            <li>Whether you can avoid re-borrowing on cleared credit lines.</li>
+            <li>Whether a shorter term is affordable to minimise total interest.</li>
+          </ul>
+          <p class="aside-note">If you’re unsure, consider getting regulated debt advice.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="container section-card" aria-label="Worked example">
+      <h2 class="section-title">Worked UK example</h2>
+      <p class="section-subtitle">
+        Example only. Results depend on your exact borrowing and lender terms.
+      </p>
+
+      <div class="guide-shell" aria-label="Example">
+        <div class="guide-main">
+          <p>
+            Suppose you have £12,000 across cards and an overdraft at an average APR of 24.9%, and you pay £350 per month in total.
+            You compare that with a consolidation loan at 12.9% over 4 years with a £250 fee added to the loan.
+          </p>
+          <p>
+            The consolidation loan is likely to reduce the payoff time certainty (fixed term) and may reduce interest, but the monthly payment may change.
+            If the consolidation payment is lower, that can improve cashflow, but it may also extend the time you remain in debt compared with paying more now.
+          </p>
+        </div>
+
+        <aside class="guide-aside" aria-label="How to use the tool">
+          <h3>How to use this tool</h3>
+          <ul>
+            <li>Use a realistic APR for your current mix of debt.</li>
+            <li>Use your typical total monthly payment, not an aspirational figure.</li>
+            <li>Compare at least two loan terms to see the trade-off.</li>
+            <li>Include fees if they apply in your scenario.</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="container section-card" aria-label="FAQs">
+      <h2 class="section-title">FAQs</h2>
+      <p class="section-subtitle">Common questions about consolidation comparisons and how to interpret the numbers.</p>
+
+      <div class="faq-grid">
+        <details class="faq-item">
+          <summary>Does a lower APR always mean I’ll pay less overall?</summary>
+          <div class="faq-body">
+            <p>No. A longer term can increase total interest even with a lower APR, and fees can offset the benefit. Compare both monthly payment and total interest.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Why does the calculator treat my debts as one balance?</summary>
+          <div class="faq-body">
+            <p>It’s a simplification so you can compare scenarios quickly. If your debts have very different rates, consider using a weighted average APR or modelling them separately with a repayment strategy tool.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>What if my current monthly payment changes each month?</summary>
+          <div class="faq-body">
+            <p>This tool assumes a fixed total monthly payment. If you usually pay the minimum on a card, your payment may fall as the balance falls, which can increase payoff time compared with a fixed payment assumption.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>How is the consolidation monthly payment calculated?</summary>
+          <div class="faq-body">
+            <p>It uses a standard fixed-rate instalment formula based on your APR and term. The fee is modelled as added to the loan balance when provided.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Should I include overdrafts and BNPL?</summary>
+          <div class="faq-body">
+            <p>You can include anything you intend to repay or replace, as long as you reflect it in the total balance and average APR. For short-term BNPL, consider whether interest is actually charged in your case.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Will the calculator tell me if my payment is too low?</summary>
+          <div class="faq-body">
+            <p>Yes. If your monthly payment does not exceed the first month’s interest, the balance will not reduce and the tool will stop and prompt you to adjust your inputs.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Can I use this for secured loans?</summary>
+          <div class="faq-body">
+            <p>You can compare the numbers, but secured borrowing carries different risks. Always check terms, fees, and implications before proceeding.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Does this include credit score effects?</summary>
+          <div class="faq-body">
+            <p>No. This is a cost and timing comparison only. Your eligibility and offered APR depend on lender checks and affordability assessments.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="last-updated">Last updated: 26 February 2026</div>
+    </section>
+
+    
+  </div>
+
+  <div data-include="../assets/partials/footer.html"></div>
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {
+        "@type":"Question",
+        "name":"Does a lower APR always mean I’ll pay less overall?",
+        "acceptedAnswer":{
+          "@type":"Answer",
+          "text":"No. A longer term can increase total interest even with a lower APR, and fees can offset the benefit. Compare both monthly payment and total interest."
+        }
+      },
+      {
+        "@type":"Question",
+        "name":"Why does the calculator treat my debts as one balance?",
+        "acceptedAnswer":{
+          "@type":"Answer",
+          "text":"It’s a simplification so you can compare scenarios quickly. If your debts have very different rates, consider using a weighted average APR or modelling them separately with a repayment strategy tool."
+        }
+      },
+      {
+        "@type":"Question",
+        "name":"What if my current monthly payment changes each month?",
+        "acceptedAnswer":{
+          "@type":"Answer",
+          "text":"This tool assumes a fixed total monthly payment. If you usually pay the minimum on a card, your payment may fall as the balance falls, which can increase payoff time compared with a fixed payment assumption."
+        }
+      },
+      {
+        "@type":"Question",
+        "name":"How is the consolidation monthly payment calculated?",
+        "acceptedAnswer":{
+          "@type":"Answer",
+          "text":"It uses a standard fixed-rate instalment formula based on your APR and term. The fee is modelled as added to the loan balance when provided."
+        }
+      },
+      {
+        "@type":"Question",
+        "name":"Should I include overdrafts and BNPL?",
+        "acceptedAnswer":{
+          "@type":"Answer",
+          "text":"You can include anything you intend to repay or replace, as long as you reflect it in the total balance and average APR. For short-term BNPL, consider whether interest is actually charged in your case."
+        }
+      },
+      {
+        "@type":"Question",
+        "name":"Will the calculator tell me if my payment is too low?",
+        "acceptedAnswer":{
+          "@type":"Answer",
+          "text":"Yes. If your monthly payment does not exceed the first month’s interest, the balance will not reduce and the tool will stop and prompt you to adjust your inputs."
+        }
+      },
+      {
+        "@type":"Question",
+        "name":"Does this include credit score effects?",
+        "acceptedAnswer":{
+          "@type":"Answer",
+          "text":"No. This is a cost and timing comparison only. Your eligibility and offered APR depend on lender checks and affordability assessments."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <script>
+    window.__BREADCRUMB__ = {
+      categoryName: "Debt & Credit",
+      categoryUrl: "/tools/debt-repayment.html",
+      toolName: "Debt Consolidation Savings Calculator",
+      toolUrl: "/tools/debt-consolidation.html"
+    };
+  </script>
+</body>
+</html>
