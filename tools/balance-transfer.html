@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Balance Transfer Savings Calculator (UK) – 0% Period, Fees &amp; Payoff Time</title>
+  <meta name="description" content="Compare paying your current credit card balance as-is versus switching to a balance transfer. Estimate transfer fees, total interest, payoff time, and potential savings using UK-style terms." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/tools/assets/css/site.css" />
+  <link rel="stylesheet" href="/tools/assets/css/header.css">
+  <link rel="stylesheet" href="/tools/assets/css/footer.css">
+  <link rel="stylesheet" href="/tools/assets/css/tools/breadcrumb.css">
+  <link rel="stylesheet" href="/tools/assets/css/tools/balance-transfer.css">
+
+  <script src="/tools/assets/js/include.js" defer></script>
+  <script src="/tools/assets/js/header.js" defer></script>
+  <script src="/tools/assets/js/footer.js" defer></script>
+  <script src="/tools/assets/js/breadcrumb.js" defer></script>
+  <script src="/tools/assets/js/breadcrumb-init.js" defer></script>
+
+  <script src="/tools/assets/js/affiliate/affiliate.js" defer></script>
+  <script src="/tools/assets/js/balance-transfer.js" defer></script>
+</head>
+
+<body class="balance-transfer">
+  <div data-include="../assets/partials/header.html"></div>
+  <div class="breadcrumb"></div>
+
+  <div class="main-container">
+    <section class="hero hero-intro" aria-label="Balance transfer calculator introduction">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <h1>Balance transfer savings calculator</h1>
+          <p class="hero-lede">
+            This UK-focused calculator compares paying your current credit card balance as-is versus switching it to a balance transfer offer.
+            It models your current position as a single balance with a fixed APR and a fixed monthly payment. For the transfer scenario, it applies
+            a one-off transfer fee (if any), assumes 0% interest during the promotional period, then applies a post-promo APR until the balance is cleared.
+            You’ll see estimated payoff time, total interest, total cost, and whether the transfer looks cheaper after fees. Eligibility and real-world
+            terms vary by provider, so use this as an initial comparison and confirm the offer details before taking any action.
+          </p>
+
+          <div class="trust-row" aria-label="Important information">
+            <span class="trust-pill">Estimates only</span>
+            <span class="trust-pill">UK terminology</span>
+            <span class="trust-pill">No sign-up</span>
+          </div>
+        </div>
+
+        <div class="trust-info-block" role="note" aria-label="Key assumptions">
+          <div class="panel-title">What this assumes</div>
+          <ul class="panel-list">
+            <li>Your balance and APR stay constant, with interest compounding monthly (APR ÷ 12) outside any 0% period.</li>
+            <li>You make the same monthly payment each month (you can set a different payment for the transfer scenario).</li>
+            <li>The transfer fee is added to the transferred balance and repaid over time.</li>
+            <li>No missed payments, no new spending on the card, and no promotional rate changes or early termination.</li>
+          </ul>
+          <div class="hero-note">For regulated advice, speak to a qualified professional.</div>
+        </div>
+      </div>
+    </section>
+
+    <main class="container" id="calculator">
+      <div class="page-shell">
+        <div class="calculator-card" aria-label="Balance transfer savings calculator">
+          <div class="grid payoff-grid">
+            <section class="card inputs-card col-6" aria-label="Inputs">
+              <div class="card-header">
+                <h2 class="card-title">Your inputs</h2>
+                <p class="card-subtitle">Compare your current card cost against a balance transfer offer with fees and a post-promo APR.</p>
+              </div>
+
+              <form id="btForm" class="form" novalidate>
+                <div class="field">
+                  <label for="balance" class="field-label">
+                    <span class="li" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" width="16" height="16" fill="none">
+                        <path d="M7 7h10M7 12h10M7 17h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                      </svg>
+                    </span>
+                    <span>Credit card balance you want to move</span>
+                  </label>
+                  <div class="input-wrap">
+                    <span class="prefix" aria-hidden="true">£</span>
+                    <input id="balance" name="balance" inputmode="decimal" autocomplete="off" placeholder="e.g., 3500" />
+                  </div>
+                  <div class="hint">This is the balance you’re comparing (staying vs transferring).</div>
+                </div>
+
+                <div class="field">
+                  <label for="currentApr" class="field-label">
+                    <span class="li" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" width="16" height="16" fill="none">
+                        <path d="M12 6v6l4 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M21 12a9 9 0 1 1-9-9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                      </svg>
+                    </span>
+                    <span>Your current card interest rate (APR)</span>
+                  </label>
+                  <div class="input-wrap">
+                    <input id="currentApr" name="currentApr" inputmode="decimal" autocomplete="off" placeholder="e.g., 29.9" />
+                    <span class="suffix" aria-hidden="true">%</span>
+                  </div>
+                  <div class="hint">Use the APR shown on your statement or in your card app.</div>
+                </div>
+
+                <div class="field">
+                  <label for="currentPayment" class="field-label">
+                    <span class="li" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" width="16" height="16" fill="none">
+                        <path d="M7 7h10v10H7z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                        <path d="M7 11h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                      </svg>
+                    </span>
+                    <span>What you pay each month</span>
+                  </label>
+                  <div class="input-wrap">
+                    <span class="prefix" aria-hidden="true">£</span>
+                    <input id="currentPayment" name="currentPayment" inputmode="decimal" autocomplete="off" placeholder="e.g., 140" />
+                  </div>
+                  <div class="hint">Enter your typical monthly payment (not just the minimum).</div>
+                </div>
+
+                <div class="field">
+                  <label for="promoMonths" class="field-label">
+                    <span class="li" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" width="16" height="16" fill="none">
+                        <path d="M4 7h16M7 4v6M17 4v6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M7 14h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M7 18h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                      </svg>
+                    </span>
+                    <span>0% period length (optional)</span>
+                  </label>
+                  <div class="input-wrap">
+                    <input id="promoMonths" name="promoMonths" inputmode="decimal" autocomplete="off" placeholder="e.g., 18" />
+                    <span class="suffix" aria-hidden="true">months</span>
+                  </div>
+                  <div class="hint">Leave blank if the offer doesn’t have a 0% period (we’ll treat it as 0 months).</div>
+                </div>
+
+                <div class="field">
+                  <label for="transferFee" class="field-label">
+                    <span class="li" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" width="16" height="16" fill="none">
+                        <path d="M12 3l9 4.5-9 4.5-9-4.5L12 3z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                        <path d="M3 7.5V16.5L12 21l9-4.5V7.5" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                      </svg>
+                    </span>
+                    <span>Balance transfer fee</span>
+                  </label>
+                  <div class="input-wrap">
+                    <input id="transferFee" name="transferFee" inputmode="decimal" autocomplete="off" placeholder="e.g., 3.0" />
+                    <span class="suffix" aria-hidden="true">%</span>
+                  </div>
+                  <div class="hint">This is usually charged once as a percentage of the amount you transfer.</div>
+                </div>
+
+                <div class="field">
+                  <label for="postApr" class="field-label">
+                    <span class="li" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" width="16" height="16" fill="none">
+                        <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                      </svg>
+                    </span>
+                    <span>Interest rate after the 0% period</span>
+                  </label>
+                  <div class="input-wrap">
+                    <input id="postApr" name="postApr" inputmode="decimal" autocomplete="off" placeholder="e.g., 24.9" />
+                    <span class="suffix" aria-hidden="true">%</span>
+                  </div>
+                  <div class="hint">If you still owe money after the 0% period, this APR applies to the remaining balance.</div>
+                </div>
+
+                <div class="field">
+                  <label for="transferPayment" class="field-label">
+                    <span class="li" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" width="16" height="16" fill="none">
+                        <path d="M7 7h10v10H7z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                        <path d="M7 11h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                      </svg>
+                    </span>
+                    <span>Monthly payment after transferring (optional)</span>
+                  </label>
+                  <div class="input-wrap">
+                    <span class="prefix" aria-hidden="true">£</span>
+                    <input id="transferPayment" name="transferPayment" inputmode="decimal" autocomplete="off" placeholder="" />
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <button class="btn primary" type="submit">Calculate</button>
+                  <button class="btn" type="button" id="resetBtn">Reset</button>
+                </div>
+
+                <label class="save-toggle">
+                  <input type="checkbox" id="persistToggle" />
+                  <span>Save inputs on this device</span>
+                </label>
+
+                <div class="form-message" id="formMessage" role="status" aria-live="polite"></div>
+              </form>
+            </section>
+
+            <section class="card results-card col-6" id="resultsCard" aria-label="Results" data-collapsed="true">
+              <div class="card-header">
+                <h2 class="card-title">Results</h2>
+              </div>
+
+              <div class="results-shell" id="resultsShell" data-state="empty" data-has-results="false">
+                <div class="results-content">
+                  <div class="kpi-grid" aria-label="Key results">
+                    <div class="kpi">
+                      <div class="kpi-label">Estimated savings</div>
+                      <div class="kpi-value" id="kpiInterestSaved">—</div>
+                      <div class="kpi-meta" id="kpiInterestMeta">—</div>
+                    </div>
+
+                    <div class="kpi">
+                      <div class="kpi-label">Transfer fee</div>
+                      <div class="kpi-value" id="kpiTimeChange">—</div>
+                      <div class="kpi-meta" id="kpiTimeMeta">—</div>
+                    </div>
+
+                    <div class="kpi">
+                      <div class="kpi-label">Payoff time</div>
+                      <div class="kpi-value" id="kpiPaymentChange">—</div>
+                      <div class="kpi-meta" id="kpiPaymentMeta">—</div>
+                    </div>
+
+                    <div class="kpi">
+                      <div class="kpi-label">Interest comparison</div>
+                      <div class="kpi-value" id="kpiPayoffChange">—</div>
+                      <div class="kpi-meta" id="kpiPayoffMeta">—</div>
+                    </div>
+                  </div>
+
+                  <div class="callout" id="resultsCallout" hidden>
+                    <div class="callout-title" id="calloutTitle"></div>
+                    <div class="callout-body" id="calloutBody"></div>
+                  </div>
+
+                  <div class="affiliate-slot" id="affiliateSlot" aria-label="Relevant next steps">
+                    <div class="affiliate-placeholder" aria-hidden="true"></div>
+                  </div>
+
+                  <div class="mini-how" aria-label="Side-by-side details">
+                    <div class="mh-head">
+                      <span class="mh-ic" aria-hidden="true">i</span>
+                      <div class="mh-title">Side-by-side details</div>
+                    </div>
+                    <ul class="mh-list">
+                      <li><strong>Staying put:</strong> <span id="curSummary">—</span></li>
+                      <li><strong>Transfer:</strong> <span id="loanSummary">—</span></li>
+                      <li><strong>Fee model:</strong> <span id="feeSummary">—</span></li>
+                    </ul>
+                  </div>
+
+                </div>
+              </div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <section class="container section-card" aria-label="Assumptions">
+      <h2 class="section-title">Assumptions and interpretation</h2>
+      <p class="section-subtitle">
+        Balance transfers can reduce interest, but the overall cost depends on fees, how quickly you repay during the 0% period, and the rate that applies afterwards.
+      </p>
+
+      <div class="guide-shell" aria-label="Guide">
+        <div class="guide-main">
+          <p>
+            The “staying put” scenario assumes a fixed monthly payment on your current card at your current APR. In practice, minimum payments can change and cards can have different rates for purchases, cash advances, and promotional offers.
+          </p>
+          <p>
+            The transfer scenario assumes the full balance is transferred at the start, the transfer fee is added to the balance, and interest is 0% during the promotional period. After the promotion ends, any remaining balance accrues interest at the post-promo APR.
+          </p>
+          <p class="guide-footnote">
+            <i>If the monthly payment is not high enough to reduce the balance after interest (once the post-promo rate applies), the calculator will tell you and won’t produce results.</i>
+          </p>
+        </div>
+
+        <aside class="guide-aside" aria-label="What to check next">
+          <h3>What to check next</h3>
+          <ul>
+            <li>The transfer fee, the 0% length, and whether purchases are also 0%.</li>
+            <li>The post-promo APR, and what triggers the promotional rate to end early.</li>
+            <li>Whether you can repay enough during the 0% period to avoid post-promo interest.</li>
+            <li>Whether you’ll avoid new spending on the card while repaying.</li>
+          </ul>
+          <p class="aside-note">If you’re unsure, consider regulated debt advice.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="container section-card" aria-label="Worked example">
+      <h2 class="section-title">Worked UK example</h2>
+      <p class="section-subtitle">
+        Example only. Results depend on your exact borrowing and lender terms.
+      </p>
+
+      <div class="guide-shell" aria-label="Example">
+        <div class="guide-main">
+          <p>
+            Suppose you have a £3,500 balance at 29.9% APR and you pay £140 per month. You consider a balance transfer offer with an 18-month 0% period,
+            a 3% transfer fee, and a post-promo APR of 24.9%. If you keep paying £140 per month, a large share of the balance may be cleared during the 0% period.
+            If any balance remains afterwards, the post-promo APR will determine how much additional interest you pay.
+          </p>
+          <p>
+            The transfer can look cheaper even with a fee, especially when your current APR is high and you repay aggressively during the 0% window.
+            But if the post-promo APR is high and the remaining balance is large, the benefit can shrink quickly.
+          </p>
+        </div>
+
+        <aside class="guide-aside" aria-label="How to use the tool">
+          <h3>How to use this tool</h3>
+          <ul>
+            <li>Use your real monthly payment, not the minimum.</li>
+            <li>Enter the full transfer fee percentage from the offer.</li>
+            <li>Try a higher transfer payment to see what clears within 0%.</li>
+            <li>Compare multiple offers by changing the promo period and post-promo APR.</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="container section-card" aria-label="FAQs">
+      <h2 class="section-title">FAQs</h2>
+      <p class="section-subtitle">Common questions about balance transfers, fees, and interpreting the numbers.</p>
+
+      <div class="faq-grid">
+        <details class="faq-item">
+          <summary>Is a 0% balance transfer always cheaper?</summary>
+          <div class="faq-body">
+            <p>Not always. A transfer fee, a short 0% period, or a high post-promo APR can reduce or remove the benefit. The savings depend on how quickly you repay during the promotional period.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Does the transfer fee add to the balance?</summary>
+          <div class="faq-body">
+            <p>Many offers add the fee to the transferred balance. This calculator models the fee as added to the balance so you repay it over time, but always check the provider’s terms.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>What if I clear the balance within the 0% period?</summary>
+          <div class="faq-body">
+            <p>If you repay the full balance (including the fee) before the 0% period ends, post-promo interest does not apply. Your main cost in the transfer scenario would then be the transfer fee.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Why does the post-promo APR matter so much?</summary>
+          <div class="faq-body">
+            <p>If a balance remains after the 0% period, the post-promo APR applies to that remaining amount. A high post-promo rate can quickly increase interest costs if repayment slows.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Should I change my monthly payment after transferring?</summary>
+          <div class="faq-body">
+            <p>Often, increasing payments during the 0% window improves outcomes because more of your payment goes to reducing the balance rather than interest. The calculator lets you model a different payment for the transfer scenario.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Does this include the impact of new spending on the card?</summary>
+          <div class="faq-body">
+            <p>No. New purchases can change interest and payment allocation rules and may not be 0%. For a clean comparison, the tool assumes no new borrowing.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Will the calculator warn me if my payment is too low?</summary>
+          <div class="faq-body">
+            <p>Yes. If, once the post-promo APR applies, your monthly payment does not exceed the first month’s interest, the balance will not reduce and the tool will stop and prompt you to adjust your inputs.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="last-updated">Last updated: 28 February 2026</div>
+    </section>
+
+  </div>
+
+  <div data-include="../assets/partials/footer.html"></div>
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {
+        "@type":"Question",
+        "name":"Is a 0% balance transfer always cheaper?",
+        "acceptedAnswer":{
+          "@type":"Answer",
+          "text":"Not always. A transfer fee, a short 0% period, or a high post-promo APR can reduce or remove the benefit. The savings depend on how quickly you repay during the promotional period."
+        }
+      },
+      {
+        "@type":"Question",
+        "name":"Does the transfer fee add to the balance?",
+        "acceptedAnswer":{
+          "@type":"Answer",
+          "text":"Many offers add the fee to the transferred balance. This calculator models the fee as added to the balance so you repay it over time, but always check the provider’s terms."
+        }
+      },
+      {
+        "@type":"Question",
+        "name":"What if I clear the balance within the 0% period?",
+        "acceptedAnswer":{
+          "@type":"Answer",
+          "text":"If you repay the full balance (including the fee) before the 0% period ends, post-promo interest does not apply. Your main cost in the transfer scenario would then be the transfer fee."
+        }
+      },
+      {
+        "@type":"Question",
+        "name":"Why does the post-promo APR matter so much?",
+        "acceptedAnswer":{
+          "@type":"Answer",
+          "text":"If a balance remains after the 0% period, the post-promo APR applies to that remaining amount. A high post-promo rate can quickly increase interest costs if repayment slows."
+        }
+      },
+      {
+        "@type":"Question",
+        "name":"Should I change my monthly payment after transferring?",
+        "acceptedAnswer":{
+          "@type":"Answer",
+          "text":"Often, increasing payments during the 0% window improves outcomes because more of your payment goes to reducing the balance rather than interest. The calculator lets you model a different payment for the transfer scenario."
+        }
+      },
+      {
+        "@type":"Question",
+        "name":"Does this include the impact of new spending on the card?",
+        "acceptedAnswer":{
+          "@type":"Answer",
+          "text":"No. New purchases can change interest and payment allocation rules and may not be 0%. For a clean comparison, the tool assumes no new borrowing."
+        }
+      },
+      {
+        "@type":"Question",
+        "name":"Will the calculator warn me if my payment is too low?",
+        "acceptedAnswer":{
+          "@type":"Answer",
+          "text":"Yes. If, once the post-promo APR applies, your monthly payment does not exceed the first month’s interest, the balance will not reduce and the tool will stop and prompt you to adjust your inputs."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <script>
+    window.__BREADCRUMB__ = {
+      categoryName: "Debt & Credit",
+      categoryUrl: "/tools/tools/debt-repayment.html",
+      toolName: "Balance Transfer Savings Calculator",
+      toolUrl: "/tools/balance-transfer.html"
+    };
+  </script>
+</body>
+</html>
